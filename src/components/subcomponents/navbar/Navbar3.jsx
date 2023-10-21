@@ -48,7 +48,7 @@ export default function NavBar3() {
         }).catch(err => {
             console.log(err);
         })
-    }, [])
+    }, [userLogin])
 
     return (
         <Navbar className="nav-grande" bg="white" expand="lg">

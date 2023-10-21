@@ -61,7 +61,7 @@ export default function NavBar() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [userLogin]);
 
   async function getRol(uid) {
     const docuRef = doc(firestore, `usuarios/${uid}`);
