@@ -6,12 +6,14 @@ import Swal from 'sweetalert2';
 export default function LoginGoogle() {
   const [loading, setLoading] = useState(false);
 
+  const apiURL = process.env.REACT_APP_API_URL;
+
   const handleSubmit = async () => {
     try {
       setLoading(true);
 
       const popup = window.open(
-        "https://ciclopistaapi.onrender.com/api/sessionsGoogle/auth/google",
+        `${apiURL}/api/sessionsGoogle/auth/google`,
         "targetWindow",
         `toolbar=no,
         location=no,
