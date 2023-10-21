@@ -22,6 +22,8 @@ export default function ProfilePage() {
   const [user, setUser] = useState(null);
   const [profileImage, setProfileImage] = useState();
 
+  const apiURL = process.env.REACT_APP_API_URL;
+
   async function getName(uid) {
     const docuRef = doc(firestore, `usuarios/${uid}`);
     const docuCifrada = await getDoc(docuRef);
@@ -33,7 +35,7 @@ export default function ProfilePage() {
     // Función asincrónica para obtener los datos de usuario de la sesión de Firebase
     const getUserData = async () => {
       try {
-        const response = await axios.get("/api/sessionsGoogle/user");
+        const response = await axios.get(`${apiURL}/api/sessionsGoogle/user`);
         setUserLogin(response.data.payload);
       } catch (error) {
         console.error("Error al obtener datos del usuario:", error);
@@ -71,7 +73,7 @@ export default function ProfilePage() {
     // Verifica si hay un valor en userLogin.email o user.email antes de hacer la solicitud
     if (userLogin?.email || user?.email) {
       axios
-        .get(`/api/userProfile/email/${userLogin?.email || user?.email}`)
+        .get(`${apiURL}/api/userProfile/email/${userLogin?.email || user?.email}`)
         .then((res) => {
           setProfileImage(res.data.payload);
           console.log("chamo ", res.data.payload);

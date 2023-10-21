@@ -8,10 +8,11 @@ import NavBar2 from '../../subcomponents/navbar/Navbar2.jsx';
 export default function ProductDetailContainer() {
     const [product, setProduct] = useState([]);
     const id = useParams().id;
+    const apiURL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
 
-        axios.get(`/api/products/id/${id}`).then(res => {
+        axios.get(`${apiURL}/api/products/id/${id}`).then(res => {
             setProduct(res.data.payload);
         }).catch(err => {
             console.log(err);

@@ -9,9 +9,11 @@ export default function OrderDetailContainer() {
     const id = useParams().id;
     console.log(id);
 
+    const apiURL = process.env.REACT_APP_API_URL;
+
     useEffect(() => {
 
-        axios.get(`/api/purchase/id/${id}`).then(res => {
+        axios.get(`${apiURL}/api/purchase/id/${id}`).then(res => {
             setOrder(res.data.payload);
             console.log("respuesta servidor:"+res.data.payload);
         }).catch(err => {

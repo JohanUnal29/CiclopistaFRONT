@@ -9,10 +9,11 @@ export default function UserListContainer() {
   const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
+  const apiURL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     axios
-      .get(`/api/userManager?page=${page}`)
+      .get(`${apiURL}/api/userManager?page=${page}`)
       .then((res) => {
         setUsers(res.data.payload.users);
         setPageCount(res.data.payload.pagination.pageCount);

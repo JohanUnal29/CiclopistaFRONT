@@ -9,11 +9,12 @@ export default function NavBar3() {
 
     const [userLogin, setUserLogin] = useState([]);
     const [veri, setVeri] = useState(false);
+    const apiURL = process.env.REACT_APP_API_URL;
 
     const logout = async () => {
 
         try {
-            axios.get("/api/sessionsGoogle/logout").then(res => {
+            axios.get(`${apiURL}/api/sessionsGoogle/logout`).then(res => {
                 Swal.fire({
             position: 'center',
             icon: 'success',
@@ -33,7 +34,7 @@ export default function NavBar3() {
     };
 
     useEffect(() => {
-        axios.get("/api/sessionsGoogle/user").then(res => {
+        axios.get(`${apiURL}/api/sessionsGoogle/user`).then(res => {
             setUserLogin(res.data.payload);
             console.log('sesión');
             console.log(userLogin);

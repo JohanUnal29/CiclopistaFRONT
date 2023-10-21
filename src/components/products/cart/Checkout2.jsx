@@ -18,6 +18,8 @@ export default function Checkout2() {
   const [direccion, setDireccion] = useState("");
   const [referencias_entrega, setReferencias_entrega] = useState("");
 
+  const apiURL = process.env.REACT_APP_API_URL;
+
   const handleSubmit = async () => {
     try {
       const TicketForm = {
@@ -41,7 +43,7 @@ export default function Checkout2() {
         timer: 1500,
       });
       axios
-        .post("/api/purchase/addticket", TicketForm)
+        .post(`${apiURL}/api/purchase/addticket`, TicketForm)
         .then((res) => {
           console.log(res.data);
         })

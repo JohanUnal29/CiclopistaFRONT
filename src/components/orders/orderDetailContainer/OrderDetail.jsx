@@ -3,6 +3,8 @@ import { Modal, Container, Row, Col, Button, Table } from 'react-bootstrap';
 import axios from "axios";
 import './OrderDetail.css';
 
+const apiURL = process.env.REACT_APP_API_URL;
+
 const OrderDetail = ({ order }) => {
 
   const imgurl = "https://drive.google.com/uc?export=download&id=";
@@ -18,7 +20,7 @@ const OrderDetail = ({ order }) => {
       const changes = {
         status: status,
       };
-      axios.put(`/api/purchase/${id}`, changes).then(res => {
+      axios.put(`${apiURL}/api/purchase/${id}`, changes).then(res => {
         alert("orden actulizada");
       }).catch(err => {
         console.log(err);

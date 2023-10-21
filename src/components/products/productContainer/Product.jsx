@@ -10,8 +10,10 @@ const Product = ({ product }) => {
   const imgurl = "https://drive.google.com/uc?export=download&id=";
   const [userLogin, setUserLogin] = useState([]);
 
+  const apiURL = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
-    axios.get("/api/sessionsGoogle/user").then(res => {
+    axios.get(`${apiURL}/api/sessionsGoogle/user`).then(res => {
       setUserLogin(res.data.payload);
     }).catch(err => {
       console.log(err);
@@ -21,7 +23,7 @@ const Product = ({ product }) => {
   const deleteProduct = async (id) => {
 
     try {
-      axios.delete(`/api/products/${id}`).then(res => {
+      axios.delete(`${apiURL}/api/products/${id}`).then(res => {
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -103,7 +105,7 @@ const Product = ({ product }) => {
         thumbnails: thumbnails2,
       };
       console.log("producto agregado: " + JSON.stringify(add));
-      axios.post("/api/products/addproduct", add).then(res => {
+      axios.post(`${apiURL}/api/products/addproduct`, add).then(res => {
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -145,7 +147,7 @@ const Product = ({ product }) => {
         subCategory: subCategory,
         thumbnails: thumbnails,
       };
-      axios.put(`/api/products/${id}`, changes).then(res => {
+      axios.put(`${apiURL}/api/products/${id}`, changes).then(res => {
         Swal.fire({
           position: 'center',
           icon: 'success',

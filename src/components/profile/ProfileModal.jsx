@@ -7,6 +7,8 @@ export default function ProfileModal(props) {
   const [fileName, setFileName] = useState("Subir una imagen");
   const [selectedFile, setSelectedFile] = useState(null);
 
+  const apiURL = process.env.REACT_APP_API_URL;
+
   const handleFileChange = (e) => {
     const [file] = e.target.files;
     const SIZE_50MB = 50 * 1024 * 1024;
@@ -59,7 +61,7 @@ export default function ProfileModal(props) {
 
       console.log("imagen agregada: " + JSON.stringify(imageDetails));
       axios
-        .post("/api/userProfile/addprofileimage", imageDetails)
+        .post(`${apiURL}/api/userProfile/addprofileimage`, imageDetails)
         .then((res) => {
           Swal.fire({
             position: "center",

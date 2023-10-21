@@ -13,10 +13,12 @@ const ProductListContainer = () => {
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
 
+  const apiURL = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     if (categoria) {
       axios
-        .get(`/api/products/${categoria}`)
+        .get(`${apiURL}/api/products/${categoria}`)
         .then((res) => {
           setProducts(res.data.payload);
         })
@@ -25,7 +27,7 @@ const ProductListContainer = () => {
         });
     } else {
       axios
-        .get(`/api/products?page=${page}`)
+        .get(`${apiURL}/api/products?page=${page}`)
         .then((res) => {
           setProducts(res.data.payload.products);
           setPageCount(res.data.payload.pagination.pageCount);

@@ -8,10 +8,11 @@ import Swal from "sweetalert2";
 const User = ({ user }) => {
   //sesión:
   const [userLogin, setUserLogin] = useState([]);
+  const apiURL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     axios
-      .get("/api/sessionsGoogle/user")
+      .get(`${apiURL}/api/sessionsGoogle/user`)
       .then((res) => {
         setUserLogin(res.data.payload);
       })
@@ -24,7 +25,7 @@ const User = ({ user }) => {
   const deleteUser = async (id) => {
     try {
       axios
-        .delete(`/api/userManager/${id}`)
+        .delete(`${apiURL}/api/userManager/${id}`)
         .then((res) => {
           Swal.fire({
             position: "center",
@@ -63,7 +64,7 @@ const User = ({ user }) => {
         rol: rol,
       };
       axios
-        .put(`/api/userManager/${id}`, changes)
+        .put(`${apiURL}/api/userManager/${id}`, changes)
         .then((res) => {
           Swal.fire({
             position: "center",

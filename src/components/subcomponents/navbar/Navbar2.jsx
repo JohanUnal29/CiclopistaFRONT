@@ -10,11 +10,12 @@ import "./Navbar2.css";
 export default function NavBar2() {
   const [userLogin, setUserLogin] = useState([]);
   const [veri, setVeri] = useState(false);
+  const apiURL = process.env.REACT_APP_API_URL;
 
   const logout = async () => {
     try {
       axios
-        .get("/api/sessionsGoogle/logout")
+        .get(`${apiURL}/api/sessionsGoogle/logout`)
         .then((res) => {
           Swal.fire({
             position: "center",
@@ -36,7 +37,7 @@ export default function NavBar2() {
 
   useEffect(() => {
     axios
-      .get("/api/sessionsGoogle/user")
+      .get(`${apiURL}/api/sessionsGoogle/user`)
       .then((res) => {
         setUserLogin(res.data.payload);
         console.log("sesión");
