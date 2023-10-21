@@ -21,7 +21,7 @@ export default function OrderListContainer() {
         console.log(err);
       })
     } else {
-      axios.get("/api/purchase").then(res => {
+      axios.get(`${apiURL}/api/purchase`).then(res => {
         setOrders(res.data.payload);
       }).catch(err => {
         console.log(err);
