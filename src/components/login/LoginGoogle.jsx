@@ -11,7 +11,7 @@ export default function LoginGoogle() {
       setLoading(true);
 
       const popup = window.open(
-        "http://localhost:5000/api/sessionsGoogle/auth/google",
+        "https://ciclopista.onrender.com/api/sessionsGoogle/auth/google",
         "targetWindow",
         `toolbar=no,
         location=no,
