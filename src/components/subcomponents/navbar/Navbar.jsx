@@ -44,37 +44,29 @@ export default function NavBar() {
   };
 
   useEffect(() => {
-    console.log("Antes de la llamada a la API");
-    let isMounted = true;
-  
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${apiURL}/api/sessionsGoogle/user`, { withCredentials: true });
-        const userData = res.data.payload;
-  
-        console.log(userData);
-  
-        if (isMounted) {
-          if (userData) {
-            setVeri(true);
-            setUserLogin(userData);
-            console.log("Usuario autenticado:", userData);
-          } else {
-            setVeri(false);
-            setUserLogin(null);
-            console.log("Usuario no autenticado");
-          }
+        const response = await fetch("https://ciclopistaapi.onrender.com/api/sessionsGoogle/user", {
+          method: "GET",
+          credentials: "include",  // Para incluir las credenciales en la solicitud
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          setVeri(true);
+          setUserLogin(userData.payload);
+          console.log("Usuario autenticado:", userData);
+        } else {
+          setVeri(false);
+          setUserLogin(null);
+          console.log("Usuario no autenticado");
         }
       } catch (error) {
         console.error("Error al obtener usuario:", error);
       }
     };
-  
+
     fetchData();
-  
-    return () => {
-      isMounted = false;
-    };
   }, []);
   
 
