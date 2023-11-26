@@ -44,24 +44,49 @@ export default function NavBar() {
   };
 
   useEffect(() => {
-    axios
-      .get(`${apiURL}/api/sessionsGoogle/user`)
-      .then((res) => {
-        setUserLogin(res.data.payload);
-        console.log("sesión");
-        console.log(userLogin);
-        if (res.data.payload) {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`${apiURL}/api/sessionsGoogle/user`);
+        const userData = res.data.payload;
+
+        console.log(userData);
+  
+        if (userData) {
           setVeri(true);
-          console.log("veri: true");
+          setUserLogin(userData);
+          console.log("Usuario autenticado:", userData);
         } else {
           setVeri(false);
-          console.log("veri: false");
+          setUserLogin(null);
+          console.log("Usuario no autenticado");
         }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      } catch (error) {
+        console.error("Error al obtener usuario:", error);
+      }
+    };
+  
+    fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`${apiURL}/api/sessionsGoogle/user`)
+  //     .then((res) => {
+  //       setUserLogin(res.data.payload);
+  //       console.log("sesión");
+  //       console.log(userLogin);
+  //       if (res.data.payload) {
+  //         setVeri(true);
+  //         console.log("veri: true");
+  //       } else {
+  //         setVeri(false);
+  //         console.log("veri: false");
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   async function getRol(uid) {
     const docuRef = doc(firestore, `usuarios/${uid}`);
