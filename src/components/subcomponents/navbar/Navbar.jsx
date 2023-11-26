@@ -48,24 +48,29 @@ export default function NavBar() {
       try {
         const response = await fetch("https://ciclopistaapi.onrender.com/api/sessionsGoogle/user", {
           method: "GET",
-          credentials: "include",  // Para incluir las credenciales en la solicitud
+          credentials: "include",
         });
-
-        if (response.ok) {
-          const userData = await response.json();
-          setVeri(true);
-          setUserLogin(userData.payload);
-          console.log("Usuario autenticado:", userData);
-        } else {
-          setVeri(false);
-          setUserLogin(null);
-          console.log("Usuario no autenticado");
+  
+        if (!response.ok) {
+          // Si la respuesta no está bien, lanzar un error
+          throw new Error(`Error de red - Código: ${response.status}`);
         }
+  
+        const userData = await response.json();
+        setVeri(true);
+        setUserLogin(userData.payload);
+        console.log("Usuario autenticado:", userData);
       } catch (error) {
-        console.error("Error al obtener usuario:", error);
+        console.error("Error al obtener usuario:", error.message);
+        // Agregar detalles del error de respuesta si está disponible
+        if (error.response) {
+          console.error("Detalles del error de respuesta:", error.response);
+        }
+        setVeri(false);
+        setUserLogin(null);
       }
     };
-
+  
     fetchData();
   }, []);
   
