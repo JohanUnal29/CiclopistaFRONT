@@ -45,22 +45,25 @@ export default function NavBar() {
 
   useEffect(() => {
     console.log("Antes de la llamada a la API");
+    let isMounted = true;
+  
     const fetchData = async () => {
       try {
-        
         const res = await axios.get(`${apiURL}/api/sessionsGoogle/user`, { withCredentials: true });
         const userData = res.data.payload;
-
+  
         console.log(userData);
   
-        if (userData) {
-          setVeri(true);
-          setUserLogin(userData);
-          console.log("Usuario autenticado:", userData);
-        } else {
-          setVeri(false);
-          setUserLogin(null);
-          console.log("Usuario no autenticado");
+        if (isMounted) {
+          if (userData) {
+            setVeri(true);
+            setUserLogin(userData);
+            console.log("Usuario autenticado:", userData);
+          } else {
+            setVeri(false);
+            setUserLogin(null);
+            console.log("Usuario no autenticado");
+          }
         }
       } catch (error) {
         console.error("Error al obtener usuario:", error);
@@ -68,7 +71,12 @@ export default function NavBar() {
     };
   
     fetchData();
+  
+    return () => {
+      isMounted = false;
+    };
   }, []);
+  
 
   // useEffect(() => {
   //   axios
