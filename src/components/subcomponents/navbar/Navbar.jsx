@@ -44,8 +44,10 @@ export default function NavBar() {
   };
 
   useEffect(() => {
+    console.log("Antes de la llamada a la API");
     const fetchData = async () => {
       try {
+        
         const res = await axios.get(`${apiURL}/api/sessionsGoogle/user`);
         const userData = res.data.payload;
 
