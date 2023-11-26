@@ -48,7 +48,7 @@ export default function NavBar() {
     const fetchData = async () => {
       try {
         
-        const res = await axios.get(`${apiURL}/api/sessionsGoogle/user`);
+        const res = await axios.get(`${apiURL}/api/sessionsGoogle/user`, { withCredentials: true });
         const userData = res.data.payload;
 
         console.log(userData);
