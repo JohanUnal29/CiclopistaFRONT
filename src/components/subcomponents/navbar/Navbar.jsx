@@ -51,11 +51,13 @@ export default function NavBar() {
           credentials: "include",
         });
   
+        console.log(response.headers);  // Verifica si las cookies se están incluyendo en la respuesta
+  
         if (response.ok) {
           const userData = await response.json();
+          console.log("Usuario autenticado:", userData);
           setVeri(true);
           setUserLogin(userData.payload);
-          console.log("Usuario autenticado:", userData);
         } else {
           console.error("Error al obtener usuario:", response.status);
           setVeri(false);
