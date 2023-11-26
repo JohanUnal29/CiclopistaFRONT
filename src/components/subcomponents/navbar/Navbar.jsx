@@ -43,36 +43,63 @@ export default function NavBar() {
     }
   };
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch("https://ciclopistaapi.onrender.com/api/sessionsGoogle/user", {
+  //         method: "GET",
+  //         credentials: "include",
+  //       });
+  
+  //       console.log(response.headers);  // Verifica si las cookies se están incluyendo en la respuesta
+  
+  //       if (response.ok) {
+  //         const userData = await response.json();
+  //         console.log("Usuario autenticado:", userData);
+  //         setVeri(true);
+  //         setUserLogin(userData.payload);
+  //       } else {
+  //         console.error("Error al obtener usuario:", response.status);
+  //         setVeri(false);
+  //         setUserLogin(null);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error de red:", error.message);
+  //       setVeri(false);
+  //       setUserLogin(null);
+  //     }
+  //   };
+  
+  //   fetchData();
+  // }, []);
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://ciclopistaapi.onrender.com/api/sessionsGoogle/user", {
-          method: "GET",
-          credentials: "include",
-        });
-  
-        console.log(response.headers);  // Verifica si las cookies se están incluyendo en la respuesta
-  
-        if (response.ok) {
-          const userData = await response.json();
-          console.log("Usuario autenticado:", userData);
+    const getUser = () => {
+      fetch("https://ciclopistaapi.onrender.com/api/sessionsGoogle/user", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+      })
+        .then((response) => {
+          if (response.status === 200) return response.json();
+          throw new Error("authentication has been failed!");
+        })
+        .then((resObject) => {
+          setUserLogin(resObject.user);
           setVeri(true);
-          setUserLogin(userData.payload);
-        } else {
-          console.error("Error al obtener usuario:", response.status);
+        })
+        .catch((err) => {
+          console.log(err);
           setVeri(false);
           setUserLogin(null);
-        }
-      } catch (error) {
-        console.error("Error de red:", error.message);
-        setVeri(false);
-        setUserLogin(null);
-      }
+        });
     };
-  
-    fetchData();
+    getUser();
   }, []);
-  
   
 
   // useEffect(() => {
