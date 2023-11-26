@@ -51,21 +51,18 @@ export default function NavBar() {
           credentials: "include",
         });
   
-        if (!response.ok) {
-          // Si la respuesta no está bien, lanzar un error
-          throw new Error(`Error de red - Código: ${response.status}`);
+        if (response.ok) {
+          const userData = await response.json();
+          setVeri(true);
+          setUserLogin(userData.payload);
+          console.log("Usuario autenticado:", userData);
+        } else {
+          console.error("Error al obtener usuario:", response.status);
+          setVeri(false);
+          setUserLogin(null);
         }
-  
-        const userData = await response.json();
-        setVeri(true);
-        setUserLogin(userData.payload);
-        console.log("Usuario autenticado:", userData);
       } catch (error) {
-        console.error("Error al obtener usuario:", error.message);
-        // Agregar detalles del error de respuesta si está disponible
-        if (error.response) {
-          console.error("Detalles del error de respuesta:", error.response);
-        }
+        console.error("Error de red:", error.message);
         setVeri(false);
         setUserLogin(null);
       }
@@ -73,6 +70,7 @@ export default function NavBar() {
   
     fetchData();
   }, []);
+  
   
 
   // useEffect(() => {
