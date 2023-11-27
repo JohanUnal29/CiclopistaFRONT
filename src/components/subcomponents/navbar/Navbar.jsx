@@ -14,113 +14,9 @@ const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
 
 export default function NavBar() {
-  const [userLogin, setUserLogin] = useState([]);
-  const [veri, setVeri] = useState(false);
   const [user, setUser] = useState(null);
 
   const apiURL = process.env.REACT_APP_API_URL;
-
-  const logout = async () => {
-    try {
-      axios
-        .get(`${apiURL}/api/sessionsGoogle/logout`)
-        .then((res) => {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "¡Adiós!, sesión finalizada",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          setUserLogin([]);
-          setVeri(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch("https://ciclopistaapi.onrender.com/api/sessionsGoogle/user", {
-  //         method: "GET",
-  //         credentials: "include",
-  //       });
-  
-  //       console.log(response.headers);  // Verifica si las cookies se están incluyendo en la respuesta
-  
-  //       if (response.ok) {
-  //         const userData = await response.json();
-  //         console.log("Usuario autenticado:", userData);
-  //         setVeri(true);
-  //         setUserLogin(userData.payload);
-  //       } else {
-  //         console.error("Error al obtener usuario:", response.status);
-  //         setVeri(false);
-  //         setUserLogin(null);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error de red:", error.message);
-  //       setVeri(false);
-  //       setUserLogin(null);
-  //     }
-  //   };
-  
-  //   fetchData();
-  // }, []);
-
-  useEffect(() => {
-    const getUser = () => {
-      fetch("https://ciclopistaapi.onrender.com/api/sessionsGoogle/user", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-      })
-        .then((response) => {
-          if (response.status === 200) return response.json();
-          throw new Error("authentication has been failed!");
-        })
-        .then((resObject) => {
-          setUserLogin(resObject.user);
-          setVeri(true);
-        })
-        .catch((err) => {
-          console.log(err);
-          setVeri(false);
-          setUserLogin(null);
-        });
-    };
-    getUser();
-  }, []);
-  
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`${apiURL}/api/sessionsGoogle/user`)
-  //     .then((res) => {
-  //       setUserLogin(res.data.payload);
-  //       console.log("sesión");
-  //       console.log(userLogin);
-  //       if (res.data.payload) {
-  //         setVeri(true);
-  //         console.log("veri: true");
-  //       } else {
-  //         setVeri(false);
-  //         console.log("veri: false");
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
 
   async function getRol(uid) {
     const docuRef = doc(firestore, `usuarios/${uid}`);
@@ -197,20 +93,19 @@ export default function NavBar() {
             <Nav.Link>
               <CartWidget />
             </Nav.Link>
-            {/* <Nav.Link><CartWidget></CartWidget></Nav.Link> */}
-            {veri === false && user === null && (
+            {user === null && (
               <Nav.Link>
                 <LoginWidget />
               </Nav.Link>
             )}
-            {(veri === true || user) && (
+            {(user) && (
               <NavDropdown title="Cuenta" id="basic-nav-dropdown">
                 <Nav.Link>
                   <Link className="Menu" to="/ProfilePage">
                     Perfil
                   </Link>
                 </Nav.Link>
-                {userLogin.rol == "admin" && (
+                {user.rol == "admin" && (
                   <>
                     <Nav.Link>
                       <Link className="Menu" to="/orders">
@@ -226,13 +121,7 @@ export default function NavBar() {
                 )}
                 <NavDropdown.Divider />
 
-                {veri === true && user === null && (
-                  <Nav.Link onClick={logout}>
-                    <p className="Cerrar">Cerrar Sesión</p>
-                  </Nav.Link>
-                )}
-
-                {veri === false && user && (
+                {user && (
                   <Nav.Link onClick={() => signOut(auth)}>
                     <p className="Cerrar">Cerrar Sesión FB</p>
                   </Nav.Link>

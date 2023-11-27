@@ -9,7 +9,7 @@ import {
   sendPasswordResetEmail
 } from "firebase/auth";
 import { getFirestore, doc, collection, setDoc } from "firebase/firestore";
-import LoginGoogle from "./LoginGoogle.jsx";
+import LoginGoogleFirebase from "./LoginGoogleFirebase.jsx";
 import "./ModalLogin.css";
 
 
@@ -209,7 +209,7 @@ export default function ModalLogin(props) {
         {
           (passwordReset === false) &&
           <><pr>o</pr>
-            <LoginGoogle /></>
+            <LoginGoogleFirebase /></>
         }
 
         {
