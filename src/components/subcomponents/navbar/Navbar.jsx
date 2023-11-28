@@ -123,7 +123,7 @@ export default function NavBar() {
 
                 {user && (
                   <Nav.Link onClick={() => signOut(auth)}>
-                    <p className="Cerrar">Cerrar Sesión FB</p>
+                    <p className="Cerrar">Cerrar Sesión</p>
                   </Nav.Link>
                 )}
               </NavDropdown>

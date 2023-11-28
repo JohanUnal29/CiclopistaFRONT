@@ -10,15 +10,12 @@ import "./profile.css";
 import firebaseApp from "../../firebase/Credentials";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-import NavBarProfile from "../subcomponents/navbar/NavbarProfile";
 const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
 
 export default function ProfilePage() {
   const [modalShow, setModalShow] = useState(false);
 
-  const [userLogin, setUserLogin] = useState([]);
-  const [veri, setVeri] = useState(false);
   const [user, setUser] = useState(null);
   const [profileImage, setProfileImage] = useState();
 
@@ -32,15 +29,6 @@ export default function ProfilePage() {
   }
 
   useEffect(() => {
-    // Función asincrónica para obtener los datos de usuario de la sesión de Firebase
-    const getUserData = async () => {
-      try {
-        const response = await axios.get(`${apiURL}/api/sessionsGoogle/user`);
-        setUserLogin(response.data.payload);
-      } catch (error) {
-        console.error("Error al obtener datos del usuario:", error);
-      }
-    };
 
     // Configura el listener de autenticación solo una vez
     const unsubscribe = onAuthStateChanged(auth, (usuarioFirebase) => {
@@ -62,18 +50,15 @@ export default function ProfilePage() {
       }
     });
 
-    // Obtén los datos de usuario de la sesión
-    getUserData();
-
     // Devuelve una función de limpieza para evitar fugas de memoria
     return () => unsubscribe();
   }, []);
 
   useEffect(() => {
     // Verifica si hay un valor en userLogin.email o user.email antes de hacer la solicitud
-    if (userLogin?.email || user?.email) {
+    if (user?.email) {
       axios
-        .get(`${apiURL}/api/userProfile/email/${userLogin?.email || user?.email}`)
+        .get(`${apiURL}/api/userProfile/email/${user?.email}`)
         .then((res) => {
           setProfileImage(res.data.payload);
           console.log("chamo ", res.data.payload);
@@ -82,7 +67,7 @@ export default function ProfilePage() {
           console.log(err);
         });
     }
-  }, [userLogin?.email, user?.email]);
+  }, [user?.email]);
 
   return (
     <>
@@ -100,7 +85,7 @@ export default function ProfilePage() {
             <ProfileModal
               show={modalShow}
               onHide={() => setModalShow(false)}
-              email={userLogin?.email || user?.email}
+              email={user?.email}
             />
             <div className="Menu" onClick={() => setModalShow(true)}>
               <img
@@ -124,11 +109,11 @@ export default function ProfilePage() {
             <Card style={{ maxWidth: "360px" }} className="mx-auto p-4">
               <p className="text-center">
                 <b>Nombre: </b>
-                {userLogin?.firstName || user?.firstName || "Cargando datos..."}
+                {user?.firstName || "Cargando datos..."}
               </p>
               <p className="text-center">
                 <b>Correo: </b>
-                {userLogin?.email || user?.email || "Cargando datos..."}
+                {user?.email || "Cargando datos..."}
               </p>
             </Card>
           </Col>
