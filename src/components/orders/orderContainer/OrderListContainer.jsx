@@ -33,7 +33,7 @@ export default function OrderListContainer() {
         rol: rol,
       };
       setUser(userData);
-      console.log("gonorrea fianl", userData.rol.toString());
+      console.log("gonorrea usuario en orders", userData.rol.toString());
     });
   }
 
@@ -59,7 +59,7 @@ export default function OrderListContainer() {
         console.log(err);
       })
     } else {
-      axios.get(`${apiURL}/api/purchase${user.rol}`).then(res => {
+      axios.get(`${apiURL}/api/purchase/${user.rol}`).then(res => {
         setOrders(res.data.payload);
       }).catch(err => {
         console.log(err);
