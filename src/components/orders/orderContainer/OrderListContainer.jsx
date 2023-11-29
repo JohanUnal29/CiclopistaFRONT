@@ -51,22 +51,27 @@ export default function OrderListContainer() {
 
 
   useEffect(() => {
-
-    if (status) {
-      axios.get(`${apiURL}/api/purchase/status/${status}/${user.uid}`).then(res => {
-        setOrders(res.data.payload);
-      }).catch(err => {
-        console.log(err);
-      })
-    } else {
-      axios.get(`${apiURL}/api/purchase/${user.uid}`).then(res => {
-        setOrders(res.data.payload);
-      }).catch(err => {
-        console.log(err);
-      })
+    // Verifica si 'user' no es null antes de realizar la solicitud a la API
+    if (user) {
+      if (status) {
+        axios.get(`${apiURL}/api/purchase/status/${status}/${user.uid}`)
+          .then(res => {
+            setOrders(res.data.payload);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      } else {
+        axios.get(`${apiURL}/api/purchase/${user.uid}`)
+          .then(res => {
+            setOrders(res.data.payload);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
     }
-
-  }, [status])
+  }, [status, user]);
 
   console.log(orders);
 
