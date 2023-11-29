@@ -53,13 +53,13 @@ export default function OrderListContainer() {
   useEffect(() => {
 
     if (status) {
-      axios.get(`${apiURL}/api/purchase/status/${status}/${user.rol}`).then(res => {
+      axios.get(`${apiURL}/api/purchase/status/${status}/${user.uid}`).then(res => {
         setOrders(res.data.payload);
       }).catch(err => {
         console.log(err);
       })
     } else {
-      axios.get(`${apiURL}/api/purchase/${user.rol}`).then(res => {
+      axios.get(`${apiURL}/api/purchase/${user.uid}`).then(res => {
         setOrders(res.data.payload);
       }).catch(err => {
         console.log(err);
