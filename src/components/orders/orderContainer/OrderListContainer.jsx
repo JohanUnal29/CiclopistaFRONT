@@ -33,7 +33,7 @@ export default function OrderListContainer() {
         rol: rol,
       };
       setUser(userData);
-      console.log("gonorrea usuario en orders", userData.rol.toString());
+      console.log("gonorrea usuario en orders", userData.uid);
     });
   }
 
