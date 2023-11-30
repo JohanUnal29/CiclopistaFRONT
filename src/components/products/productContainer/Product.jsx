@@ -16,10 +16,16 @@ const Product = ({ product }) => {
 
   const { user, loading } = useAuth();
 
+  const [userLoad, setUserLoad] = useState(null);
+
+  if(loading){
+    setUserLoad(user)
+  }
+
   const deleteProduct = async (id) => {
 
     try {
-      axios.delete(`${apiURL}/api/products/${id}/${user.uid}`).then(res => {
+      axios.delete(`${apiURL}/api/products/${id}/${userLoad.uid}`).then(res => {
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -101,7 +107,7 @@ const Product = ({ product }) => {
         thumbnails: thumbnails2,
       };
       console.log("producto agregado: " + JSON.stringify(add));
-      axios.post(`${apiURL}/api/products/addproduct/${user.uid}`, add).then(res => {
+      axios.post(`${apiURL}/api/products/addproduct/${userLoad.uid}`, add).then(res => {
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -143,7 +149,7 @@ const Product = ({ product }) => {
         subCategory: subCategory,
         thumbnails: thumbnails,
       };
-      axios.put(`${apiURL}/api/products/${id}/${user.uid}`, changes).then(res => {
+      axios.put(`${apiURL}/api/products/${id}/${userLoad.uid}`, changes).then(res => {
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -181,7 +187,7 @@ const Product = ({ product }) => {
             <Button variant="primary" style={{ backgroundColor: 'black' }}>
               <Link to={`/product/${product._id}`} style={{ textDecoration: 'none', color: 'white' }}>Ver más</Link>
             </Button>
-            {user.rol == "admin" &&
+            {userLoad.rol == "admin" &&
               <>
                 <br />
                 <br />
