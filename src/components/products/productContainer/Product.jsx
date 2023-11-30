@@ -197,7 +197,7 @@ const Product = ({ product }) => {
                 Ver más
               </Link>
             </Button>
-            {userLoad.rol == "admin" && (
+            {userLoad && userLoad.rol === "admin" && (
               <>
                 <br />
                 <br />
