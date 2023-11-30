@@ -6,7 +6,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 //firebase
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth } from "../../../context/AuthContext.jsx";
 
 const Product = ({ product }) => {
   const imgurl = "https://drive.google.com/uc?export=download&id=";
