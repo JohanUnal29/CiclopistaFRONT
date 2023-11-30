@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Col, Card, Button, Modal } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Col, Card, Button, Modal } from "react-bootstrap";
 import "./ProductsContainer.css";
 import axios from "axios";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 //firebase
-import { useAuth } from '../../../context/AuthContext';
-
+import { useAuth } from "../../../context/AuthContext";
 
 const Product = ({ product }) => {
-
   const imgurl = "https://drive.google.com/uc?export=download&id=";
   const apiURL = process.env.REACT_APP_API_URL;
 
@@ -18,28 +16,31 @@ const Product = ({ product }) => {
 
   const [userLoad, setUserLoad] = useState(null);
 
-  if(loading){
-    setUserLoad(user)
-  }
+  useEffect(() => {
+    if (!loading) {
+      setUserLoad(user);
+    }
+  }, [loading, user]);
 
   const deleteProduct = async (id) => {
-
     try {
-      axios.delete(`${apiURL}/api/products/${id}/${userLoad.uid}`).then(res => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Producto Eliminado',
-          showConfirmButton: false,
-          timer: 1500
+      axios
+        .delete(`${apiURL}/api/products/${id}/${userLoad.uid}`)
+        .then((res) => {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Producto Eliminado",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         })
-      }).catch(err => {
-        console.log(err);
-      })
+        .catch((err) => {
+          console.log(err);
+        });
     } catch (error) {
       alert(error.message);
     }
-
   };
 
   const [title, setTitle] = useState("");
@@ -92,9 +93,7 @@ const Product = ({ product }) => {
   };
 
   const addProduct = async () => {
-
     try {
-
       const add = {
         title: title2,
         description: description2,
@@ -107,17 +106,20 @@ const Product = ({ product }) => {
         thumbnails: thumbnails2,
       };
       console.log("producto agregado: " + JSON.stringify(add));
-      axios.post(`${apiURL}/api/products/addproduct/${userLoad.uid}`, add).then(res => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Producto agregado',
-          showConfirmButton: false,
-          timer: 1500
+      axios
+        .post(`${apiURL}/api/products/addproduct/${userLoad.uid}`, add)
+        .then((res) => {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Producto agregado",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         })
-      }).catch(err => {
-        console.log(err);
-      })
+        .catch((err) => {
+          console.log(err);
+        });
     } catch (error) {
       alert(error.message);
     }
@@ -131,13 +133,10 @@ const Product = ({ product }) => {
     setCategory2("");
     setSubCategory2("");
     setThumbnails2("");
-
   };
 
   const uptadeProduct = async (id) => {
-
     try {
-
       const changes = {
         title: title,
         description: description,
@@ -149,17 +148,20 @@ const Product = ({ product }) => {
         subCategory: subCategory,
         thumbnails: thumbnails,
       };
-      axios.put(`${apiURL}/api/products/${id}/${userLoad.uid}`, changes).then(res => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Producto actualizado',
-          showConfirmButton: false,
-          timer: 1500
+      axios
+        .put(`${apiURL}/api/products/${id}/${userLoad.uid}`, changes)
+        .then((res) => {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Producto actualizado",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         })
-      }).catch(err => {
-        console.log(err);
-      })
+        .catch((err) => {
+          console.log(err);
+        });
     } catch (error) {
       alert(error.message);
     }
@@ -173,54 +175,69 @@ const Product = ({ product }) => {
     setCategory("");
     setSubCategory("");
     setThumbnails("");
-
   };
 
   return (
     <>
       <Col sm={6} md={4} lg={3} className="item-card">
-        <Card style={{ width: '18rem' }}>
-          <Card.Img variant="top" src={imgurl + product.thumbnails} alt={product.title} />
+        <Card style={{ width: "18rem" }}>
+          <Card.Img
+            variant="top"
+            src={imgurl + product.thumbnails}
+            alt={product.title}
+          />
           <Card.Body>
             <Card.Title>{product.title}</Card.Title>
             <Card.Text>{product.price}</Card.Text>
-            <Button variant="primary" style={{ backgroundColor: 'black' }}>
-              <Link to={`/product/${product._id}`} style={{ textDecoration: 'none', color: 'white' }}>Ver más</Link>
+            <Button variant="primary" style={{ backgroundColor: "black" }}>
+              <Link
+                to={`/product/${product._id}`}
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                Ver más
+              </Link>
             </Button>
-            {userLoad.rol == "admin" &&
+            {userLoad.rol == "admin" && (
               <>
                 <br />
                 <br />
-                <Button variant="danger" onClick={() => deleteProduct(product._id)}>
+                <Button
+                  variant="danger"
+                  onClick={() => deleteProduct(product._id)}
+                >
                   Eliminar producto
                 </Button>
                 <br />
                 <br />
-                <Button variant='success' onClick={() => { abrirModalInsertar(); }}>
+                <Button
+                  variant="success"
+                  onClick={() => {
+                    abrirModalInsertar();
+                  }}
+                >
                   Actualizar producto
                 </Button>
                 <br />
                 <br />
-                <Button variant='success' onClick={() => { abrirModalAgregar(); }}>
+                <Button
+                  variant="success"
+                  onClick={() => {
+                    abrirModalAgregar();
+                  }}
+                >
                   Agregar producto
                 </Button>
               </>
-
-            }
-
-
-
+            )}
           </Card.Body>
         </Card>
       </Col>
-
 
       <Modal show={modalInsertar} onHide={() => setModalInsertar(false)}>
         <Modal.Header>
           <Modal.Title>Actualizar</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-
           <div className="form-group">
             <label>Titulo</label>
             <input
@@ -228,7 +245,8 @@ const Product = ({ product }) => {
               placeholder="Titulo"
               type="text"
               value={title}
-              onChange={(e) => setTitle(e.target.value)} />
+              onChange={(e) => setTitle(e.target.value)}
+            />
             <br />
 
             <label>Descripción</label>
@@ -237,7 +255,8 @@ const Product = ({ product }) => {
               placeholder="Descripción"
               type="text"
               value={description}
-              onChange={(e) => setDescription(e.target.value)} />
+              onChange={(e) => setDescription(e.target.value)}
+            />
             <br />
 
             <label>Código</label>
@@ -246,7 +265,8 @@ const Product = ({ product }) => {
               placeholder="Código"
               type="text"
               value={code}
-              onChange={(e) => setCode(e.target.value)} />
+              onChange={(e) => setCode(e.target.value)}
+            />
             <br />
 
             <label>Precio</label>
@@ -255,7 +275,8 @@ const Product = ({ product }) => {
               placeholder="Precio"
               type="number"
               value={price}
-              onChange={(e) => setPrice(e.target.value)} />
+              onChange={(e) => setPrice(e.target.value)}
+            />
             <br />
 
             <label>Disponible</label>
@@ -272,11 +293,15 @@ const Product = ({ product }) => {
               placeholder="Stock"
               type="number"
               value={stock}
-              onChange={(e) => setStock(e.target.value)} />
+              onChange={(e) => setStock(e.target.value)}
+            />
             <br />
 
             <label>Categoria</label>
-            <select value={category} onChange={(e) => setCategory(e.target.value)}>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
               <option value="Sillines">Sillines</option>
               <option value="Cadenas">Cadenas</option>
               <option value="Cadenillas">Cadenillas</option>
@@ -288,7 +313,10 @@ const Product = ({ product }) => {
             <br />
 
             <label>Subcategoria</label>
-            <select value={subCategory} onChange={(e) => setSubCategory(e.target.value)}>
+            <select
+              value={subCategory}
+              onChange={(e) => setSubCategory(e.target.value)}
+            >
               <option value="SillinesResortes">Sillines con resortes</option>
               <option value="SillinesSinResortes">Sillines sin resortes</option>
             </select>
@@ -300,16 +328,21 @@ const Product = ({ product }) => {
               placeholder="Imagen"
               type="text"
               value={thumbnails}
-              onChange={(e) => setThumbnails(e.target.value)} />
+              onChange={(e) => setThumbnails(e.target.value)}
+            />
             <br />
-
           </div>
 
           <Modal.Footer>
-            <Button type="button" variant="success" onClick={() => {
-              uptadeProduct(product._id);
-              setModalInsertar(false);
-            }}>Actualizar
+            <Button
+              type="button"
+              variant="success"
+              onClick={() => {
+                uptadeProduct(product._id);
+                setModalInsertar(false);
+              }}
+            >
+              Actualizar
             </Button>
             <Button variant="danger" onClick={() => setModalInsertar(false)}>
               Cancelar
@@ -318,14 +351,12 @@ const Product = ({ product }) => {
         </Modal.Body>
       </Modal>
 
-
       {/* Agregar producto */}
       <Modal show={modalAgregar} onHide={() => setModalAgregar(false)}>
         <Modal.Header>
           <Modal.Title>Agregar Producto</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-
           <div className="form-group">
             <label>Titulo</label>
             <input
@@ -333,7 +364,8 @@ const Product = ({ product }) => {
               placeholder="Titulo"
               type="text"
               value={title2}
-              onChange={(e) => setTitle2(e.target.value)} />
+              onChange={(e) => setTitle2(e.target.value)}
+            />
             <br />
 
             <label>Descripción</label>
@@ -342,7 +374,8 @@ const Product = ({ product }) => {
               placeholder="Descripción"
               type="text"
               value={description2}
-              onChange={(e) => setDescription2(e.target.value)} />
+              onChange={(e) => setDescription2(e.target.value)}
+            />
             <br />
 
             <label>Código</label>
@@ -351,7 +384,8 @@ const Product = ({ product }) => {
               placeholder="Código"
               type="text"
               value={code2}
-              onChange={(e) => setCode2(e.target.value)} />
+              onChange={(e) => setCode2(e.target.value)}
+            />
             <br />
 
             <label>Precio</label>
@@ -360,7 +394,8 @@ const Product = ({ product }) => {
               placeholder="Precio"
               type="number"
               value={price2}
-              onChange={(e) => setPrice2(e.target.value)} />
+              onChange={(e) => setPrice2(e.target.value)}
+            />
             <br />
 
             <label>Stock</label>
@@ -369,11 +404,15 @@ const Product = ({ product }) => {
               placeholder="Stock"
               type="number"
               value={stock2}
-              onChange={(e) => setStock2(e.target.value)} />
+              onChange={(e) => setStock2(e.target.value)}
+            />
             <br />
 
             <label>Categoria</label>
-            <select value={category2} onChange={(e) => setCategory2(e.target.value)}>
+            <select
+              value={category2}
+              onChange={(e) => setCategory2(e.target.value)}
+            >
               <option value="Sillines">Sillines</option>
               <option value="Cadenas">Cadenas</option>
               <option value="Cadenillas">Cadenillas</option>
@@ -385,7 +424,10 @@ const Product = ({ product }) => {
             <br />
 
             <label>Subcategoria</label>
-            <select value={subCategory2} onChange={(e) => setSubCategory2(e.target.value)}>
+            <select
+              value={subCategory2}
+              onChange={(e) => setSubCategory2(e.target.value)}
+            >
               <option value="SillinesResortes">Sillines con resortes</option>
               <option value="SillinesSinResortes">Sillines sin resortes</option>
             </select>
@@ -397,26 +439,30 @@ const Product = ({ product }) => {
               placeholder="Imagen"
               type="text"
               value={thumbnails2}
-              onChange={(e) => setThumbnails2(e.target.value)} />
+              onChange={(e) => setThumbnails2(e.target.value)}
+            />
             <br />
-
           </div>
 
           <Modal.Footer>
-            <Button type="button" variant="success" onClick={() => {
-              addProduct();
-              setModalAgregar(false);
-            }}>Agregar
+            <Button
+              type="button"
+              variant="success"
+              onClick={() => {
+                addProduct();
+                setModalAgregar(false);
+              }}
+            >
+              Agregar
             </Button>
             <Button variant="danger" onClick={() => setModalAgregar(false)}>
               Cancelar
             </Button>
           </Modal.Footer>
         </Modal.Body>
-      </Modal></>
+      </Modal>
+    </>
+  );
+};
 
-
-  )
-}
-
-export default Product
+export default Product;
