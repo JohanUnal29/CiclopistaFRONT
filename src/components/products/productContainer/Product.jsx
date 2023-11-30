@@ -5,25 +5,21 @@ import "./ProductsContainer.css";
 import axios from "axios";
 import Swal from 'sweetalert2';
 
+//firebase
+import { useAuth } from '../../../context/AuthContext';
+
+
 const Product = ({ product }) => {
 
   const imgurl = "https://drive.google.com/uc?export=download&id=";
-  const [userLogin, setUserLogin] = useState([]);
-
   const apiURL = process.env.REACT_APP_API_URL;
 
-  useEffect(() => {
-    axios.get(`${apiURL}/api/sessionsGoogle/user`).then(res => {
-      setUserLogin(res.data.payload);
-    }).catch(err => {
-      console.log(err);
-    })
-  },)
+  const { user, loading } = useAuth();
 
   const deleteProduct = async (id) => {
 
     try {
-      axios.delete(`${apiURL}/api/products/${id}`).then(res => {
+      axios.delete(`${apiURL}/api/products/${id}/${user.uid}`).then(res => {
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -105,7 +101,7 @@ const Product = ({ product }) => {
         thumbnails: thumbnails2,
       };
       console.log("producto agregado: " + JSON.stringify(add));
-      axios.post(`${apiURL}/api/products/addproduct`, add).then(res => {
+      axios.post(`${apiURL}/api/products/addproduct/${user.uid}`, add).then(res => {
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -147,7 +143,7 @@ const Product = ({ product }) => {
         subCategory: subCategory,
         thumbnails: thumbnails,
       };
-      axios.put(`${apiURL}/api/products/${id}`, changes).then(res => {
+      axios.put(`${apiURL}/api/products/${id}/${user.uid}`, changes).then(res => {
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -185,7 +181,7 @@ const Product = ({ product }) => {
             <Button variant="primary" style={{ backgroundColor: 'black' }}>
               <Link to={`/product/${product._id}`} style={{ textDecoration: 'none', color: 'white' }}>Ver más</Link>
             </Button>
-            {userLogin.rol == "admin" &&
+            {user.rol == "admin" &&
               <>
                 <br />
                 <br />

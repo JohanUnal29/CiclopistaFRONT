@@ -4,7 +4,7 @@ import axios from "axios";
 import OrderList from "./OrderList";
 import NavBar3 from "../../subcomponents/navbar/Navbar3";
 import firebaseApp from "../../../firebase/Credentials";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, onAuthStateChanged} from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
