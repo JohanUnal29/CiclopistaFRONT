@@ -20,7 +20,7 @@ const Product = ({ product }) => {
     if (!loading) {
       setUserLoad(user);
     }
-    console.log("el user de products: "+ user)
+    console.log("el user de products: "+JSON.stringify(user, null, 2));
   }, [loading, user]);
 
   
