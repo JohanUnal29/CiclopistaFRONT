@@ -21,28 +21,30 @@ export const AuthProvider = ({ children }) => {
     return infoFinal;
   }
 
-  function setUserWithFirebaseAndRol(usuarioFirebase) {
-    getRol(usuarioFirebase.uid).then((rol) => {
-      const userData = {
-        uid: usuarioFirebase.uid,
-        email: usuarioFirebase.email,
-        rol: rol,
-      };
-      setUser(userData);
-    });
-  }
-
-  onAuthStateChanged(auth, (usuarioFirebase) => {
+  onAuthStateChanged(auth, async (usuarioFirebase) => {
     if (usuarioFirebase) {
-      //funcion final
-
-      if (!user) {
-        setUserWithFirebaseAndRol(usuarioFirebase);
+      // Si hay un usuario, realiza operaciones asíncronas aquí
+      try {
+        const rol = await getRol(usuarioFirebase.uid);
+        setUserWithFirebaseAndRol(usuarioFirebase, rol);
+      } catch (error) {
+        console.error("Error al obtener el rol:", error);
       }
     } else {
+      // Si no hay usuario, establece el estado a null
       setUser(null);
     }
   });
+  
+  async function setUserWithFirebaseAndRol(usuarioFirebase, rol) {
+    const userData = {
+      uid: usuarioFirebase.uid,
+      email: usuarioFirebase.email,
+      rol: rol,
+    };
+    setUser(userData);
+  }
+  
 
   return (
     <AuthContext.Provider value={{ user, loading }}>
