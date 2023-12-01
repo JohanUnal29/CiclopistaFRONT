@@ -200,7 +200,7 @@ const Product = ({ product }) => {
                 Ver más
               </Link>
             </Button>
-            {userLoad && userLoad.rol === "admin" && (
+            {userLoad && userLoad.rol == "admin" && (
               <>
                 <br />
                 <br />
