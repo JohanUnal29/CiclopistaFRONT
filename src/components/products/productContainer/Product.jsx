@@ -12,23 +12,12 @@ const Product = ({ product }) => {
   const imgurl = "https://drive.google.com/uc?export=download&id=";
   const apiURL = process.env.REACT_APP_API_URL;
 
-  const { user, loading } = useAuth();
-
-  const [userLoad, setUserLoad] = useState(null);
-
-  useEffect(() => {
-    if (!loading) {
-      setUserLoad(user);
-    }
-    console.log("el user de products: "+ user.rol)
-  }, [loading, user]);
-
-  
+  const { user, loading } = useAuth();  
 
   const deleteProduct = async (id) => {
     try {
       axios
-        .delete(`${apiURL}/api/products/${id}/${userLoad.uid}`)
+        .delete(`${apiURL}/api/products/${id}/${user.uid}`)
         .then((res) => {
           Swal.fire({
             position: "center",
@@ -110,7 +99,7 @@ const Product = ({ product }) => {
       };
       console.log("producto agregado: " + JSON.stringify(add));
       axios
-        .post(`${apiURL}/api/products/addproduct/${userLoad.uid}`, add)
+        .post(`${apiURL}/api/products/addproduct/${user.uid}`, add)
         .then((res) => {
           Swal.fire({
             position: "center",
@@ -152,7 +141,7 @@ const Product = ({ product }) => {
         thumbnails: thumbnails,
       };
       axios
-        .put(`${apiURL}/api/products/${id}/${userLoad.uid}`, changes)
+        .put(`${apiURL}/api/products/${id}/${user.uid}`, changes)
         .then((res) => {
           Swal.fire({
             position: "center",
@@ -200,7 +189,7 @@ const Product = ({ product }) => {
                 Ver más
               </Link>
             </Button>
-            {userLoad && userLoad.rol == "admin" && (
+            {user && user.rol == "admin" && (
               <>
                 <br />
                 <br />
