@@ -20,7 +20,10 @@ const Product = ({ product }) => {
     if (!loading) {
       setUserLoad(user);
     }
+    console.log("el user de products: "+ user)
   }, [loading, user]);
+
+  
 
   const deleteProduct = async (id) => {
     try {
