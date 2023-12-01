@@ -197,7 +197,7 @@ const Product = ({ product }) => {
                 Ver más
               </Link>
             </Button>
-            {/* {userLoad && userLoad.rol === "admin" && (
+            {userLoad && userLoad.rol === "admin" && (
               <>
                 <br />
                 <br />
@@ -228,7 +228,7 @@ const Product = ({ product }) => {
                   Agregar producto
                 </Button>
               </>
-            )} */}
+            )}
           </Card.Body>
         </Card>
       </Col>
