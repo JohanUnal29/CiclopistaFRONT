@@ -2,21 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Container, Row, Col, Button, Table } from 'react-bootstrap';
 import axios from "axios";
 import './OrderDetail.css';
-//firebase
-import { useAuth } from '../../../context/AuthContext';
+
 
 const apiURL = process.env.REACT_APP_API_URL;
 
-const OrderDetail = ({ order }) => {
+const OrderDetail = ({ order, user }) => {
 
   const imgurl = "https://drive.google.com/uc?export=download&id=";
-  console.log("orden especificia: " + order)
+  
   const cartItems = order.cart;
 
   const [status, setStatus] = useState();
-
-  //firebase
-  const { user, loading } = useAuth(); 
 
   const uptadeOder = async (id) => {
 
