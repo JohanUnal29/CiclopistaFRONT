@@ -45,7 +45,7 @@ export default function Checkout2() {
       axios
         .post(`${apiURL}/api/purchase/addticket`, TicketForm)
         .then((res) => {
-          console.log(res.data);
+          console.log(res.data.payload);
         })
         .catch((err) => {
           console.log(err);
