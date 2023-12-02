@@ -26,6 +26,26 @@ export default function ModalCart(props) {
     });
   };
 
+  const handleComprar = () => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, Comprar!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Aquí puedes ejecutar la acción de eliminación si el usuario confirma
+        <Link to="/CheckOut"></Link>;
+        props.onHide();
+        Swal.fire("Redirigiendo!", "success");
+      }
+    });
+  };
+
+
   return (
     <>
       <Modal {...props} aria-labelledby="contained-modal-title-vcenter">
@@ -67,21 +87,10 @@ export default function ModalCart(props) {
                       <h6>Total: ${precioTotal()}</h6>
                     </Col>
                     <Col xs={6} md={4}>
-                      <Link className="" to="/CheckOut"  onClick={() => {props.onHide()}}>
-                        Comprar
-                      </Link>
-
-                      <Link className="" to="/CheckDetail" onClick={() => {props.onHide()}}>
-                        Comprar2
-                      </Link>
+                      
                       <Button
                         variant="success"
-                        onClick={() => {
-                          <Link to="/CheckDetail" />;
-                          props.onHide(); // Cierra el modal
-                          // Luego, redirige al usuario a la página "checkout2"
-                           // O utiliza react-router para cambiar la ruta si estás usando react-router-dom
-                        }}
+                        onClick={() => {handleComprar()}}
                       >
                         Comprar
                       </Button>
