@@ -88,7 +88,7 @@ export default function ModalCart(props) {
                     </Col>
                     <Col xs={6} md={4}>
                       
-                      <button onClick={() => {handleComprar()}}>comprar</button>
+                      <p onClick={() => {handleComprar()}}>comprar</p>
                     </Col>
                   </>
                 ) : (
