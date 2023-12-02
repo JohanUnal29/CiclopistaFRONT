@@ -83,6 +83,11 @@ export default function NavBar() {
                 Productos
               </Link>
             </Nav.Link>
+            <Nav.Link>
+              <Link className="Menu" to="/CheckOut">
+                comprar
+              </Link>
+            </Nav.Link>
             <Nav.Link
               className="Menu"
               target="_blank"
