@@ -67,7 +67,7 @@ export default function PageCart() {
                 </Col>
                 <Col xs={6} md={4}>
                   <Link to="/CheckOut">
-                    <Button variant="danger">Comprar</Button>
+                    <Button variant="success">Comprar</Button>
                   </Link>
                 </Col>
               </>
