@@ -67,11 +67,11 @@ export default function ModalCart(props) {
                       <h6>Total: ${precioTotal()}</h6>
                     </Col>
                     <Col xs={6} md={4}>
-                      <Link className="" to="/CheckOut">
+                      <Link className="" to="/CheckOut"  onClick={() => {props.onHide()}}>
                         Comprar
                       </Link>
 
-                      <Link className="" to="/CheckDetail">
+                      <Link className="" to="/CheckDetail" onClick={() => {props.onHide()}}>
                         Comprar2
                       </Link>
                       <Button
