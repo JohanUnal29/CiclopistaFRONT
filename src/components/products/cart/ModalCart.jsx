@@ -72,7 +72,7 @@ export default function ModalCart(props) {
                         onClick={() => {
                           props.onHide(); // Cierra el modal
                           // Luego, redirige al usuario a la página "checkout2"
-                          window.location.href = "/CheckDetail"; // O utiliza react-router para cambiar la ruta si estás usando react-router-dom
+                          <Link to="/CheckDetail"/> // O utiliza react-router para cambiar la ruta si estás usando react-router-dom
                         }}
                       >
                         Comprar
