@@ -40,6 +40,7 @@ function App() {
               <Route path="/ProfilePage" element={<ProfilePage />} />
               <Route path="/UserManager" element={<UserListContainer />} />
               <Route path="/CheckDetail" element={<CheckDetail/>} />
+              <Route path="/CheckOut" element={<Checkout2/>} />
             </Routes>
           </BrowserRouter>
 

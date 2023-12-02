@@ -67,12 +67,20 @@ export default function ModalCart(props) {
                       <h6>Total: ${precioTotal()}</h6>
                     </Col>
                     <Col xs={6} md={4}>
+                      <Link className="" to="/CheckOut">
+                        Comprar
+                      </Link>
+
+                      <Link className="" to="/CheckDetail">
+                        Comprar2
+                      </Link>
                       <Button
                         variant="success"
                         onClick={() => {
+                          <Link to="/CheckDetail" />;
                           props.onHide(); // Cierra el modal
                           // Luego, redirige al usuario a la página "checkout2"
-                          <Link to="/CheckDetail"/> // O utiliza react-router para cambiar la ruta si estás usando react-router-dom
+                           // O utiliza react-router para cambiar la ruta si estás usando react-router-dom
                         }}
                       >
                         Comprar
