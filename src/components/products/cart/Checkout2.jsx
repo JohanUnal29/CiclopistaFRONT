@@ -74,7 +74,7 @@ export default function Checkout2() {
         </Link>
       </Button>
       <br />
-      <Container>
+      <Container style={{overflow: 'auto' }}>
         <Row className="justify-content-center">
           <Col md={8}>
             <h5>Orden</h5>
