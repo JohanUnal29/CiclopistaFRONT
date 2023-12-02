@@ -48,6 +48,7 @@ export default function ModalCart(props) {
   return (
     <>
       <Modal {...props} aria-labelledby="contained-modal-title-vcenter">
+        <div class="modal-backdrop"></div>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             Carrito de compras
