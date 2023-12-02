@@ -14,6 +14,8 @@ const OrderDetail = ({ order, user }) => {
 
   const [status, setStatus] = useState();
 
+  console.log(user);
+
   const uptadeOder = async (id) => {
 
     try {
