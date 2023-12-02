@@ -31,7 +31,7 @@ export default function OrderDetailContainer() {
   return (
     <div>
       <NavBar3></NavBar3>
-      {order !== null && <OrderDetail order={order} />}
+      {order !== null && <OrderDetail order={order} user={user} />}
     </div>
   );
 }
