@@ -28,7 +28,7 @@ export default function OrderDetailContainer() {
             console.log(err);
         })
 
-    }, [id])
+    }, [id, user])
 
     
     return (
