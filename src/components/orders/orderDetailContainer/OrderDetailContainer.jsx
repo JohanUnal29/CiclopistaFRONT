@@ -17,7 +17,7 @@ export default function OrderDetailContainer() {
     //firebase
     const { user, loading } = useAuth(); 
 
-    console.log(user.uid);
+    console.log("usuario: "+user.uid);
 
     useEffect(() => {
 
