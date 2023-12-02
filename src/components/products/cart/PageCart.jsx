@@ -26,24 +26,6 @@ export default function PageCart() {
     });
   };
 
-  const handleComprar = () => {
-    Swal.fire({
-      title: "¿Estás seguro?",
-      text: "Esta acción no se puede deshacer",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, Comprar!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Aquí puedes ejecutar la acción de eliminación si el usuario confirma
-        <Link to="/CheckOut"></Link>;
-        Swal.fire("Redirigiendo!", "success");
-      }
-    });
-  };
-
   return (
     <>
       <Button variant="danger" style={{ marginTop: "10px" }}>
@@ -84,9 +66,9 @@ export default function PageCart() {
                   <h6>Total: ${precioTotal()}</h6>
                 </Col>
                 <Col xs={6} md={4}>
-                  <Button variant="danger" onClick={handleComprar}>
-                    Comprar
-                  </Button>
+                  <Link to="/CheckOut">
+                    <Button variant="danger">Comprar</Button>
+                  </Link>
                 </Col>
               </>
             ) : (
