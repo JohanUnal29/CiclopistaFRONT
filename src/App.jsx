@@ -10,9 +10,9 @@ import OrderDetailContainer from "./components/orders/orderDetailContainer/Order
 import ProfilePage from "./components/profile/ProfilePage";
 import UserListContainer from "./components/users/userContainer/UserListContainer";
 import Checkout2 from "./components/products/cart/Checkout2";
+import PageCart from "./components/products/cart/PageCart";
 import { AuthProvider } from "./context/AuthContext";
-import Checkout from "./components/products/cart/Checkout";
-import CheckDetail from "./components/products/chekout/CheckDetail";
+
 
 // import ItemDetailContainer from "./components/Adopt/ItemDetailContainer";
 // import Request from './components/request/Request';
@@ -39,8 +39,8 @@ function App() {
               <Route path="/orderr/:id" element={<OrderDetailContainer />} />
               <Route path="/ProfilePage" element={<ProfilePage />} />
               <Route path="/UserManager" element={<UserListContainer />} />
-              <Route path="/CheckDetail" element={<CheckDetail/>} />
               <Route path="/CheckOut" element={<Checkout2/>} />
+              <Route path="/PageCart" element={<PageCart/>} />
             </Routes>
           </BrowserRouter>
 
