@@ -11,10 +11,13 @@ export default function OrderDetailContainer() {
     const [order, setOrder] = useState(null);
     const id = useParams().id;
     console.log(id);
+    
 
     const apiURL = process.env.REACT_APP_API_URL;
     //firebase
     const { user, loading } = useAuth(); 
+
+    console.log(user.uid);
 
     useEffect(() => {
 
