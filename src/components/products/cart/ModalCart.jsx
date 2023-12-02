@@ -87,7 +87,7 @@ export default function ModalCart(props) {
                     </Col>
                     <Col xs={6} md={4}>
                       
-                      <p onClick={() => {handleComprar()}}>comprar</p>
+                      <Link to="/CheckDetail">comprar</Link>
                     </Col>
                   </>
                 ) : (
@@ -100,7 +100,6 @@ export default function ModalCart(props) {
           </Container>
         </Modal.Body>
         <Modal.Footer>
-          <Link to="/CheckOut">comprar</Link>
           <Button variant="danger" onClick={props.onHide}>
             Close
           </Button>

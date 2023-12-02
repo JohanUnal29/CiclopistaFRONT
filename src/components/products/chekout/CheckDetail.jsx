@@ -1,49 +1,11 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
 export default function CheckDetail() {
   return (
     <div>
-        CheckDetail
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        CheckDetail
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        CheckDetail
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        CheckDetail
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        CheckDetail
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        CheckDetail
+        PASARELA DE PAGOS
+        <Link to="/CheckOut">Completar compra</Link>
     </div>
   )
 }
