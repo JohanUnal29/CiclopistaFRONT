@@ -39,8 +39,6 @@ export default function OrderListContainer() {
     }
   }, [status, user]);
 
-  console.log(orders);
-
   return (
     <div>
       <NavBar3></NavBar3>
