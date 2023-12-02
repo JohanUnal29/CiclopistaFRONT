@@ -39,7 +39,6 @@ export default function ModalCart(props) {
       if (result.isConfirmed) {
         // Aquí puedes ejecutar la acción de eliminación si el usuario confirma
         <Link to="/CheckOut"></Link>;
-        props.onHide();
         Swal.fire("Redirigiendo!", "success");
       }
     });
@@ -101,6 +100,7 @@ export default function ModalCart(props) {
           </Container>
         </Modal.Body>
         <Modal.Footer>
+          <Link to="/CheckOut">comprar</Link>
           <Button variant="danger" onClick={props.onHide}>
             Close
           </Button>
