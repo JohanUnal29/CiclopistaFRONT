@@ -96,7 +96,7 @@ export default function NavBar() {
               Ir a @ciclopista
             </Nav.Link>
             <Nav.Link>
-              <CartWidget />
+              <Link to="/PageCart"><CartWidget /></Link>
             </Nav.Link>
             {user === null && (
               <Nav.Link>
