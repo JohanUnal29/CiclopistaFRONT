@@ -14,7 +14,7 @@ const OrderDetail = ({ order, user }) => {
 
   const [status, setStatus] = useState();
 
-  console.log(user);
+  console.log(user.uid);
 
   const uptadeOder = async (id) => {
 
