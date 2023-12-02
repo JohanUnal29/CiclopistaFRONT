@@ -6,7 +6,6 @@ import OrderDetail from "./OrderDetail.jsx";
 
 //firebase
 import { useAuth } from "../../../context/AuthContext.jsx";
-
 export default function OrderDetailContainer() {
     const [order, setOrder] = useState(null);
     const id = useParams().id;
@@ -20,15 +19,15 @@ export default function OrderDetailContainer() {
     console.log("usuario: "+user.uid);
 
     useEffect(() => {
-
-        axios.get(`${apiURL}/api/purchase/id/${id}/${user.uid}`).then(res => {
-            setOrder(res.data.payload);
-            console.log("respuesta servidor:"+res.data.payload);
-        }).catch(err => {
-            console.log(err);
-        })
-
-    }, [id, user])
+        if (user) {
+            axios.get(`${apiURL}/api/purchase/id/${id}/${user.uid}`).then(res => {
+                setOrder(res.data.payload);
+                console.log("Respuesta del servidor:", res.data.payload);
+            }).catch(err => {
+                console.log(err);
+            });
+        }
+    }, [id, user]);
 
     
     return (
