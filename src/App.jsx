@@ -11,6 +11,7 @@ import ProfilePage from "./components/profile/ProfilePage";
 import UserListContainer from "./components/users/userContainer/UserListContainer";
 import Checkout2 from "./components/products/cart/Checkout2";
 import { AuthProvider } from "./context/AuthContext";
+import Checkout from "./components/products/cart/Checkout";
 
 // import ItemDetailContainer from "./components/Adopt/ItemDetailContainer";
 // import Request from './components/request/Request';
@@ -37,7 +38,7 @@ function App() {
               <Route path="/orderr/:id" element={<OrderDetailContainer />} />
               <Route path="/ProfilePage" element={<ProfilePage />} />
               <Route path="/UserManager" element={<UserListContainer />} />
-              <Route path="/checkout2" element={<Checkout2 />} />
+              <Route path="/checkout" element={<Checkout />} />
             </Routes>
           </BrowserRouter>
 
