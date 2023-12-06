@@ -14,8 +14,7 @@ import PageCart from "./components/products/cart/PageCart";
 import { AuthProvider } from "./context/AuthContext";
 
 
-// import ItemDetailContainer from "./components/Adopt/ItemDetailContainer";
-// import Request from './components/request/Request';
+
 function App() {
   return (
     <div>
