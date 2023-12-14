@@ -7,53 +7,45 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import "./Navbar2.css";
 
+import firebaseApp from "../../../firebase/Credentials.js";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+const auth = getAuth(firebaseApp);
+const firestore = getFirestore(firebaseApp);
+
 export default function NavBar2() {
-  const [userLogin, setUserLogin] = useState([]);
-  const [veri, setVeri] = useState(false);
-  const apiURL = process.env.REACT_APP_API_URL;
 
-  const logout = async () => {
-    try {
-      axios
-        .get(`${apiURL}/api/sessionsGoogle/logout`)
-        .then((res) => {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "¡Adiós!, sesión finalizada",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          setUserLogin([]);
-          setVeri(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } catch (error) {
-      alert(error.message);
+  const [user, setUser] = useState(null);
+
+  async function getRol(uid) {
+    const docuRef = doc(firestore, `usuarios/${uid}`);
+    const docuCifrada = await getDoc(docuRef);
+    const infoFinal = docuCifrada.data().rol;
+    return infoFinal;
+  }
+  //
+  function setUserWithFirebaseAndRol(usuarioFirebase) {
+    getRol(usuarioFirebase.uid).then((rol) => {
+      const userData = {
+        uid: usuarioFirebase.uid,
+        email: usuarioFirebase.email,
+        rol: rol,
+      };
+      setUser(userData);
+    });
+  }
+
+  onAuthStateChanged(auth, (usuarioFirebase) => {
+    if (usuarioFirebase) {
+      //funcion final
+
+      if (!user) {
+        setUserWithFirebaseAndRol(usuarioFirebase);
+      }
+    } else {
+      setUser(null);
     }
-  };
-
-  useEffect(() => {
-    axios
-      .get(`${apiURL}/api/sessionsGoogle/user`)
-      .then((res) => {
-        setUserLogin(res.data.payload);
-        console.log("sesión");
-        console.log(userLogin);
-        if (res.data.payload) {
-          setVeri(true);
-          console.log("veri: true");
-        } else {
-          setVeri(false);
-          console.log("veri: false");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  });
 
   return (
     <Navbar className="nav-grande" bg="white" expand="lg">
@@ -121,21 +113,21 @@ export default function NavBar2() {
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <CartWidget></CartWidget>
+              <Link to="/PageCart"><CartWidget /></Link>
             </Nav.Link>
-            {veri === false && (
+            {user === null && (
               <Nav.Link>
                 <LoginWidget />
               </Nav.Link>
             )}
-            {veri === true && (
+            {(user) && (
               <NavDropdown title="Cuenta" id="basic-nav-dropdown">
                 <Nav.Link>
                   <Link className="Menu" to="/ProfilePage">
                     Perfil
                   </Link>
                 </Nav.Link>
-                {userLogin.rol == "admin" && (
+                {user.rol == "admin" && (
                   <>
                     <Nav.Link>
                       <Link className="Menu" to="/orders">
@@ -150,14 +142,15 @@ export default function NavBar2() {
                   </>
                 )}
                 <NavDropdown.Divider />
-                <Nav.Link onClick={logout}>
-                  <p className="Cerrar">Cerrar Sesión</p>
-                </Nav.Link>
+
+                {user && (
+                  <Nav.Link onClick={() => signOut(auth)}>
+                    <p className="Cerrar">Cerrar Sesión</p>
+                  </Nav.Link>
+                )}
               </NavDropdown>
             )}
-            {/* <Nav.Link className="Menu" target="_blank" href="https://www.instagram.com/dasein.accesorios/?igshid=Yzg5MTU1MDY%3D">Ir a @dasein.outfit</Nav.Link> */}
           </Nav>
-          {/* <Link to="/carrito"><CardWidget cantidad="10" /></Link> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>

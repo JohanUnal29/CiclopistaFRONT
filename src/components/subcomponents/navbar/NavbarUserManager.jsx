@@ -5,54 +5,45 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import "./NavbarUserManager.css";
 
+import firebaseApp from "../../../firebase/Credentials";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+const auth = getAuth(firebaseApp);
+const firestore = getFirestore(firebaseApp);
+
 export default function NavBarUserManager() {
-  const [userLogin, setUserLogin] = useState([]);
-  const [veri, setVeri] = useState(false);
 
-  const apiURL = process.env.REACT_APP_API_URL;
+  const [user, setUser] = useState(null);
 
-  const logout = async () => {
-    try {
-      axios
-        .get(`${apiURL}/api/sessionsGoogle/logout`)
-        .then((res) => {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "¡Adiós!, sesión finalizada",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          setUserLogin([]);
-          setVeri(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } catch (error) {
-      alert(error.message);
+  async function getRol(uid) {
+    const docuRef = doc(firestore, `usuarios/${uid}`);
+    const docuCifrada = await getDoc(docuRef);
+    const infoFinal = docuCifrada.data().rol;
+    return infoFinal;
+  }
+  //
+  function setUserWithFirebaseAndRol(usuarioFirebase) {
+    getRol(usuarioFirebase.uid).then((rol) => {
+      const userData = {
+        uid: usuarioFirebase.uid,
+        email: usuarioFirebase.email,
+        rol: rol,
+      };
+      setUser(userData);
+    });
+  }
+
+  onAuthStateChanged(auth, (usuarioFirebase) => {
+    if (usuarioFirebase) {
+      //funcion final
+
+      if (!user) {
+        setUserWithFirebaseAndRol(usuarioFirebase);
+      }
+    } else {
+      setUser(null);
     }
-  };
-
-  useEffect(() => {
-    axios
-      .get(`${apiURL}/api/sessionsGoogle/user`)
-      .then((res) => {
-        setUserLogin(res.data.payload);
-        console.log("sesión");
-        console.log(userLogin);
-        if (res.data.payload) {
-          setVeri(true);
-          console.log("veri: true");
-        } else {
-          setVeri(false);
-          console.log("veri: false");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  });
 
   return (
     <Navbar className="nav-grande" bg="white" expand="lg">
@@ -83,15 +74,24 @@ export default function NavBarUserManager() {
                 Inicio
               </Link>
             </Nav.Link>
-            {userLogin.rol == "admin" && (
+            {user.rol == "admin" && (
+              <>
                 <Nav.Link>
                   <Link className="Menu" to="/orders">
                     Administrador
                   </Link>
                 </Nav.Link>
+                <Nav.Link>
+                  <Link className="Menu" to="/UserManager">
+                    Roles
+                  </Link>
+                </Nav.Link>
+              </>
             )}
-            {veri === true && (
-              <Nav.Link onClick={logout}>
+            <NavDropdown.Divider />
+
+            {user && (
+              <Nav.Link onClick={() => signOut(auth)}>
                 <p className="Cerrar">Cerrar Sesión</p>
               </Nav.Link>
             )}

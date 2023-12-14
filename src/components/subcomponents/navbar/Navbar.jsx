@@ -16,15 +16,13 @@ const firestore = getFirestore(firebaseApp);
 export default function NavBar() {
   const [user, setUser] = useState(null);
 
-  const apiURL = process.env.REACT_APP_API_URL;
-
   async function getRol(uid) {
     const docuRef = doc(firestore, `usuarios/${uid}`);
     const docuCifrada = await getDoc(docuRef);
     const infoFinal = docuCifrada.data().rol;
     return infoFinal;
   }
-
+//
   function setUserWithFirebaseAndRol(usuarioFirebase) {
     getRol(usuarioFirebase.uid).then((rol) => {
       const userData = {
@@ -33,7 +31,6 @@ export default function NavBar() {
         rol: rol,
       };
       setUser(userData);
-      console.log("gonorrea fianl", userData.rol.toString());
     });
   }
 

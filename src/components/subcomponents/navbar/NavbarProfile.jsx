@@ -14,56 +14,8 @@ const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
 
 export default function NavBarProfile() {
-  const [userLogin, setUserLogin] = useState([]);
-  const [veri, setVeri] = useState(false);
+
   const [user, setUser] = useState(null);
-
-  const apiURL = process.env.REACT_APP_API_URL;
-
-  const logout = async () => {
-    try {
-      axios
-        .get(`${apiURL}/api/sessionsGoogle/logout`)
-        .then((res) => {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "¡Adiós!, sesión finalizada",
-            showConfirmButton: false,
-            timer: 1500,
-          }).then(() => {
-            setUserLogin([]);
-            setVeri(false);
-            window.location.href = "/";
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  useEffect(() => {
-    axios
-      .get(`${apiURL}/api/sessionsGoogle/user`)
-      .then((res) => {
-        setUserLogin(res.data.payload);
-        console.log("sesión");
-        console.log(userLogin);
-        if (res.data.payload) {
-          setVeri(true);
-          console.log("veri: true");
-        } else {
-          setVeri(false);
-          console.log("veri: false");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   async function getRol(uid) {
     const docuRef = doc(firestore, `usuarios/${uid}`);
@@ -71,7 +23,7 @@ export default function NavBarProfile() {
     const infoFinal = docuCifrada.data().rol;
     return infoFinal;
   }
-
+  //
   function setUserWithFirebaseAndRol(usuarioFirebase) {
     getRol(usuarioFirebase.uid).then((rol) => {
       const userData = {
@@ -80,7 +32,6 @@ export default function NavBarProfile() {
         rol: rol,
       };
       setUser(userData);
-      console.log("gonorrea fianl", userData.rol.toString());
     });
   }
 
@@ -130,9 +81,14 @@ export default function NavBarProfile() {
               </Link>
             </Nav.Link>
 
-            {(veri === true || user) && (
+            {(user) && (
               <NavDropdown title="Cuenta" id="basic-nav-dropdown">
-                {userLogin.rol == "admin" && (
+                <Nav.Link>
+                  <Link className="Menu" to="/ProfilePage">
+                    Perfil
+                  </Link>
+                </Nav.Link>
+                {user.rol == "admin" && (
                   <>
                     <Nav.Link>
                       <Link className="Menu" to="/orders">
@@ -146,21 +102,16 @@ export default function NavBarProfile() {
                     </Nav.Link>
                   </>
                 )}
+                <NavDropdown.Divider />
 
-                {veri === true && user === null && (
-                  <Nav.Link onClick={logout}>
-                    <p className="Cerrar">Cerrar Sesión</p>
-                  </Nav.Link>
-                )}
-
-                {veri === false && user && (
+                {user && (
                   <Nav.Link
                     onClick={() => {
                       signOut(auth);
                       exit();
                     }}
                   >
-                    <p className="Cerrar">Cerrar Sesión FB</p>
+                    <p className="Cerrar">Cerrar Sesión</p>
                   </Nav.Link>
                 )}
               </NavDropdown>
@@ -171,3 +122,4 @@ export default function NavBarProfile() {
     </Navbar>
   );
 }
+
