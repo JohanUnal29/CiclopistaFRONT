@@ -80,20 +80,26 @@ export default function Checkout2() {
     vaciarCarrito();
   };
 
-  const myHTML = `
-  <form>
-    <script
-      src="https://checkout.wompi.co/widget.js"
-      data-render="button"
-      data-public-key="pub_test_X0zDA9xoKdePzhd8a0x9HAez7HgGO2fH"
-      data-currency="COP"
-      data-amount-in-cents="4950000"
-      data-reference="4XMPGKWWPKWQ"
-      data-signature:integrity="37c8407747e595535433ef8f6a811d853cd943046624a0ec04662b17bbf33bf5"
-    >
-    </script>
-  </form>
-`;
+  const WompiButton = () => {
+    useEffect(() => {
+      // Cargar el script de Wompi
+      const script = document.createElement('script');
+      script.src = 'https://checkout.wompi.co/widget.js';
+      script.setAttribute('data-render', 'button');
+      script.setAttribute('data-public-key', 'pub_test_X0zDA9xoKdePzhd8a0x9HAez7HgGO2fH');
+      script.setAttribute('data-currency', 'COP');
+      script.setAttribute('data-amount-in-cents', '4950000');
+      script.setAttribute('data-reference', '4XMPGKWWPKWQ');
+      script.setAttribute('data-signature:integrity', '37c8407747e595535433ef8f6a811d853cd943046624a0ec04662b17bbf33bf5');
+  
+      // Añadir el script al head del documento
+      document.head.appendChild(script);
+  
+      // Limpieza al desmontar el componente
+      return () => {
+        document.head.removeChild(script);
+      };
+    }, []);}
 
   return (
     <>
@@ -110,7 +116,7 @@ export default function Checkout2() {
             <h5>Orden</h5>
             {ordenCompleta ? (
               // Renderizar el formulario de pago cuando la orden está completa
-              <div dangerouslySetInnerHTML={{ __html: myHTML }} />
+              <WompiButton/>
             ): (
 
                 <Form>
