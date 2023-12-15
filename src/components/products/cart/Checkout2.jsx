@@ -85,7 +85,7 @@ export default function Checkout2() {
       <script
         src="https://checkout.wompi.co/widget.js"
         data-render="button"
-        data-public-key="pub_test_X0zDA9xoKdePzhd8a0x9HAez7HgGO2fH"
+        data-public-key="pub_test_NWdg4THkkxq0UyrnBZVZDTSJa9LEIeA9"
         data-currency="COP"
         data-amount-in-cents={(precioTotal() * 100).toString()}
         data-reference={referenciaDePago}
