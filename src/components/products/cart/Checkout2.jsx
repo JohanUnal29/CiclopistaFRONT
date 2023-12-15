@@ -80,7 +80,20 @@ export default function Checkout2() {
     vaciarCarrito();
   };
 
-  const myHTML = '<div><p>Este es un fragmento de HTML en React</p></div>';
+  const myHTML = `
+  <form>
+    <script
+      src="https://checkout.wompi.co/widget.js"
+      data-render="button"
+      data-public-key="pub_test_X0zDA9xoKdePzhd8a0x9HAez7HgGO2fH"
+      data-currency="COP"
+      data-amount-in-cents="4950000"
+      data-reference="4XMPGKWWPKWQ"
+      data-signature:integrity="37c8407747e595535433ef8f6a811d853cd943046624a0ec04662b17bbf33bf5"
+    >
+    </script>
+  </form>
+`;
 
   return (
     <>
