@@ -53,6 +53,7 @@ export default function Checkout2() {
         showConfirmButton: false,
         timer: 1500,
       });
+      console.log(TicketForm)
       axios
         .post(`${apiURL}/api/purchase/addticket`, TicketForm)
         .then((res) => {
