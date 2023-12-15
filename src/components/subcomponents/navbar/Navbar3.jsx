@@ -5,7 +5,7 @@ import axios from "axios";
 import Swal from 'sweetalert2';
 import './Navbar3.css';
 
-import firebaseApp from '../../../firebase/Credentials';
+import firebaseApp from '../../../firebase/Credentials.js';
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 const auth = getAuth(firebaseApp);

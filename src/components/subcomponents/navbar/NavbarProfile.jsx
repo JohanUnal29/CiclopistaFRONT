@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 import "./NavbarProfile.css";
 
-import firebaseApp from "../../../firebase/Credentials";
+import firebaseApp from "../../../firebase/Credentials.js";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 const auth = getAuth(firebaseApp);
