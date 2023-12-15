@@ -19,7 +19,7 @@ export default function Checkout2() {
   const [referencias_entrega, setReferencias_entrega] = useState("");
 
   //pago
-  const [ordenCompleta, setOrdenCompleta] = useState(false);
+  const [ordenCompleta, setOrdenCompleta] = useState(true);
   const [referenciaDePago, setReferenciaDePago] = useState("");
   const [hash, setHash] = useState("");
   const [namePay, setNamePay] = useState("");
@@ -80,23 +80,7 @@ export default function Checkout2() {
     vaciarCarrito();
   };
 
-  const wompiScript = `
-    <form>
-      <script
-        src="https://checkout.wompi.co/widget.js"
-        data-render="button"
-        data-public-key="pub_test_NWdg4THkkxq0UyrnBZVZDTSJa9LEIeA9"
-        data-currency="COP"
-        data-amount-in-cents={(precioTotal() * 100).toString()}
-        data-reference={referenciaDePago}
-        data-signature:integrity={hash}
-        data-customer-data:email={emailPay}
-        data-customer-data:full-name={namePay}
-        data-customer-data:phone-number={phonePay}
-      >
-      </script>
-    </form>
-  `;
+  const myHTML = '<div><p>Este es un fragmento de HTML en React</p></div>';
 
   return (
     <>
