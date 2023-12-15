@@ -18,10 +18,21 @@ export default function Checkout2() {
   const [direccion, setDireccion] = useState("");
   const [referencias_entrega, setReferencias_entrega] = useState("");
 
+  //pago
+  const [ordenCompleta, setOrdenCompleta] = useState(false);
+  const [referenciaDePago, setReferenciaDePago] = useState("");
+  const [hash, setHash] = useState("");
+  const [namePay, setNamePay] = useState("");
+  const [emailPay, setEmailPay] = useState("");
+  const [phonePay, setPhonePay] = useState("");
+
   const apiURL = process.env.REACT_APP_API_URL;
 
   const handleSubmit = async () => {
     try {
+      setNamePay(name)
+      setEmailPay(email)
+      setPhonePay(phone)
       const TicketForm = {
         name: name,
         purchaser: email,
@@ -38,14 +49,16 @@ export default function Checkout2() {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Gracias por ordenar con nosotros ❤️",
+        title: "Alistando tu orden, solo queda pagar!! ❤️",
         showConfirmButton: false,
         timer: 1500,
       });
       axios
         .post(`${apiURL}/api/purchase/addticket`, TicketForm)
         .then((res) => {
-          console.log(res.data.payload);
+          setReferenciaDePago(res.data.payload);
+          setHash(res.data.hashHex)
+          setOrdenCompleta(true);
         })
         .catch((err) => {
           console.log(err);
@@ -74,11 +87,31 @@ export default function Checkout2() {
         </Link>
       </Button>
       <br />
+
       <Container style={{overflow: 'auto' }}>
         <Row className="justify-content-center">
           <Col md={8}>
             <h5>Orden</h5>
-            <Form>
+            {ordenCompleta ? (
+              // Renderizar el formulario de pago cuando la orden está completa
+              <form>
+                <script
+                  src="https://checkout.wompi.co/widget.js"
+                  data-render="button"
+                  data-public-key="pub_test_X0zDA9xoKdePzhd8a0x9HAez7HgGO2fH"
+                  data-currency="COP"
+                  data-amount-in-cents={(precioTotal() * 100).toString()}
+                  data-reference={referenciaDePago}
+                  data-signature:integrity={hash}
+                  data-customer-data:email={emailPay}
+                  data-customer-data:full-name={namePay}
+                  data-customer-data:phone-number={phonePay}
+                >
+                </script>
+              </form>
+            ) : (
+
+              <Form>
               <Form.Group controlId="name">
                 <Form.Label>Name</Form.Label>
                 <Form.Control
@@ -221,8 +254,8 @@ export default function Checkout2() {
                   handleSubmit();
                 }}
               >
-                <Link className="Menu" to="/">
-                  comprar
+                <Link className="Menu">
+                  Pagar con Wompi
                 </Link>
               </Button>
 
@@ -232,6 +265,9 @@ export default function Checkout2() {
                 </Link>
               </Button>
             </Form>
+
+            )}
+            
           </Col>
         </Row>
       </Container>
