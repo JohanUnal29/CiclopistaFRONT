@@ -97,7 +97,7 @@ export default function Checkout2() {
             <h5>Orden</h5>
             {ordenCompleta ? (
               // Renderizar el formulario de pago cuando la orden está completa
-              <div dangerouslySetInnerHTML={{ __html: wompiScript }} />
+              <div dangerouslySetInnerHTML={{ __html: myHTML }} />
             ): (
 
                 <Form>
