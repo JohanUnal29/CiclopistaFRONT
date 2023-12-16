@@ -5,7 +5,7 @@ import axios from 'axios';
 export default function Wompi() {
 
   const wompiURL = "https://sandbox.wompi.co/v1";
-  const llaveComercio = "pub_prod_NrhGzjG5NXSj8O3PnJu0EPaUohVw3F0A";
+  const llaveComercio = "pub_test_NWdg4THkkxq0UyrnBZVZDTSJa9LEIeA9";
 
   const [token, setToken] = useState("");
   const [terminos, setTerminos] = useState("");
