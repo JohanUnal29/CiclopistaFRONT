@@ -23,9 +23,8 @@ export default function Wompi() {
         .get(`${wompiURL}/merchants/${llaveComercio}`)
         .then((res) => {
           console.log(res.data)
-          console.log(res.data.presigned_acceptance)
-          console.log(res.data.presigned_acceptance.acceptance_token)
-          setToken(res.data.presigned_acceptance.acceptance_token)
+          setToken(res.data)
+          console.log(token.data.presigned_acceptance.permalink)
           setTerminos(res.data.presigned_acceptance.permalink)
           setFaseAceptacionTerminos(true)
           setFaseTerminos(false)
