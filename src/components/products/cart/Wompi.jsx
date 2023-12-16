@@ -1,18 +1,95 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Button, Container } from 'react-bootstrap';
 
 export default function Wompi() {
+
+  const wompiURL = "https://sandbox.wompi.co/v1";
+  const llaveComercio = "pub_prod_NrhGzjG5NXSj8O3PnJu0EPaUohVw3F0A";
+
+  const [token, setToken] = useState("");
+  const [terminos, setTerminos] = useState("");
+
+  const [aceptaTerminos, setAceptaTerminos] = useState(false);
+
+  //fases
+  const [faseTerminos, setFaseTerminos] = useState(true);
+  const [faseAceptacionTerminos, setFaseAceptacionTerminos] = useState(false);
+
+  const TokenDeAceptación = async () => {
+    try {
+
+      axios
+        .get(`${wompiURL}/merchants/${llaveComercio}`)
+        .then((res) => {
+          setToken(res.data.presigned_acceptance.acceptance_token)
+          setTerminos(res.data.presigned_acceptance.permalink)
+          setFaseAceptacionTerminos(true)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const EnvioToken = async () => {
+    try {
+
+      axios.post(`${wompiURL}/merchants/${llaveComercio}`, {
+        // Datos que deseas enviar en el cuerpo
+        acceptance_token: token,
+        amount_in_cents: '22500000',
+        currency:'COP',
+        signature:'37c8407747e595535433ef8f6a811d853cd943046624a0ec04662b17bbf33bf5',
+        customer_email: "pepito_perez@example.com",
+        reference: "2322er3234ed4",
+        payment_method: 
+        {
+            type: "NEQUI",
+            phone_number: "3202420980"
+        }
+      }, {
+        headers: {
+          'Authorization': 'Bearer Token' + llaveComercio
+        }
+      })
+        .then((res) => {
+          setToken(res.data.presigned_acceptance.acceptance_token)
+          setTerminos(res.data.presigned_acceptance.permalink)
+          setFaseAceptacionTerminos(true)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
-    <form>
-        <script
-            src="https://checkout.wompi.co/widget.js"
-            data-render="button"
-            data-public-key="pub_test_X0zDA9xoKdePzhd8a0x9HAez7HgGO2fH"
-            data-currency="COP"
-            data-amount-in-cents="4950000"
-            data-reference="4XMPGKWWPKWQ"
-            data-signature:integrity="37c8407747e595535433ef8f6a811d853cd943046624a0ec04662b17bbf33bf5"
-            >
-        </script>
-    </form>
+    <Container>
+      {faseTerminos && (
+        <Button variant="primary" onClick={() => TokenDeAceptación()}>
+          Pagar con Wompi
+        </Button>
+      )}
+      {faseAceptacionTerminos && (
+        <><a href={terminos} target="_blank" rel="noopener noreferrer">
+          Términos y Condiciones
+        </a>
+          <Form.Check
+            type="checkbox"
+            label="Acepto los términos y condiciones"
+            checked={aceptaTerminos}
+            onChange={() => setAceptaTerminos(!aceptaTerminos)}
+          />
+          <Button variant="success" disabled={!aceptaTerminos} onClick={() => EnvioToken()}>
+            Pagar COn Nequi
+          </Button></>
+      )}
+
+
+    </Container>
   )
 }
