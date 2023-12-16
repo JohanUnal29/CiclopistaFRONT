@@ -76,7 +76,7 @@ export default function Wompi() {
         <><Button variant="primary" onClick={() => TokenDeAceptación()}>
           Pagar con Wompi
         </Button>
-        <Button variant="primary" onClick={() => console.log("guardando toke: " +token)}>
+        <Button variant="primary" onClick={() => console.log("guardando toke: " +token.presigned_acceptance)}>
             Imprimir token
           </Button></>
 
