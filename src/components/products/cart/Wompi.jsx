@@ -24,7 +24,6 @@ export default function Wompi() {
         .then((res) => {
           console.log(res.data)
           setToken(res.data)
-          console.log("guardando toke: " +token.data)
           setTerminos(res.data.presigned_acceptance.permalink)
           setFaseAceptacionTerminos(true)
           setFaseTerminos(false)
@@ -44,14 +43,14 @@ export default function Wompi() {
         // Datos que deseas enviar en el cuerpo
         acceptance_token: token,
         amount_in_cents: '22500000',
-        currency:'COP',
-        signature:'37c8407747e595535433ef8f6a811d853cd943046624a0ec04662b17bbf33bf5',
+        currency: 'COP',
+        signature: '37c8407747e595535433ef8f6a811d853cd943046624a0ec04662b17bbf33bf5',
         customer_email: "pepito_perez@example.com",
         reference: "2322er3234ed4",
-        payment_method: 
+        payment_method:
         {
-            type: "NEQUI",
-            phone_number: "3202420980"
+          type: "NEQUI",
+          phone_number: "3202420980"
         }
       }, {
         headers: {
@@ -74,9 +73,14 @@ export default function Wompi() {
   return (
     <Container>
       {faseTerminos && (
-        <Button variant="primary" onClick={() => TokenDeAceptación()}>
+        <><Button variant="primary" onClick={() => TokenDeAceptación()}>
           Pagar con Wompi
         </Button>
+        <Button variant="primary" onClick={() => console.log("guardando toke: " +token)}>
+            Imprimir token
+          </Button></>
+
+
       )}
       {faseAceptacionTerminos && (
         <><a href={terminos} target="_blank" rel="noopener noreferrer">
