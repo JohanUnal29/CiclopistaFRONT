@@ -24,7 +24,7 @@ export default function Wompi() {
         .then((res) => {
           console.log(res.data)
           setToken(res.data)
-          console.log(token.data.presigned_acceptance.permalink)
+          console.log("guardando toke: " +token.data)
           setTerminos(res.data.presigned_acceptance.permalink)
           setFaseAceptacionTerminos(true)
           setFaseTerminos(false)
