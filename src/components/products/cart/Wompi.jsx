@@ -25,6 +25,7 @@ export default function Wompi() {
           setToken(res.data.presigned_acceptance.acceptance_token)
           setTerminos(res.data.presigned_acceptance.permalink)
           setFaseAceptacionTerminos(true)
+          setFaseTerminos(false)
         })
         .catch((err) => {
           console.log(err);
