@@ -22,7 +22,7 @@ export default function Wompi() {
       axios
         .get(`${wompiURL}/merchants/${llaveComercio}`)
         .then((res) => {
-          console.log(res.data.data)
+          console.log(res.data.data.presigned_acceptance.acceptance_token)
           setToken(res.data)
           setTerminos(res.data.presigned_acceptance.permalink)
           setFaseAceptacionTerminos(true)
@@ -75,12 +75,6 @@ export default function Wompi() {
       {faseTerminos && (
         <><Button variant="primary" onClick={() => TokenDeAceptación()}>
           Pagar con Wompi
-        </Button>
-        <Button variant="primary" onClick={() => console.log("guardando toke: " +JSON.stringify(token))}>
-            Imprimir token
-        </Button>
-        <Button variant="primary" onClick={() => console.log("guardando toke: " +token.data)}>
-            Imprimir token
         </Button>
         </>
 
