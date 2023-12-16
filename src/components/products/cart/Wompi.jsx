@@ -22,7 +22,7 @@ export default function Wompi() {
       axios
         .get(`${wompiURL}/merchants/${llaveComercio}`)
         .then((res) => {
-          console.log(res.data)
+          console.log(res.data.data)
           setToken(res.data)
           setTerminos(res.data.presigned_acceptance.permalink)
           setFaseAceptacionTerminos(true)
