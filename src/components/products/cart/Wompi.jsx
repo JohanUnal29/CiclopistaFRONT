@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap';
 import axios from 'axios';
 
-export default function Wompi({referenciaDePago, hash}) {
+export default function Wompi({referenciaDePago, hash, amount}) {
 
   const wompiURL = "https://sandbox.wompi.co/v1";
   const llaveComercio = "pub_test_NWdg4THkkxq0UyrnBZVZDTSJa9LEIeA9";
@@ -43,7 +43,7 @@ export default function Wompi({referenciaDePago, hash}) {
       axios.post(`${wompiURL}/transactions`, {
         // Datos que deseas enviar en el cuerpo
         acceptance_token: token,
-        amount_in_cents: 2500000,
+        amount_in_cents: amount,
         currency: 'COP',
         signature: hash,
         customer_email: "pepito_perez@example.com",

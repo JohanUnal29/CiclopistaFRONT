@@ -27,6 +27,8 @@ export default function Checkout2() {
   const [emailPay, setEmailPay] = useState("");
   const [phonePay, setPhonePay] = useState("");
 
+  const [amount, setAmount] = useState("");
+
   const apiURL = process.env.REACT_APP_API_URL;
 
   const handleSubmit = async () => {
@@ -62,7 +64,10 @@ export default function Checkout2() {
           console.log(res.data.payload)
           setHash(res.data.hashHex)
           console.log(res.data.hashHex)
+          setAmount(res.data.amount)
+          console.log(res.data.amount)
           setOrdenCompleta(true);
+          
         })
         .catch((err) => {
           console.log(err);
@@ -100,7 +105,7 @@ export default function Checkout2() {
             <h5>Orden</h5>
             {ordenCompleta ? (
               // Renderizar el formulario de pago cuando la orden está completa
-              <Wompi referenciaDePago={referenciaDePago} hash={hash}/>
+              <Wompi referenciaDePago={referenciaDePago} hash={hash} amount={amount}/>
             ): (
 
                 <Form>
