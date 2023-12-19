@@ -20,7 +20,7 @@ export default function Checkout2() {
   const [referencias_entrega, setReferencias_entrega] = useState("");
 
   //pago
-  const [ordenCompleta, setOrdenCompleta] = useState(true);
+  const [ordenCompleta, setOrdenCompleta] = useState(false);
   const [referenciaDePago, setReferenciaDePago] = useState("");
   const [hash, setHash] = useState("");
   const [namePay, setNamePay] = useState("");
