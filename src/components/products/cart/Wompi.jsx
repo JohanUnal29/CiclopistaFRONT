@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap';
 import axios from 'axios';
 
-export default function Wompi(referenciaDePago, hash) {
+export default function Wompi({referenciaDePago, hash}) {
 
   const wompiURL = "https://sandbox.wompi.co/v1";
   const llaveComercio = "pub_test_NWdg4THkkxq0UyrnBZVZDTSJa9LEIeA9";

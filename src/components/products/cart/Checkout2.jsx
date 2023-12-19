@@ -100,7 +100,7 @@ export default function Checkout2() {
             <h5>Orden</h5>
             {ordenCompleta ? (
               // Renderizar el formulario de pago cuando la orden está completa
-              <Wompi/>
+              <Wompi referenciaDePago={referenciaDePago} hash={hash}/>
             ): (
 
                 <Form>
@@ -246,7 +246,7 @@ export default function Checkout2() {
               handleSubmit();
             }}
           >
-            <Wompi referenciaDePago={referenciaDePago} hash={hash}/>
+            Pagar con WOMPI
           </Button>
 
           <Button variant="danger">
