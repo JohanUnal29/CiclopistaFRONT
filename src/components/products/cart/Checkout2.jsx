@@ -244,9 +244,7 @@ export default function Checkout2() {
               handleSubmit();
             }}
           >
-            <Link className="Menu">
-              Pagar con Wompi
-            </Link>
+            <Wompi referenciaDePago={referenciaDePago} hash={hash}/>
           </Button>
 
           <Button variant="danger">
