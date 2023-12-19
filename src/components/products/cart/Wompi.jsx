@@ -38,7 +38,7 @@ export default function Wompi() {
   const EnvioToken = async () => {
     try {
 
-      axios.post(`${wompiURL}/merchants/${llaveComercio}`, {
+      axios.post(`${wompiURL}/transactions/${llaveComercio}`, {
         // Datos que deseas enviar en el cuerpo
         acceptance_token: token,
         amount_in_cents: '22500000',
