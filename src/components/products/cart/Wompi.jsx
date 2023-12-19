@@ -26,6 +26,7 @@ export default function Wompi(referenciaDePago, hash) {
           setTerminos(res.data.data.presigned_acceptance.permalink)
           setFaseAceptacionTerminos(true)
           setFaseTerminos(false)
+          console.log(referenciaDePago, hash)
         })
         .catch((err) => {
           console.log(err);
