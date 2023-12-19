@@ -22,9 +22,8 @@ export default function Wompi() {
       axios
         .get(`${wompiURL}/merchants/${llaveComercio}`)
         .then((res) => {
-          console.log(res.data.data.presigned_acceptance.acceptance_token)
-          setToken(res.data)
-          setTerminos(res.data.presigned_acceptance.permalink)
+          setToken(res.data.data.presigned_acceptance.acceptance_token)
+          setTerminos(res.data.data.presigned_acceptance.permalink)
           setFaseAceptacionTerminos(true)
           setFaseTerminos(false)
         })
@@ -58,9 +57,7 @@ export default function Wompi() {
         }
       })
         .then((res) => {
-          setToken(res.data.presigned_acceptance.acceptance_token)
-          setTerminos(res.data.presigned_acceptance.permalink)
-          setFaseAceptacionTerminos(true)
+          alert("token enviado")
         })
         .catch((err) => {
           console.log(err);
@@ -77,8 +74,6 @@ export default function Wompi() {
           Pagar con Wompi
         </Button>
         </>
-
-
       )}
       {faseAceptacionTerminos && (
         <><a href={terminos} target="_blank" rel="noopener noreferrer">
