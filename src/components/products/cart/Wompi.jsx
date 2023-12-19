@@ -51,11 +51,11 @@ export default function Wompi() {
           type: "NEQUI",
           phone_number: "3991111111"
         }
-      }, {
-        headers: {
-          'Authorization': 'Bearer Token' + llaveComercio
-        }
-      })
+      }) //{
+      //   headers: {
+      //     'Authorization': 'Bearer Token' + llaveComercio
+      //   }
+      // })
         .then((res) => {
           alert("token enviado")
         })
