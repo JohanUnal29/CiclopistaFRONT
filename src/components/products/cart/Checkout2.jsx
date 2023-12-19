@@ -59,7 +59,9 @@ export default function Checkout2() {
         .post(`${apiURL}/api/purchase/addticket`, TicketForm)
         .then((res) => {
           setReferenciaDePago(res.data.payload);
+          console.log(res.data.payload)
           setHash(res.data.hashHex)
+          console.log(res.data.hashHex)
           setOrdenCompleta(true);
         })
         .catch((err) => {
