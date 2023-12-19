@@ -49,7 +49,7 @@ export default function Wompi() {
         payment_method:
         {
           type: "NEQUI",
-          phone_number: "3202420980"
+          phone_number: "3991111111"
         }
       }, {
         headers: {
