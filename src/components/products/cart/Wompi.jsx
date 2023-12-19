@@ -43,7 +43,7 @@ export default function Wompi({referenciaDePago, hash}) {
       axios.post(`${wompiURL}/transactions`, {
         // Datos que deseas enviar en el cuerpo
         acceptance_token: token,
-        amount_in_cents: '22500000',
+        amount_in_cents: 2500000,
         currency: 'COP',
         signature: hash,
         customer_email: "pepito_perez@example.com",
