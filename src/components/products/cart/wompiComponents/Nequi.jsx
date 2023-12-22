@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Button, Col, Container, Form } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 import axios from 'axios';
 
 export default function Nequi({token, name, amount, hash, referenciaDePago}) {
