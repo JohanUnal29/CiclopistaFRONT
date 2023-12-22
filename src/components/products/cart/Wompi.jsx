@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap';
 import axios from 'axios';
 
-export default function Wompi({referenciaDePago, hash, amount}) {
+import Nequi from './wompiComponents/Nequi';
+
+export default function Wompi({ referenciaDePago, hash, amount, name }) {
 
   const wompiURL = "https://sandbox.wompi.co/v1";
   const llaveComercio = "pub_test_NWdg4THkkxq0UyrnBZVZDTSJa9LEIeA9";
@@ -16,6 +18,9 @@ export default function Wompi({referenciaDePago, hash, amount}) {
   const [faseTerminos, setFaseTerminos] = useState(true);
   const [faseAceptacionTerminos, setFaseAceptacionTerminos] = useState(false);
 
+  //pagos
+  const [nequi, setNequi] = useState(false)
+
   const TokenDeAceptación = async () => {
     try {
 
@@ -26,7 +31,7 @@ export default function Wompi({referenciaDePago, hash, amount}) {
           setTerminos(res.data.data.presigned_acceptance.permalink)
           setFaseAceptacionTerminos(true)
           setFaseTerminos(false)
-          console.log("toke: ",res.data.data.presigned_acceptance.acceptance_token)
+          console.log("toke: ", res.data.data.presigned_acceptance.acceptance_token)
           console.log("referencia y hash: ", referenciaDePago, hash)
         })
         .catch((err) => {
@@ -37,37 +42,10 @@ export default function Wompi({referenciaDePago, hash, amount}) {
     }
   };
 
-  const EnvioToken = async () => {
-    try {
-
-      axios.post(`${wompiURL}/transactions`, {
-        // Datos que deseas enviar en el cuerpo
-        acceptance_token: token,
-        amount_in_cents: amount,
-        currency: 'COP',
-        signature: hash,
-        customer_email: "pepito_perez@example.com",
-        reference: referenciaDePago,
-        payment_method:
-        {
-          type: "NEQUI",
-          phone_number: "3991111111"
-        }
-      },{
-        headers: {
-          "Authorization": `Bearer ${llaveComercio}`,
-        }
-      })
-        .then((res) => {
-          alert("token enviado")
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+  function NequiPay() {
+    setNequi(true);
+    setFaseAceptacionTerminos(false);
+  }
 
   return (
     <Container>
@@ -87,11 +65,15 @@ export default function Wompi({referenciaDePago, hash, amount}) {
             checked={aceptaTerminos}
             onChange={() => setAceptaTerminos(!aceptaTerminos)}
           />
-          <Button variant="success" disabled={!aceptaTerminos} onClick={() => EnvioToken()}>
-            Pagar COn Nequi
+          <Button variant="success" disabled={!aceptaTerminos} onClick={() => NequiPay()}>
+            Pagar con Nequi
           </Button></>
       )}
 
+      {nequi && (
+        <Nequi token={token} amount={amount} name={name} hash={hash} referenciaDePago={referenciaDePago}/>
+      )
+      }
 
     </Container>
   )
