@@ -31,9 +31,6 @@ export default function Nequi({token, name, amount, hash, referenciaDePago}) {
                 customer_data:{
                     phone_number: phonePay,
                     full_name: namePay
-                },
-                shipping_address:{
-                    name: name
                 }
             }, {
                 headers: {
