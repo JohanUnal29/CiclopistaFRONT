@@ -21,14 +21,19 @@ export default function Nequi({token, name, amount, hash, referenciaDePago}) {
                 amount_in_cents: amount,
                 currency: 'COP',
                 signature: hash,
-                shipping_name: name,
-                customer_fullName: namePay,
                 customer_email: emailPay,
                 reference: referenciaDePago,
                 payment_method:
                 {
                     type: "NEQUI",
                     phone_number: phonePay
+                },
+                customer_data:{
+                    phone_number: phonePay,
+                    full_name: namePay
+                },
+                shipping_address:{
+                    name: name
                 }
             }, {
                 headers: {
