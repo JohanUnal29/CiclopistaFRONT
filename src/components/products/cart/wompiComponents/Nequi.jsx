@@ -34,7 +34,7 @@ export default function Nequi({token, name, amount, hash, referenciaDePago}) {
                 },
                 shipping_address:{
                     address_line_1:"xd",
-                    country: "Colombia",
+                    country: "CO",
                     city: "Soacha",
                     phone_number: "3202420980",
                     region: "Cundinamarca"
