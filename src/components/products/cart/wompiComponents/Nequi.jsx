@@ -31,14 +31,14 @@ export default function Nequi({token, name, amount, hash, referenciaDePago}) {
                 customer_data:{
                     phone_number: phonePay,
                     full_name: namePay
-                },
-                shipping_address:{
-                    address_line_1:"xd",
-                    country: "CO",
-                    city: "Soacha",
-                    phone_number: "3202420980",
-                    region: "Cundinamarca"
                 }
+                // shipping_address:{
+                //     address_line_1:"xd",
+                //     country: "CO",
+                //     city: "Soacha",
+                //     phone_number: "3202420980",
+                //     region: "Cundinamarca"
+                // }
             }, {
                 headers: {
                     "Authorization": `Bearer ${llaveComercio}`,
