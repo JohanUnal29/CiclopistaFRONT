@@ -47,6 +47,7 @@ export default function Nequi({token, name, amount, hash, referenciaDePago}) {
                 .then((res) => {
                     alert("token enviado")
                     console.log(res)
+                    console.log(res.data.data.id)
                 })
                 .catch((err) => {
                     console.log(err);
