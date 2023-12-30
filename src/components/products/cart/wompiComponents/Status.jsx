@@ -3,8 +3,9 @@ import { Container,Table } from 'react-bootstrap';
 import axios from 'axios';
 import { FcApproval, FcHighPriority, FcInfo } from "react-icons/fc";
 
-export default function Status(setEsconder, wompiURL, idTransaccion, name, namePay, emailPay) {
+export default function Status(setEsconder, idTransaccion, name, namePay, emailPay) {
 
+  const wompiURL = "https://sandbox.wompi.co/v1";
   const tab = '\u00A0';
 
   const [transaccion, setTransaccion] = useState("")

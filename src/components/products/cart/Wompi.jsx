@@ -39,6 +39,7 @@ export default function Wompi({ referenciaDePago, hash, amount, name }) {
           setTerminos(res.data.data.presigned_acceptance.permalink)
           setFaseAceptacionTerminos(true)
           setFaseTerminos(false)
+          setIdTransaccion(res.data.data.id)
           console.log("toke: ", res.data.data.presigned_acceptance.acceptance_token)
           console.log("referencia y hash: ", referenciaDePago, hash)
         })
@@ -84,7 +85,7 @@ export default function Wompi({ referenciaDePago, hash, amount, name }) {
       }
 
       {esconder &&(
-        <Status setEsconder={setEsconder} wompiURL={wompiURL} idTransaccion={idTransaccion} name={name} namePay={namePay2} emailPay={emailPay2}/>
+        <Status setEsconder={setEsconder} idTransaccion={idTransaccion} name={name} namePay={namePay2} emailPay={emailPay2}/>
       )}
 
     </Container>
