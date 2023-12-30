@@ -22,7 +22,7 @@ export default function Status(setEsconder, idTransaccion, name, namePay, emailP
       try {
 
         axios
-          .get(`${wompiURL}/transactions/${idTransaccion}`)
+        .get(`${wompiURL}/merchants/${idTransaccion}`)
           .then((res) => {
             setTransaccion(res.data.data.id)
             setReferencia(res.data.data.reference)
