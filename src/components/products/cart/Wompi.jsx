@@ -52,7 +52,6 @@ export default function Wompi({ referenciaDePago, hash, amount, name }) {
 
   function NequiPay() {
     setNequi(true);
-    setEsconder(true);
     setFaseAceptacionTerminos(false);
   }
 
