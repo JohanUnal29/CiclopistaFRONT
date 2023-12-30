@@ -3,6 +3,7 @@ import { Button, Container, Form } from 'react-bootstrap';
 import axios from 'axios';
 
 import Nequi from './wompiComponents/Nequi';
+import Status from './wompiComponents/Status';
 
 export default function Wompi({ referenciaDePago, hash, amount, name }) {
 
@@ -17,6 +18,13 @@ export default function Wompi({ referenciaDePago, hash, amount, name }) {
   //fases
   const [faseTerminos, setFaseTerminos] = useState(true);
   const [faseAceptacionTerminos, setFaseAceptacionTerminos] = useState(false);
+
+  //esconder medios de pago y activar status
+  const [esconder, setEsconder] = useState(false);
+  const [idTransaccion, setIdTransaccion] = useState("");
+  const [namePay2, setNamePay2] = useState("");
+  const [emailPay2, setEmailPay2] = useState("");
+  const [phonePay2, setPhonePay2] = useState("");
 
   //pagos
   const [nequi, setNequi] = useState(false)
@@ -44,6 +52,7 @@ export default function Wompi({ referenciaDePago, hash, amount, name }) {
 
   function NequiPay() {
     setNequi(true);
+    setEsconder(true);
     setFaseAceptacionTerminos(false);
   }
 
@@ -70,10 +79,14 @@ export default function Wompi({ referenciaDePago, hash, amount, name }) {
           </Button></>
       )}
 
-      {nequi && (
-        <Nequi token={token} amount={amount} name={name} hash={hash} referenciaDePago={referenciaDePago}/>
+      {(nequi && !esconder) && (
+        <Nequi token={token} amount={amount} name={name} hash={hash} referenciaDePago={referenciaDePago} setEsconder={setEsconder} setIdTransaccion={setIdTransaccion} setNamePay2={setEmailPay2} setEmailPay2={setEmailPay2} />
       )
       }
+
+      {esconder &&(
+        <Status setEsconder={setEsconder} wompiURL={wompiURL} idTransaccion={idTransaccion} name={name} namePay={namePay2} emailPay={emailPay2}/>
+      )}
 
     </Container>
   )

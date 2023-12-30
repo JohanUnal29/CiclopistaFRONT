@@ -3,7 +3,7 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-export default function Nequi({token, name, amount, hash, referenciaDePago}) {
+export default function Nequi({ token, name, amount, hash, referenciaDePago, setEsconder, setIdTransaccion, setNamePay2, setEmailPay2 }) {
 
     const wompiURL = "https://sandbox.wompi.co/v1";
     const llaveComercio = "pub_test_NWdg4THkkxq0UyrnBZVZDTSJa9LEIeA9";
@@ -12,9 +12,12 @@ export default function Nequi({token, name, amount, hash, referenciaDePago}) {
     const [emailPay, setEmailPay] = useState("");
     const [phonePay, setPhonePay] = useState("");
 
+    //vista confirma pago
+    const [confirmaPago, setConfirmaPago] = useState(false)
+
     const EnvioTokenNequi = async () => {
         try {
-
+            setConfirmaPago(true)
             axios.post(`${wompiURL}/transactions`, {
                 // Datos que deseas enviar en el cuerpo
                 acceptance_token: token,
@@ -28,7 +31,7 @@ export default function Nequi({token, name, amount, hash, referenciaDePago}) {
                     type: "NEQUI",
                     phone_number: phonePay
                 },
-                customer_data:{
+                customer_data: {
                     phone_number: phonePay,
                     full_name: namePay
                 }
@@ -48,6 +51,8 @@ export default function Nequi({token, name, amount, hash, referenciaDePago}) {
                     alert("token enviado")
                     console.log(res)
                     console.log(res.data.data.id)
+                    setIdTransaccion(res.data.data.id)
+                    setEsconder(true)
                 })
                 .catch((err) => {
                     console.log(err);
@@ -60,54 +65,73 @@ export default function Nequi({token, name, amount, hash, referenciaDePago}) {
     return (
         <Container>
             <Col>
-                <Row>
-                    <Form>
-                        <Form.Group controlId="namePay">
-                            <Form.Label>Nombre Pagador</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Name"
-                                value={namePay}
-                                onChange={(e) => setNamePay(e.target.value)}
-                            />
-                        </Form.Group>
+                {confirmaPago &&
+                    (
+                        <>
+                            <Col><img src="../../../../Img/notificacion.png" alt='notificación nequi' /></Col>
+                            <Col>Para terminar la transacción ve a tu aplicación Nequi y <b>
+                                autoriza el pago desde el centro de notificaciones</b>
+                            </Col></>
+                    )
+                }
+                {!confirmaPago &&
+                    (
+                        <Row>
+                            <Form>
+                                <Form.Group controlId="namePay">
+                                    <Form.Label>Nombre Pagador</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Name"
+                                        value={namePay}
+                                        onChange={(e) => {
+                                            setNamePay(e.target.value);
+                                            setNamePay2(e.target.value);
+                                        }}
+                                    />
+                                </Form.Group>
 
-                        <Form.Group controlId="emailPay">
-                            <Form.Label>Email Pagador</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Email"
-                                value={emailPay}
-                                onChange={(e) => setEmailPay(e.target.value)}
-                            />
-                        </Form.Group>
+                                <Form.Group controlId="emailPay">
+                                    <Form.Label>Email Pagador</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Email"
+                                        value={emailPay}
+                                        onChange={(e) => {
+                                            setEmailPay(e.target.value);
+                                            setEmailPay2(e.target.value);
+                                        }}
+                                    />
+                                </Form.Group>
 
-                        <Form.Group controlId="phonePay">
-                            <Form.Label>Número Nequi Pagador</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Phone"
-                                value={phonePay}
-                                onChange={(e) => setPhonePay(e.target.value)}
-                            />
-                        </Form.Group>
-                    </Form>
+                                <Form.Group controlId="phonePay">
+                                    <Form.Label>Número Nequi Pagador</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Phone"
+                                        value={phonePay}
+                                        onChange={(e) => setPhonePay(e.target.value)}
+                                    />
+                                </Form.Group>
+                            </Form>
 
-                    <Button
-                        variant="success"
-                        onClick={() => {
-                            EnvioTokenNequi();
-                        }}
-                    >
-                        Pagar Con Nequi
-                    </Button>
+                            <Button
+                                variant="success"
+                                onClick={() => {
+                                    EnvioTokenNequi();
+                                }}
+                            >
+                                Pagar Con Nequi
+                            </Button>
 
-                    <Button variant="danger">
-                        <Link className="Menu" to="/">
-                            Cancelar
-                        </Link>
-                    </Button>
-                </Row>
+                            <Button variant="danger">
+                                <Link className="Menu" to="/">
+                                    Cancelar
+                                </Link>
+                            </Button>
+                        </Row>
+                    )
+                }
             </Col>
         </Container>
     )
