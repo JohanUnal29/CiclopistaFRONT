@@ -4,6 +4,9 @@ import axios from 'axios';
 import { FcApproval, FcHighPriority, FcInfo } from "react-icons/fc";
 
 export default function Status(setEsconder, wompiURL, idTransaccion, name, namePay, emailPay) {
+
+  const tab = '\u00A0';
+
   const [transaccion, setTransaccion] = useState("")
   const [referencia, setReferencia] = useState("")
   const [email, setEmail] = useState(emailPay)
