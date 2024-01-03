@@ -10,9 +10,9 @@ export default function Status(setEsconder, name) {
   const wompiURL = "https://sandbox.wompi.co/v1";
   const tab = '\u00A0';
 
-  const transaccionId = useSelector((state) => state.counter.value.transactionId)
-  const namePay = useSelector((state) => state.counter.value.namePay)
-  const emailPay = useSelector((state) => state.counter.value.emailPay)
+  const transaccionId = useSelector((state) => state.wompi.value.transactionId)
+  const namePay = useSelector((state) => state.wompi.value.namePay)
+  const emailPay = useSelector((state) => state.wompi.value.emailPay)
 
   const [transaccion, setTransaccion] = useState("")
   const [referencia, setReferencia] = useState("")
