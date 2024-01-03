@@ -3,15 +3,19 @@ import { Container,Table } from 'react-bootstrap';
 import axios from 'axios';
 import { FcApproval, FcHighPriority, FcInfo } from "react-icons/fc";
 
-export default function Status(setEsconder, idTransaccion, name, namePay, emailPay) {
+import {useSelector} from 'react-redux'
+
+export default function Status(setEsconder, name) {
 
   const wompiURL = "https://sandbox.wompi.co/v1";
   const tab = '\u00A0';
 
+  const transaccionId = useSelector((state) => state.counter.value.transactionId)
+  const namePay = useSelector((state) => state.counter.value.namePay)
+  const emailPay = useSelector((state) => state.counter.value.emailPay)
+
   const [transaccion, setTransaccion] = useState("")
   const [referencia, setReferencia] = useState("")
-  const [email, setEmail] = useState(emailPay)
-  const [nombre, setNombre] = useState(namePay)
   const [numero, setNumero] = useState("")
   const [nombreComprador, setNombreComprador] = useState(name)
   const [status, setStatus] = useState("");
@@ -22,7 +26,7 @@ export default function Status(setEsconder, idTransaccion, name, namePay, emailP
       try {
 
         axios
-        .get(`${wompiURL}/merchants/${idTransaccion}`)
+        .get(`${wompiURL}/transactions/${transaccionId}`)
           .then((res) => {
             setTransaccion(res.data.data.id)
             setReferencia(res.data.data.reference)
@@ -67,7 +71,7 @@ export default function Status(setEsconder, idTransaccion, name, namePay, emailP
             <td><b>Referencia</b>{tab}{tab}{tab}{referencia}</td>
           </tr>
           <tr>
-            <td><b>Email</b>{tab}{tab}{tab}{email}</td>
+            <td><b>Email</b>{tab}{tab}{tab}{emailPay}</td>
           </tr>
         </tbody>
         <tr style={{ backgroundColor: 'green' }}>
@@ -75,7 +79,7 @@ export default function Status(setEsconder, idTransaccion, name, namePay, emailP
         </tr>
         <tbody>
           <tr>
-            <td><b>Nombre</b>{tab}{tab}{tab}{nombre}</td>
+            <td><b>Nombre</b>{tab}{tab}{tab}{namePay}</td>
           </tr>
           <tr>
             <td><b>Teléfono</b>{tab}{tab}{tab}{numero}</td>

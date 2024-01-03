@@ -12,40 +12,43 @@ import UserListContainer from "./components/users/userContainer/UserListContaine
 import Checkout2 from "./components/products/cart/Checkout2";
 import PageCart from "./components/products/cart/PageCart";
 import { AuthProvider } from "./context/AuthContext";
+import { Provider } from 'react-redux'
 
 
 
 function App() {
   return (
     <div>
-      <AuthProvider>
-        <CartProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route exact path="/" element={<Home />} />
-              <Route
-                exact
-                path="/products"
-                element={<ProductListContainer />}
-              />
-              <Route
-                path="/products/:categoria"
-                element={<ProductListContainer />}
-              />
-              <Route path="/product/:id" element={<ProductDetailContainer />} />
-              <Route path="/orders" element={<OrderListContainer />} />
-              <Route path="/orders/:status" element={<OrderListContainer />} />
-              <Route path="/orderr/:id" element={<OrderDetailContainer />} />
-              <Route path="/ProfilePage" element={<ProfilePage />} />
-              <Route path="/UserManager" element={<UserListContainer />} />
-              <Route path="/CheckOut" element={<Checkout2/>} />
-              <Route path="/PageCart" element={<PageCart/>} />
-            </Routes>
-          </BrowserRouter>
+      <Provider>
+        <AuthProvider>
+          <CartProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route exact path="/" element={<Home />} />
+                <Route
+                  exact
+                  path="/products"
+                  element={<ProductListContainer />}
+                />
+                <Route
+                  path="/products/:categoria"
+                  element={<ProductListContainer />}
+                />
+                <Route path="/product/:id" element={<ProductDetailContainer />} />
+                <Route path="/orders" element={<OrderListContainer />} />
+                <Route path="/orders/:status" element={<OrderListContainer />} />
+                <Route path="/orderr/:id" element={<OrderDetailContainer />} />
+                <Route path="/ProfilePage" element={<ProfilePage />} />
+                <Route path="/UserManager" element={<UserListContainer />} />
+                <Route path="/CheckOut" element={<Checkout2 />} />
+                <Route path="/PageCart" element={<PageCart />} />
+              </Routes>
+            </BrowserRouter>
 
-          <Footer />
-        </CartProvider>
-      </AuthProvider>
+            <Footer />
+          </CartProvider>
+        </AuthProvider>
+      </Provider>
     </div>
   );
 }

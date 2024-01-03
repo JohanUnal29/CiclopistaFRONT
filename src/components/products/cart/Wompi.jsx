@@ -21,10 +21,6 @@ export default function Wompi({ referenciaDePago, hash, amount, name }) {
 
   //esconder medios de pago y activar status
   const [esconder, setEsconder] = useState(false);
-  const [idTransaccion, setIdTransaccion] = useState("");
-  const [namePay2, setNamePay2] = useState("");
-  const [emailPay2, setEmailPay2] = useState("");
-  const [phonePay2, setPhonePay2] = useState("");
 
   //pagos
   const [nequi, setNequi] = useState(false)
@@ -39,7 +35,6 @@ export default function Wompi({ referenciaDePago, hash, amount, name }) {
           setTerminos(res.data.data.presigned_acceptance.permalink)
           setFaseAceptacionTerminos(true)
           setFaseTerminos(false)
-          setIdTransaccion(res.data.data.id)
           console.log("toke: ", res.data.data.presigned_acceptance.acceptance_token)
           console.log("referencia y hash: ", referenciaDePago, hash)
         })
@@ -80,12 +75,12 @@ export default function Wompi({ referenciaDePago, hash, amount, name }) {
       )}
 
       {(nequi && !esconder) && (
-        <Nequi token={token} amount={amount} name={name} hash={hash} referenciaDePago={referenciaDePago} setEsconder={setEsconder} setIdTransaccion={setIdTransaccion} setNamePay2={setEmailPay2} setEmailPay2={setEmailPay2} />
+        <Nequi token={token} amount={amount} name={name} hash={hash} referenciaDePago={referenciaDePago} setEsconder={setEsconder} />
       )
       }
 
       {esconder &&(
-        <Status setEsconder={setEsconder} idTransaccion={idTransaccion} name={name} namePay={namePay2} emailPay={emailPay2}/>
+        <Status setEsconder={setEsconder} name={name}/>
       )}
 
     </Container>

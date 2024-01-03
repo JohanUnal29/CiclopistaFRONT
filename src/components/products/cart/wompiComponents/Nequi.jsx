@@ -3,7 +3,12 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-export default function Nequi({ token, name, amount, hash, referenciaDePago, setEsconder, setIdTransaccion, setNamePay2, setEmailPay2 }) {
+import { useDispatch } from 'react-redux'
+import { setEmailPay2, setNamePay2, setTransactionId } from '../../../../features/wompi/WompiSlice';
+
+export default function Nequi({ token, name, amount, hash, referenciaDePago, setEsconder}) {
+
+    const dispatch = useDispatch()
 
     const wompiURL = "https://sandbox.wompi.co/v1";
     const llaveComercio = "pub_test_NWdg4THkkxq0UyrnBZVZDTSJa9LEIeA9";
@@ -51,7 +56,7 @@ export default function Nequi({ token, name, amount, hash, referenciaDePago, set
                     alert("token enviado")
                     console.log(res)
                     console.log(res.data.data.id)
-                    setIdTransaccion(res.data.data.id)
+                    dispatch(setTransactionId(res.data.data.id))
                     setEsconder(true)
                 })
                 .catch((err) => {
@@ -86,7 +91,7 @@ export default function Nequi({ token, name, amount, hash, referenciaDePago, set
                                         value={namePay}
                                         onChange={(e) => {
                                             setNamePay(e.target.value);
-                                            setNamePay2(e.target.value);
+                                            dispatch(setNamePay2(e.target.value));
                                         }}
                                     />
                                 </Form.Group>
@@ -99,7 +104,7 @@ export default function Nequi({ token, name, amount, hash, referenciaDePago, set
                                         value={emailPay}
                                         onChange={(e) => {
                                             setEmailPay(e.target.value);
-                                            setEmailPay2(e.target.value);
+                                            dispatch(setEmailPay2(e.target.value));
                                         }}
                                     />
                                 </Form.Group>
