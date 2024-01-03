@@ -7,8 +7,8 @@ import Status from './wompiComponents/Status';
 
 export default function Wompi({ referenciaDePago, hash, amount, name }) {
   
-  const wompiURL = process.env.wompiURL;
-  const llaveComercio = process.env.llaveComercio;
+  const wompiURL = process.env.WOMPI_URL;
+  const llaveComercio = process.env.LLAVE_COMERCIO;
 
   const [token, setToken] = useState("");
   const [terminos, setTerminos] = useState("");

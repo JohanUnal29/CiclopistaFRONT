@@ -7,7 +7,8 @@ import { useSelector } from 'react-redux'
 
 export default function Status({ setEsconder, name }) {
 
-  const wompiURL = process.env.wompiURL;
+  const wompiURL = process.env.WOMPI_URL;
+
   const tab = '\u00A0';
 
   const transaccionId = useSelector((state) => state.wompi.value.transactionId)

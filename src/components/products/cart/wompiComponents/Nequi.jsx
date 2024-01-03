@@ -6,12 +6,12 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux'
 import { setEmailPay2, setNamePay2, setTransactionId } from '../../../../features/wompi/WompiSlice';
 
-export default function Nequi({ token, name, amount, hash, referenciaDePago, setEsconder}) {
+export default function Nequi({ token, name, amount, hash, referenciaDePago, setEsconder }) {
 
     const dispatch = useDispatch()
 
-    const wompiURL = process.env.wompiURL;
-    const llaveComercio = process.env.llaveComercio;
+    const wompiURL = process.env.WOMPI_URL;
+    const llaveComercio = process.env.LLAVE_COMERCIO;
 
     const [namePay, setNamePay] = useState("");
     const [emailPay, setEmailPay] = useState("");
