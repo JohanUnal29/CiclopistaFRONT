@@ -4,6 +4,6 @@ import wompiReducer from "../../src/features/wompi/WompiSlice.jsx"
 
 export const store = configureStore({
     reducer: {
-        counter: wompiReducer
+        wompi: wompiReducer
     },
 })

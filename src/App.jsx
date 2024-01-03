@@ -13,13 +13,13 @@ import Checkout2 from "./components/products/cart/Checkout2";
 import PageCart from "./components/products/cart/PageCart";
 import { AuthProvider } from "./context/AuthContext";
 import { Provider } from 'react-redux'
-
+import { store } from "./app/Store.jsx";
 
 
 function App() {
   return (
     <div>
-      <Provider>
+      <Provider store={store}>
         <AuthProvider>
           <CartProvider>
             <BrowserRouter>
