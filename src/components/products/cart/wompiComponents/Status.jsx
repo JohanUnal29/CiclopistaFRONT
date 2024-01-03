@@ -5,7 +5,7 @@ import { FcApproval, FcHighPriority, FcInfo } from "react-icons/fc";
 
 import {useSelector} from 'react-redux'
 
-export default function Status(setEsconder, name) {
+export default function Status({setEsconder, name}) {
 
   const wompiURL = "https://sandbox.wompi.co/v1";
   const tab = '\u00A0';
