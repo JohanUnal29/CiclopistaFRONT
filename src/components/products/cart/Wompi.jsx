@@ -80,7 +80,7 @@ export default function Wompi({ referenciaDePago, hash, amount, name }) {
       }
 
       {esconder &&(
-        <Status setEsconder={setEsconder} name={name}/>
+        <Status name={name}/>
       )}
 
     </Container>
