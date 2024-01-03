@@ -6,9 +6,9 @@ import Nequi from './wompiComponents/Nequi';
 import Status from './wompiComponents/Status';
 
 export default function Wompi({ referenciaDePago, hash, amount, name }) {
-
-  const wompiURL = "https://sandbox.wompi.co/v1";
-  const llaveComercio = "pub_test_NWdg4THkkxq0UyrnBZVZDTSJa9LEIeA9";
+  
+  const wompiURL = process.env.wompiURL;
+  const llaveComercio = process.env.llaveComercio;
 
   const [token, setToken] = useState("");
   const [terminos, setTerminos] = useState("");

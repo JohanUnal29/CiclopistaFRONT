@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Container,Table } from 'react-bootstrap';
+import { Container, Table } from 'react-bootstrap';
 import axios from 'axios';
 import { FcApproval, FcHighPriority, FcInfo } from "react-icons/fc";
 
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
 
-export default function Status({setEsconder, name}) {
+export default function Status({ setEsconder, name }) {
 
-  const wompiURL = "https://sandbox.wompi.co/v1";
+  const wompiURL = process.env.wompiURL;
   const tab = '\u00A0';
 
   const transaccionId = useSelector((state) => state.wompi.value.transactionId)
@@ -24,43 +24,46 @@ export default function Status({setEsconder, name}) {
   useEffect(() => {
     const consultarTransaccion = async () => {
       try {
+        const response = await axios.get(`${wompiURL}/transactions/${transaccionId}`);
+        const data = response.data.data;
 
-        axios
-        .get(`${wompiURL}/transactions/${transaccionId}`)
-          .then((res) => {
-            setTransaccion(res.data.data.id)
-            setReferencia(res.data.data.reference)
-            setNumero(res.data.data.payment_method.phone_number)
-            setStatus(res.data.data.status)
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        setTransaccion(data.id);
+        setReferencia(data.reference);
+        setNumero(data.payment_method.phone_number);
+        setStatus(data.status);
+
+        if (data.status !== 'APPROVED' && data.status !== 'DECLINED') {
+          // Si el estado no es "APPROVED" ni "DECLINED", vuelve a consultar después de un tiempo (por ejemplo, 5 segundos)
+          setTimeout(consultarTransaccion, 5000);
+        }
       } catch (error) {
-        alert(error.message);
+        console.error(error);
+        // Manejar el error según tus necesidades
       }
     };
 
+    // Inicia la consulta
     consultarTransaccion();
-  }, []);
+  }, [transaccionId]);
+
 
   return (
     <Container>
-      {status==="APPROVED" &&(
-        <div><FcApproval/> Transacción Aprobada</div>
+      {status === "APPROVED" && (
+        <div><FcApproval /> Transacción Aprobada</div>
       )}
-      {(status==="DECLINED" && status==="PENDING") &&(
-        <div><FcHighPriority/> Transacción Aprobada</div>
+      {status === "DECLINED" && (
+        <div><FcHighPriority /> Transacción Rechazada, intenta de nuevo con el mismo u otro medio de pago</div>
       )}
-      {status==="PENDING" &&(
-        <div><FcHighPriority/> Transacción Pendiente <br/> 
-        Durante la siguiente hora se notificarar por correo el estado final</div>
+      {status === "PENDING" && (
+        <div><FcHighPriority /> Transacción Pendiente <br />
+          Si desea puede esperar o durante la siguiente hora se notificara por correo el estado final</div>
       )}
       <Table striped style={{ textAlign: 'center' }}>
-        <tr style={{ backgroundColor: 'red' }}>
+        <tr style={{ backgroundColor: '#FF4545' }}>
           <th colSpan={1}>Pedido a Nombre de {nombreComprador}</th>
         </tr>
-        <tr style={{ backgroundColor: 'green' }}>
+        <tr style={{ backgroundColor: '#A5FF45' }}>
           <th colSpan={1}>Información de la transacción</th>
         </tr>
         <tbody style={{ textAlign: 'center' }}>
@@ -74,7 +77,7 @@ export default function Status({setEsconder, name}) {
             <td><b>Email</b>{tab}{tab}{tab}{emailPay}</td>
           </tr>
         </tbody>
-        <tr style={{ backgroundColor: 'green' }}>
+        <tr style={{ backgroundColor: '#A5FF45' }}>
           <th colSpan={1}>Información del pagador</th>
         </tr>
         <tbody>
