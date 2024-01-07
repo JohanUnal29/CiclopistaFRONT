@@ -10,6 +10,8 @@ export default function Wompi({ referenciaDePago, hash, amount, name }) {
   const wompiURL = process.env.REACT_APP_API_URL;
   const llaveComercio = process.env.LLAVE_COMERCIO;
 
+  console.log(process.env.REACT_APP_API_URL)
+
   const [token, setToken] = useState("");
   const [terminos, setTerminos] = useState("");
 
