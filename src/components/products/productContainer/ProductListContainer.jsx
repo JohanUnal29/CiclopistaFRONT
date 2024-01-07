@@ -13,7 +13,7 @@ const ProductListContainer = () => {
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
 
-  const apiURL = process.env.REACT_APP_API_URL;
+  const apiURL = process.env.REACT_APP_API_URL2;
 
   useEffect(() => {
     if (categoria) {
