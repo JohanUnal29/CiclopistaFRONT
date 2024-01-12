@@ -45,6 +45,6 @@ export const wompiSlice = createSlice({
     }
 })
 
-export const { setTransactionId, setNamePay2, setEmailPay2, setNameOrder, setAddressOrder, setPhoneOrder, setRegionOrder, setCountryOrder} = wompiSlice.actions
+export const { setTransactionId, setNamePay2, setEmailPay2, setNameOrder, setAddressOrder, setPhoneOrder, setRegionOrder, setCityOrder} = wompiSlice.actions
 
 export default wompiSlice.reducer

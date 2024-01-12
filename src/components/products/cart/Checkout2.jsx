@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import Wompi from "./Wompi.jsx";
 
 import { useDispatch } from 'react-redux'
+import { setAddressOrder, setNameOrder, setPhoneOrder, setRegionOrder, setCityOrder } from "../../../features/wompi/WompiSlice.jsx";
 
 export default function Checkout2() {
   const { carrito, precioTotal, vaciarCarrito } = useContext(CartContext);
