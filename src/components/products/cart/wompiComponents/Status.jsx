@@ -20,6 +20,7 @@ export default function Status({ setEsconder, name }) {
   const [numero, setNumero] = useState("")
   const [nombreComprador, setNombreComprador] = useState(name)
   const [status, setStatus] = useState("");
+  const [status_message, setStatus_message] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,8 +33,9 @@ export default function Status({ setEsconder, name }) {
         setReferencia(data.reference);
         setNumero(data.payment_method.phone_number);
         setStatus(data.status);
+        setStatus_message(data.status_message)
 
-        if (data.status !== 'APPROVED' && data.status !== 'DECLINED') {
+        if (data.status !== 'APPROVED' && data.status !== 'DECLINED' && data.status !== 'ERROR') {
           // Si el estado no es "APPROVED" ni "DECLINED", vuelve a consultar después de un tiempo (por ejemplo, 5 segundos)
           setTimeout(consultarTransaccion, 5000);
         }
@@ -53,8 +55,11 @@ export default function Status({ setEsconder, name }) {
       {status === "APPROVED" && (
         <div><FcApproval /> Transacción Aprobada</div>
       )}
-      {status === "DECLINED" && (
+      {(status === "DECLINED") && (
         <div><FcHighPriority /> Transacción Rechazada, intenta de nuevo con el mismo u otro medio de pago</div>
+      )}
+      {(status === "ERROR") && (
+        <div><FcHighPriority /> {status_message}</div>
       )}
       {status === "PENDING" && (
         <div><FcHighPriority /> Transacción Pendiente <br />
