@@ -3,12 +3,19 @@ import { Container, Table } from 'react-bootstrap';
 import axios from 'axios';
 import { FcApproval, FcHighPriority, FcInfo } from "react-icons/fc";
 
-import { PDFDownloadLink, Document } from "@react-pdf/renderer";
+import { PDFDownloadLink} from "@react-pdf/renderer";
 
-import { useSelector } from 'react-redux'
-import PDF from './PDF';
+import { useSelector, useDispatch } from 'react-redux'
+
+import { setStatus, setReferencia, setNumero, setStatus_message} from '../../../../features/wompi/WompiSlice';
+
+import pdfContent from "./pdfContent.jsx"
+
+const dispatch = useDispatch()
 
 export default function Status({ setEsconder }) {
+
+  const dispatch = useDispatch()
 
   const wompiURL = process.env.REACT_APP_API_URL2;
 
@@ -35,9 +42,13 @@ export default function Status({ setEsconder }) {
 
         setTransaccion(data.id);
         setReferencia(data.reference);
+        dispatch(setReferencia(data.reference));
         setNumero(data.payment_method.phone_number);
+        dispatch(setNumero(data.payment_method.phone_number));
         setStatus(data.status);
+        dispatch(setStatus(data.status));
         setStatus_message(data.status_message)
+        dispatch(setStatus_message(data.status_message));
 
         if (data.status !== 'APPROVED' && data.status !== 'DECLINED' && data.status !== 'ERROR') {
           // Si el estado no es "APPROVED" ni "DECLINED", vuelve a consultar después de un tiempo (por ejemplo, 5 segundos)
@@ -52,60 +63,6 @@ export default function Status({ setEsconder }) {
     // Inicia la consulta
     consultarTransaccion();
   }, [transaccionId]);
-
-  const pdfContent = (
-    <Document>
-      <Container>
-
-        {status === "APPROVED" && (
-          <div><FcApproval /> Transacción Aprobada</div>
-        )}
-        {(status === "DECLINED") && (
-          <div><FcHighPriority /> Transacción Rechazada, intenta de nuevo con el mismo u otro medio de pago</div>
-        )}
-        {(status === "ERROR") && (
-          <div><FcHighPriority /> {status_message}</div>
-        )}
-        {status === "PENDING" && (
-          <div><FcHighPriority /> Transacción Pendiente <br />
-            Si deseas puedes esperar en esta pestaña para recibir una respuesta final e imprimir tu comprobante<br />
-            o en un rato se notificara a tu correo correo el estado final por parte de Wompi</div>
-        )}
-        <Table striped style={{ textAlign: 'center' }}>
-          <tr style={{ backgroundColor: '#FF4545' }}>
-            <th colSpan={1}>Pedido a Nombre de {nameOrder}</th>
-          </tr>
-          <tr style={{ backgroundColor: '#A5FF45' }}>
-            <th colSpan={1}>Información de la transacción</th>
-          </tr>
-          <tbody style={{ textAlign: 'center' }}>
-            <tr>
-              <td><b>Transacción #</b>{tab}{tab}{tab}{transaccion}</td>
-            </tr>
-            <tr>
-              <td><b>Referencia</b>{tab}{tab}{tab}{referencia}</td>
-            </tr>
-            <tr>
-              <td><b>Email</b>{tab}{tab}{tab}{emailPay}</td>
-            </tr>
-          </tbody>
-          <tr style={{ backgroundColor: '#A5FF45' }}>
-            <th colSpan={1}>Información del pagador</th>
-          </tr>
-          <tbody>
-            <tr>
-              <td><b>Nombre</b>{tab}{tab}{tab}{namePay}</td>
-            </tr>
-            <tr>
-              <td><b>Teléfono</b>{tab}{tab}{tab}{numero}</td>
-            </tr>
-          </tbody>
-        </Table>
-
-      </Container>
-    </Document>
-  );
-
 
   return (
 
@@ -159,7 +116,7 @@ export default function Status({ setEsconder }) {
 
       </Container>
 
-      <PDFDownloadLink document={<pdfContent />} fileName="comprobanteCiclopista.pdf">
+      <PDFDownloadLink document={<pdfContent/>} fileName="comprobanteCiclopista.pdf">
         {({ loading, url, error, blob }) =>
           loading ? (
             <button>Loading Document ...</button>
