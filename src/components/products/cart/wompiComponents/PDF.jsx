@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { Container, Table } from 'react-bootstrap';
 import { FcApproval, FcHighPriority, FcInfo } from "react-icons/fc";
 
-import { Document} from "@react-pdf/renderer";
+import { Document } from "@react-pdf/renderer";
 
 import { useSelector } from 'react-redux'
 
-export default function pdfContent2() {
-
+export default function PDF() {
     const tab = '\u00A0';
 
     const transaccionId = useSelector((state) => state.wompi.value.transactionId)
@@ -20,6 +19,7 @@ export default function pdfContent2() {
     const referencia = useSelector((state) => state.wompi.value.referencia)
     const numero = useSelector((state) => state.wompi.value.numero)
     const status_message = useSelector((state) => state.wompi.value.status_message)
+
     return (
         <Document>
             <Container>
