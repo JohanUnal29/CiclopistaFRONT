@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux'
 export default function PDF() {
     const tab = '\u00A0';
 
-    // const transaccionId = useSelector((state) => state.wompi.value.transactionId)
+    const transaccionId = useSelector((state) => state.wompi.value.transactionId)
     // const namePay = useSelector((state) => state.wompi.value.namePay)
     // const emailPay = useSelector((state) => state.wompi.value.emailPay)
 
@@ -20,6 +20,7 @@ export default function PDF() {
     // const referencia = useSelector((state) => state.wompi.value.referencia)
     // const numero = useSelector((state) => state.wompi.value.numero)
     // const status_message = useSelector((state) => state.wompi.value.status_message)
+    console.log(transaccionId)
 
     const styles = StyleSheet.create({
         page: {
