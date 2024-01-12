@@ -53,106 +53,121 @@ export default function Status({ setEsconder }) {
     consultarTransaccion();
   }, [transaccionId]);
 
+  const pdfContent = (
+    <Document>
+      <Container>
+
+        {status === "APPROVED" && (
+          <div><FcApproval /> Transacción Aprobada</div>
+        )}
+        {(status === "DECLINED") && (
+          <div><FcHighPriority /> Transacción Rechazada, intenta de nuevo con el mismo u otro medio de pago</div>
+        )}
+        {(status === "ERROR") && (
+          <div><FcHighPriority /> {status_message}</div>
+        )}
+        {status === "PENDING" && (
+          <div><FcHighPriority /> Transacción Pendiente <br />
+            Si deseas puedes esperar en esta pestaña para recibir una respuesta final e imprimir tu comprobante<br />
+            o en un rato se notificara a tu correo correo el estado final por parte de Wompi</div>
+        )}
+        <Table striped style={{ textAlign: 'center' }}>
+          <tr style={{ backgroundColor: '#FF4545' }}>
+            <th colSpan={1}>Pedido a Nombre de {nameOrder}</th>
+          </tr>
+          <tr style={{ backgroundColor: '#A5FF45' }}>
+            <th colSpan={1}>Información de la transacción</th>
+          </tr>
+          <tbody style={{ textAlign: 'center' }}>
+            <tr>
+              <td><b>Transacción #</b>{tab}{tab}{tab}{transaccion}</td>
+            </tr>
+            <tr>
+              <td><b>Referencia</b>{tab}{tab}{tab}{referencia}</td>
+            </tr>
+            <tr>
+              <td><b>Email</b>{tab}{tab}{tab}{emailPay}</td>
+            </tr>
+          </tbody>
+          <tr style={{ backgroundColor: '#A5FF45' }}>
+            <th colSpan={1}>Información del pagador</th>
+          </tr>
+          <tbody>
+            <tr>
+              <td><b>Nombre</b>{tab}{tab}{tab}{namePay}</td>
+            </tr>
+            <tr>
+              <td><b>Teléfono</b>{tab}{tab}{tab}{numero}</td>
+            </tr>
+          </tbody>
+        </Table>
+
+      </Container>
+    </Document>
+  );
+
 
   return (
-    <><Container>
 
-      {status === "APPROVED" && (
-        <div><FcApproval /> Transacción Aprobada</div>
-      )}
-      {(status === "DECLINED") && (
-        <div><FcHighPriority /> Transacción Rechazada, intenta de nuevo con el mismo u otro medio de pago</div>
-      )}
-      {(status === "ERROR") && (
-        <div><FcHighPriority /> {status_message}</div>
-      )}
-      {status === "PENDING" && (
-        <div><FcHighPriority /> Transacción Pendiente <br />
-          Si deseas puedes esperar en esta pestaña para recibir una respuesta final e imprimir tu comprobante<br />
-          o en un rato se notificara a tu correo correo el estado final por parte de Wompi</div>
-      )}
-      <Table striped style={{ textAlign: 'center' }}>
-        <tr style={{ backgroundColor: '#FF4545' }}>
-          <th colSpan={1}>Pedido a Nombre de {nameOrder}</th>
-        </tr>
-        <tr style={{ backgroundColor: '#A5FF45' }}>
-          <th colSpan={1}>Información de la transacción</th>
-        </tr>
-        <tbody style={{ textAlign: 'center' }}>
-          <tr>
-            <td><b>Transacción #</b>{tab}{tab}{tab}{transaccion}</td>
-          </tr>
-          <tr>
-            <td><b>Referencia</b>{tab}{tab}{tab}{referencia}</td>
-          </tr>
-          <tr>
-            <td><b>Email</b>{tab}{tab}{tab}{emailPay}</td>
-          </tr>
-        </tbody>
-        <tr style={{ backgroundColor: '#A5FF45' }}>
-          <th colSpan={1}>Información del pagador</th>
-        </tr>
-        <tbody>
-          <tr>
-            <td><b>Nombre</b>{tab}{tab}{tab}{namePay}</td>
-          </tr>
-          <tr>
-            <td><b>Teléfono</b>{tab}{tab}{tab}{numero}</td>
-          </tr>
-        </tbody>
-      </Table>
+    <>
+      <Container>
 
-    </Container>
-      <Document>
-        <Container>
-
-          {status === "APPROVED" && (
-            <div><FcApproval /> Transacción Aprobada</div>
-          )}
-          {(status === "DECLINED") && (
-            <div><FcHighPriority /> Transacción Rechazada, intenta de nuevo con el mismo u otro medio de pago</div>
-          )}
-          {(status === "ERROR") && (
-            <div><FcHighPriority /> {status_message}</div>
-          )}
-          {status === "PENDING" && (
-            <div><FcHighPriority /> Transacción Pendiente <br />
-              Si deseas puedes esperar en esta pestaña para recibir una respuesta final e imprimir tu comprobante<br />
-              o en un rato se notificara a tu correo correo el estado final por parte de Wompi</div>
-          )}
-          <Table striped style={{ textAlign: 'center' }}>
-            <tr style={{ backgroundColor: '#FF4545' }}>
-              <th colSpan={1}>Pedido a Nombre de {nameOrder}</th>
+        {status === "APPROVED" && (
+          <div><FcApproval /> Transacción Aprobada</div>
+        )}
+        {(status === "DECLINED") && (
+          <div><FcHighPriority /> Transacción Rechazada, intenta de nuevo con el mismo u otro medio de pago</div>
+        )}
+        {(status === "ERROR") && (
+          <div><FcHighPriority /> {status_message}</div>
+        )}
+        {status === "PENDING" && (
+          <div><FcHighPriority /> Transacción Pendiente <br />
+            Si deseas puedes esperar en esta pestaña para recibir una respuesta final e imprimir tu comprobante<br />
+            o en un rato se notificara a tu correo correo el estado final por parte de Wompi</div>
+        )}
+        <Table striped style={{ textAlign: 'center' }}>
+          <tr style={{ backgroundColor: '#FF4545' }}>
+            <th colSpan={1}>Pedido a Nombre de {nameOrder}</th>
+          </tr>
+          <tr style={{ backgroundColor: '#A5FF45' }}>
+            <th colSpan={1}>Información de la transacción</th>
+          </tr>
+          <tbody style={{ textAlign: 'center' }}>
+            <tr>
+              <td><b>Transacción #</b>{tab}{tab}{tab}{transaccion}</td>
             </tr>
-            <tr style={{ backgroundColor: '#A5FF45' }}>
-              <th colSpan={1}>Información de la transacción</th>
+            <tr>
+              <td><b>Referencia</b>{tab}{tab}{tab}{referencia}</td>
             </tr>
-            <tbody style={{ textAlign: 'center' }}>
-              <tr>
-                <td><b>Transacción #</b>{tab}{tab}{tab}{transaccion}</td>
-              </tr>
-              <tr>
-                <td><b>Referencia</b>{tab}{tab}{tab}{referencia}</td>
-              </tr>
-              <tr>
-                <td><b>Email</b>{tab}{tab}{tab}{emailPay}</td>
-              </tr>
-            </tbody>
-            <tr style={{ backgroundColor: '#A5FF45' }}>
-              <th colSpan={1}>Información del pagador</th>
+            <tr>
+              <td><b>Email</b>{tab}{tab}{tab}{emailPay}</td>
             </tr>
-            <tbody>
-              <tr>
-                <td><b>Nombre</b>{tab}{tab}{tab}{namePay}</td>
-              </tr>
-              <tr>
-                <td><b>Teléfono</b>{tab}{tab}{tab}{numero}</td>
-              </tr>
-            </tbody>
-          </Table>
+          </tbody>
+          <tr style={{ backgroundColor: '#A5FF45' }}>
+            <th colSpan={1}>Información del pagador</th>
+          </tr>
+          <tbody>
+            <tr>
+              <td><b>Nombre</b>{tab}{tab}{tab}{namePay}</td>
+            </tr>
+            <tr>
+              <td><b>Teléfono</b>{tab}{tab}{tab}{numero}</td>
+            </tr>
+          </tbody>
+        </Table>
 
-        </Container>
-      </Document>
+      </Container>
+
+      <PDFDownloadLink document={<Status />} fileName="comprobanteCiclopista.pdf">
+        {({ loading, url, error, blob }) =>
+          loading ? (
+            <button>Loading Document ...</button>
+          ) : (
+            <button>Download now!</button>
+          )
+        }
+      </PDFDownloadLink>
     </>
 
   )
