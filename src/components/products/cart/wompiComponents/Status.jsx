@@ -111,7 +111,7 @@ export default function Status({ setEsconder }) {
 
       </Container>
 
-      <Link to="Comprobante"><button>Descargar Comprobante</button></Link>
+      <Link to="/Comprobante"><button>Descargar Comprobante</button></Link>
 
     </>
   )

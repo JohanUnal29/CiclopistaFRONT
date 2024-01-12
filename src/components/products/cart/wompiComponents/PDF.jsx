@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Container, Table } from 'react-bootstrap';
 import { FcApproval, FcHighPriority, FcInfo } from "react-icons/fc";
 
-import { Document } from "@react-pdf/renderer";
+
+import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
 import { useSelector } from 'react-redux'
 
@@ -22,6 +23,14 @@ export default function PDF() {
 
     return (
         <Document>
+            <Page size="A4" style={styles.page}>
+                <View style={styles.section}>
+                    <Text>Section #1</Text>
+                </View>
+                <View style={styles.section}>
+                    <Text>Section #2</Text>
+                </View>
+            </Page>
             <Container>
 
                 {status === "APPROVED" && (
