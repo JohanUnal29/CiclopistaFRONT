@@ -114,7 +114,7 @@ export default function Status({ setEsconder }) {
 
       </Container>
 
-      <Button onClick={() => setBotonPDF(true)}>Descargar Comprobante</Button>
+      <button onClick={() => setBotonPDF(true)}>Descargar Comprobante</button>
 
       {botonPDF && (
         <PDFDownloadLink document={<PDF />} fileName="comprobanteCiclopista.pdf">
