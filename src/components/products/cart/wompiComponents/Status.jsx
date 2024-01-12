@@ -30,7 +30,7 @@ export default function Status({ setEsconder }) {
   const [numero, setNumero] = useState("")
   const [status, setStatus] = useState("");
   const [status_message, setStatus_message] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [botonPDF, setBotonPDF] = useState(false);
 
   useEffect(() => {
     const consultarTransaccion = async () => {
@@ -114,15 +114,19 @@ export default function Status({ setEsconder }) {
 
       </Container>
 
-      <PDFDownloadLink document={<PDF/>} fileName="comprobanteCiclopista.pdf">
-        {({ loading, url, error, blob }) =>
-          loading ? (
-            <button>Loading Document ...</button>
-          ) : (
-            <button>Download now!</button>
-          )
-        }
-      </PDFDownloadLink>
+      <Button onClick={() => setBotonPDF(true)}>Descargar Comprobante</Button>
+
+      {botonPDF && (
+        <PDFDownloadLink document={<PDF />} fileName="comprobanteCiclopista.pdf">
+          {({ loading, url, error, blob }) =>
+            loading ? (
+              <button>Loading Document ...</button>
+            ) : (
+              <button>Download now!</button>
+            )
+          }
+        </PDFDownloadLink>
+      )}
     </>
   )
 }
