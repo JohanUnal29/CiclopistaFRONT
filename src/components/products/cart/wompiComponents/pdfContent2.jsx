@@ -2,9 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { Container, Table } from 'react-bootstrap';
 import { FcApproval, FcHighPriority, FcInfo } from "react-icons/fc";
 
+import { Document} from "@react-pdf/renderer";
+
 import { useSelector } from 'react-redux'
 
 export default function pdfContent2() {
+
+    const tab = '\u00A0';
+
     const transaccionId = useSelector((state) => state.wompi.value.transactionId)
     const namePay = useSelector((state) => state.wompi.value.namePay)
     const emailPay = useSelector((state) => state.wompi.value.emailPay)
