@@ -3,10 +3,12 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-import { useDispatch } from 'react-redux'
+import notificacion from "../../../../Img/notificacion.png"
+
+import { useDispatch, useSelector } from 'react-redux'
 import { setEmailPay2, setNamePay2, setTransactionId } from '../../../../features/wompi/WompiSlice';
 
-export default function Nequi({ token, name, amount, hash, referenciaDePago, setEsconder }) {
+export default function Nequi({ token, amount, hash, referenciaDePago, setEsconder }) {
 
     const dispatch = useDispatch()
 
@@ -16,6 +18,12 @@ export default function Nequi({ token, name, amount, hash, referenciaDePago, set
     const [namePay, setNamePay] = useState("");
     const [emailPay, setEmailPay] = useState("");
     const [phonePay, setPhonePay] = useState("");
+
+    const addressOrder = useSelector((state) => state.wompi.value.addressOrder);
+    const cityOrder = useSelector((state) => state.wompi.value.cityOrder);
+    const phoneOrder = useSelector((state) => state.wompi.value.phoneOrder);
+    const regionOrder = useSelector((state) => state.wompi.value.regionOrder);
+    const nameOrder = useSelector((state) => state.wompi.value.nameOrder);
 
     //vista confirma pago
     const [confirmaPago, setConfirmaPago] = useState(false)
@@ -41,11 +49,12 @@ export default function Nequi({ token, name, amount, hash, referenciaDePago, set
                     full_name: namePay
                 },
                 shipping_address:{
-                    address_line_1:"cra 8D #39 A54",
+                    address_line_1:addressOrder,
                     country: "CO",
-                    city: "Soacha",
-                    phone_number: "3202420980",
-                    region: "Cundinamarca"
+                    city: cityOrder,
+                    phone_number: phoneOrder,
+                    region: regionOrder,
+                    name: nameOrder
                 }
             }, {
                 headers: {
@@ -73,7 +82,7 @@ export default function Nequi({ token, name, amount, hash, referenciaDePago, set
                 {confirmaPago &&
                     (
                         <>
-                            <Col><img src="../../../../Img/notificacion.png" alt='notificación nequi' /></Col>
+                            <Col><img src={notificacion} alt='notificación nequi' /></Col>
                             <Col>Para terminar la transacción ve a tu aplicación Nequi y <b>
                                 autoriza el pago desde el centro de notificaciones</b>
                             </Col></>

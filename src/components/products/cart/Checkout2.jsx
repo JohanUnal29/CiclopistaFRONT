@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import Wompi from "./Wompi.jsx";
 
+import { useDispatch } from 'react-redux'
+
 export default function Checkout2() {
   const { carrito, precioTotal, vaciarCarrito } = useContext(CartContext);
   const [name, setName] = useState("");
@@ -28,6 +30,8 @@ export default function Checkout2() {
   const [amount, setAmount] = useState("");
 
   const apiURL = process.env.REACT_APP_API_URL;
+
+  const dispatch = useDispatch()
 
   const handleSubmit = async () => {
     try {
@@ -101,7 +105,7 @@ export default function Checkout2() {
             <h5>Orden</h5>
             {ordenCompleta ? (
               // Renderizar el formulario de pago cuando la orden está completa
-              <Wompi referenciaDePago={referenciaDePago} hash={hash} amount={amount} name={name} />
+              <Wompi referenciaDePago={referenciaDePago} hash={hash} amount={amount}/>
             ) : (
 
               <Form>
@@ -111,7 +115,10 @@ export default function Checkout2() {
                     type="text"
                     placeholder="Name"
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                      dispatch(setNameOrder(e.target.value));
+                    }}
                   />
                 </Form.Group>
 
@@ -131,7 +138,10 @@ export default function Checkout2() {
                     type="text"
                     placeholder="Phone"
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={(e) => {
+                      setPhone(e.target.value);
+                      dispatch(setPhoneOrder(e.target.value));
+                    }}
                   />
                 </Form.Group>
 
@@ -150,7 +160,10 @@ export default function Checkout2() {
                   <Form.Label>Departamento</Form.Label>
                   <select
                     value={departamento}
-                    onChange={(e) => setDepartamento(e.target.value)}
+                    onChange={(e) => {
+                      setDepartamento(e.target.value);
+                      dispatch(setRegionOrder(e.target.value));
+                    }}
                   >
                     <option value="Amazonas">Amazonas</option>
                     <option value="Antioquía">Antioquía</option>
@@ -204,7 +217,10 @@ export default function Checkout2() {
                     rows={3}
                     placeholder="Ciudad o Municipio"
                     value={ciudad_o_municipio}
-                    onChange={(e) => setCiudad_o_municipio(e.target.value)}
+                    onChange={(e) => {
+                      setCiudad_o_municipio(e.target.value);
+                      dispatch(setCityOrder(e.target.value));
+                    }}
                   />
                 </Form.Group>
 
@@ -226,7 +242,10 @@ export default function Checkout2() {
                     rows={3}
                     placeholder="Direccion"
                     value={direccion}
-                    onChange={(e) => setDireccion(e.target.value)}
+                    onChange={(e) => {
+                      setDireccion(e.target.value);
+                      dispatch(setAddressOrder(e.target.value));
+                    }}
                   />
                 </Form.Group>
 

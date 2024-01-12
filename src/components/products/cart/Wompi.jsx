@@ -5,7 +5,7 @@ import axios from 'axios';
 import Nequi from './wompiComponents/Nequi';
 import Status from './wompiComponents/Status';
 
-export default function Wompi({ referenciaDePago, hash, amount, name }) {
+export default function Wompi({ referenciaDePago, hash, amount}) {
   
   const wompiURL = process.env.REACT_APP_API_URL2;
   const llaveComercio = process.env.REACT_APP_API_URL3;
@@ -75,12 +75,12 @@ export default function Wompi({ referenciaDePago, hash, amount, name }) {
       )}
 
       {(nequi && !esconder) && (
-        <Nequi token={token} amount={amount} name={name} hash={hash} referenciaDePago={referenciaDePago} setEsconder={setEsconder} />
+        <Nequi token={token} amount={amount} hash={hash} referenciaDePago={referenciaDePago} setEsconder={setEsconder} />
       )
       }
 
       {esconder &&(
-        <Status setEsconder={setEsconder} name={name}/>
+        <Status setEsconder={setEsconder}/>
       )}
 
     </Container>
