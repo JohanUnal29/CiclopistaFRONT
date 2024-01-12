@@ -10,8 +10,8 @@ export default function Nequi({ token, name, amount, hash, referenciaDePago, set
 
     const dispatch = useDispatch()
 
-    const wompiURL = process.env.WOMPI_URL;
-    const llaveComercio = process.env.LLAVE_COMERCIO;
+    const wompiURL = process.env.REACT_APP_API_URL2;
+    const llaveComercio = process.env.REACT_APP_API_URL3
 
     const [namePay, setNamePay] = useState("");
     const [emailPay, setEmailPay] = useState("");

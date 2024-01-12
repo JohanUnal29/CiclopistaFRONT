@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 
 export default function Status({ setEsconder, name }) {
 
-  const wompiURL = process.env.WOMPI_URL;
+  const wompiURL = process.env.REACT_APP_API_URL2;
 
   const tab = '\u00A0';
 
