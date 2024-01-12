@@ -159,7 +159,7 @@ export default function Status({ setEsconder }) {
 
       </Container>
 
-      <PDFDownloadLink document={<Status />} fileName="comprobanteCiclopista.pdf">
+      <PDFDownloadLink document={<pdfContent />} fileName="comprobanteCiclopista.pdf">
         {({ loading, url, error, blob }) =>
           loading ? (
             <button>Loading Document ...</button>
