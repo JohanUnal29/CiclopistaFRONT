@@ -15,6 +15,8 @@ import { AuthProvider } from "./context/AuthContext";
 import { Provider } from 'react-redux'
 import { store } from "./app/Store.jsx";
 
+import Comprobante from "./components/products/cart/wompiComponents/Comprobante.jsx";
+
 
 function App() {
   return (
@@ -42,6 +44,7 @@ function App() {
                 <Route path="/UserManager" element={<UserListContainer />} />
                 <Route path="/CheckOut" element={<Checkout2 />} />
                 <Route path="/PageCart" element={<PageCart />} />
+                <Route path="/Comprobante" element={<Comprobante/>} />
               </Routes>
             </BrowserRouter>
 

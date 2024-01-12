@@ -3,13 +3,11 @@ import { Container, Table } from 'react-bootstrap';
 import axios from 'axios';
 import { FcApproval, FcHighPriority, FcInfo } from "react-icons/fc";
 
-import { PDFViewer } from "@react-pdf/renderer";
-
 import { useSelector, useDispatch } from 'react-redux'
 
 import { setStatus2, setReferencia2, setNumero2, setStatus_message2 } from '../../../../features/wompi/WompiSlice';
 
-import PDF from './PDF.jsx';
+import { Link } from "react-router-dom";
 
 export default function Status({ setEsconder }) {
 
@@ -30,7 +28,6 @@ export default function Status({ setEsconder }) {
   const [numero, setNumero] = useState("")
   const [status, setStatus] = useState("");
   const [status_message, setStatus_message] = useState("");
-  const [botonPDF, setBotonPDF] = useState(false);
 
   useEffect(() => {
     const consultarTransaccion = async () => {
@@ -114,13 +111,8 @@ export default function Status({ setEsconder }) {
 
       </Container>
 
-      <button onClick={() => setBotonPDF(true)}>Descargar Comprobante</button>
+      <Link to="Comprobante"><button>Descargar Comprobante</button></Link>
 
-      {botonPDF && (
-        <PDFViewer>
-          <PDF />
-        </PDFViewer>
-      )}
     </>
   )
 }
