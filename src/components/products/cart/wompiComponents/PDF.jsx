@@ -10,16 +10,16 @@ import { useSelector } from 'react-redux'
 export default function PDF() {
     const tab = '\u00A0';
 
-    const transaccionId = useSelector((state) => state.wompi.value.transactionId)
-    const namePay = useSelector((state) => state.wompi.value.namePay)
-    const emailPay = useSelector((state) => state.wompi.value.emailPay)
+    // const transaccionId = useSelector((state) => state.wompi.value.transactionId)
+    // const namePay = useSelector((state) => state.wompi.value.namePay)
+    // const emailPay = useSelector((state) => state.wompi.value.emailPay)
 
-    const nameOrder = useSelector((state) => state.wompi.value.nameOrder)
+    // const nameOrder = useSelector((state) => state.wompi.value.nameOrder)
 
-    const status = useSelector((state) => state.wompi.value.status)
-    const referencia = useSelector((state) => state.wompi.value.referencia)
-    const numero = useSelector((state) => state.wompi.value.numero)
-    const status_message = useSelector((state) => state.wompi.value.status_message)
+    // const status = useSelector((state) => state.wompi.value.status)
+    // const referencia = useSelector((state) => state.wompi.value.referencia)
+    // const numero = useSelector((state) => state.wompi.value.numero)
+    // const status_message = useSelector((state) => state.wompi.value.status_message)
 
     const styles = StyleSheet.create({
         page: {
@@ -37,7 +37,7 @@ export default function PDF() {
         <Document>
             <Page size="A4" style={styles.page}>
                 <View style={styles.section}>
-                    <Text>{status}</Text>
+                    <Text>section</Text>
                 </View>
                 <View style={styles.section}>
                     <Text>Section #2</Text>
