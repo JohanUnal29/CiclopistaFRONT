@@ -3,11 +3,11 @@ import { Container, Table } from 'react-bootstrap';
 import axios from 'axios';
 import { FcApproval, FcHighPriority, FcInfo } from "react-icons/fc";
 
-import { PDFDownloadLink} from "@react-pdf/renderer";
+import { PDFViewer } from "@react-pdf/renderer";
 
 import { useSelector, useDispatch } from 'react-redux'
 
-import { setStatus2, setReferencia2, setNumero2, setStatus_message2} from '../../../../features/wompi/WompiSlice';
+import { setStatus2, setReferencia2, setNumero2, setStatus_message2 } from '../../../../features/wompi/WompiSlice';
 
 import PDF from './PDF.jsx';
 
@@ -117,15 +117,9 @@ export default function Status({ setEsconder }) {
       <button onClick={() => setBotonPDF(true)}>Descargar Comprobante</button>
 
       {botonPDF && (
-        <PDFDownloadLink document={<PDF />} fileName="comprobanteCiclopista.pdf">
-          {({ loading, url, error, blob }) =>
-            loading ? (
-              <button>Loading Document ...</button>
-            ) : (
-              <button>Download now!</button>
-            )
-          }
-        </PDFDownloadLink>
+        <PDFViewer>
+          <PDF />
+        </PDFViewer>
       )}
     </>
   )
