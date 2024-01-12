@@ -21,6 +21,18 @@ export default function PDF() {
     const numero = useSelector((state) => state.wompi.value.numero)
     const status_message = useSelector((state) => state.wompi.value.status_message)
 
+    const styles = StyleSheet.create({
+        page: {
+            flexDirection: 'row',
+            backgroundColor: '#E4E4E4'
+        },
+        section: {
+            margin: 10,
+            padding: 10,
+            flexGrow: 1
+        }
+    });
+
     return (
         <Document>
             <Page size="A4" style={styles.page}>
