@@ -56,7 +56,7 @@ export default function Status({ setEsconder }) {
 
   return (
     <><Container>
-      <Document>
+      
         {status === "APPROVED" && (
           <div><FcApproval /> Transacción Aprobada</div>
         )}
@@ -101,8 +101,8 @@ export default function Status({ setEsconder }) {
             </tr>
           </tbody>
         </Table>
-      </Document>
-    </Container>
-    <PDF /></>
+      
+    </Container></>
+    
   )
 }
