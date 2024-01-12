@@ -7,9 +7,9 @@ import { PDFDownloadLink} from "@react-pdf/renderer";
 
 import { useSelector, useDispatch } from 'react-redux'
 
-import { setStatus, setReferencia, setNumero, setStatus_message} from '../../../../features/wompi/WompiSlice';
+import { setStatus2, setReferencia2, setNumero2, setStatus_message2} from '../../../../features/wompi/WompiSlice';
 
-import pdfContent from "./pdfContent.jsx"
+import pdfContent2 from './pdfContent2';
 
 const dispatch = useDispatch()
 
@@ -42,13 +42,13 @@ export default function Status({ setEsconder }) {
 
         setTransaccion(data.id);
         setReferencia(data.reference);
-        dispatch(setReferencia(data.reference));
+        dispatch(setReferencia2(data.reference));
         setNumero(data.payment_method.phone_number);
-        dispatch(setNumero(data.payment_method.phone_number));
+        dispatch(setNumero2(data.payment_method.phone_number));
         setStatus(data.status);
-        dispatch(setStatus(data.status));
+        dispatch(setStatus2(data.status));
         setStatus_message(data.status_message)
-        dispatch(setStatus_message(data.status_message));
+        dispatch(setStatus_message2(data.status_message));
 
         if (data.status !== 'APPROVED' && data.status !== 'DECLINED' && data.status !== 'ERROR') {
           // Si el estado no es "APPROVED" ni "DECLINED", vuelve a consultar después de un tiempo (por ejemplo, 5 segundos)
@@ -116,7 +116,7 @@ export default function Status({ setEsconder }) {
 
       </Container>
 
-      <PDFDownloadLink document={<pdfContent/>} fileName="comprobanteCiclopista.pdf">
+      <PDFDownloadLink document={<pdfContent2/>} fileName="comprobanteCiclopista.pdf">
         {({ loading, url, error, blob }) =>
           loading ? (
             <button>Loading Document ...</button>
@@ -126,6 +126,5 @@ export default function Status({ setEsconder }) {
         }
       </PDFDownloadLink>
     </>
-
   )
 }

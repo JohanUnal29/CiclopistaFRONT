@@ -4,7 +4,7 @@ import { FcApproval, FcHighPriority, FcInfo } from "react-icons/fc";
 
 import { useSelector } from 'react-redux'
 
-export default function pdfContent() {
+export default function pdfContent2() {
     const transaccionId = useSelector((state) => state.wompi.value.transactionId)
     const namePay = useSelector((state) => state.wompi.value.namePay)
     const emailPay = useSelector((state) => state.wompi.value.emailPay)
