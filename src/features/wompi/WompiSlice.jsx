@@ -53,7 +53,7 @@ export const wompiSlice = createSlice({
             state.value.referencia = actions.payload
         },
         setNumero2: (state, actions) => {
-            state.value.Numero = actions.payload
+            state.value.numero = actions.payload
         },
         setStatus_message2: (state, actions) => {
             state.value.status_message = actions.payload
