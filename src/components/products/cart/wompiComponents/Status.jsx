@@ -69,7 +69,8 @@ export default function Status({ setEsconder }) {
   const generarPDF = () => {
     const doc = new jsPDF();
     doc.text(`Pedido a nombre de: ${nameOrder}`,20,10);
-    doc.text(`Informaicíon de la transacción`,20,30);
+    doc.text(`estado de la transacción: ${status}`,20,30);
+    doc.text(`Informaicíon de la transacción`,20,50);
     const columns =['Transacción #','Referencia','Email','Total']
     const data =[
       [`${transaccion}`,`${referencia}`,`${emailPay}`,`${amount}`]
@@ -79,14 +80,14 @@ export default function Status({ setEsconder }) {
       head: [columns],
       body: data
     })
-    doc.text(`Informaicíon del pagador`,20,50);
+    doc.text(`Informaicíon del pagador`,20,90);
     const columns2 =['Nombre','Teléfono']
     const data2 =[
       [`${namePay}`,`${numero}`]
     ];
 
     doc.autoTable({
-      startY: 90,
+      startY: 110,
       head: [columns2],
       body: data2
     })
