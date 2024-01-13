@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setStatus2, setReferencia2, setNumero2, setStatus_message2 } from '../../../../features/wompi/WompiSlice';
 
 import {jsPDF} from "jspdf"
+import 'jspdf-autotable'
 
 
 export default function Status({ setEsconder }) {
