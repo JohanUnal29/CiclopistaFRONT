@@ -68,25 +68,25 @@ export default function Status({ setEsconder }) {
   //comprobante de pago
   const generarPDF = () => {
     const doc = new jsPDF();
-    doc.text(`Pedido a nombre de: ${nameOrder}`,95,20);
-    doc.text(`Informaicíon de la transacción`,95,20);
+    doc.text(`Pedido a nombre de: ${nameOrder}`,20,10);
+    doc.text(`Informaicíon de la transacción`,20,30);
     const columns =['Transacción #','Referencia','Email','Total']
     const data =[
       [`${transaccion}`,`${referencia}`,`${emailPay}`,`${amount}`]
     ];
-    doc.text(`Informaicíon del pagador`,95,20);
+    doc.autoTable({
+      startY: 70,
+      head: [columns],
+      body: data
+    })
+    doc.text(`Informaicíon del pagador`,20,50);
     const columns2 =['Nombre','Teléfono']
     const data2 =[
       [`${namePay}`,`${numero}`]
     ];
 
     doc.autoTable({
-      startY: 30,
-      head: [columns],
-      body: data
-    })
-    doc.autoTable({
-      startY: 30,
+      startY: 90,
       head: [columns2],
       body: data2
     })
