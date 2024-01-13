@@ -147,7 +147,7 @@ export default function Status({ setEsconder }) {
           </tbody>
         </Table>
 
-        <Button variant='sucess'>Generar PDF</Button>
+        <Button variant='danger' onClick={generarPDF}>Generar PDF</Button>
       </Container>
 
       
