@@ -44,7 +44,6 @@ function App() {
                 <Route path="/UserManager" element={<UserListContainer />} />
                 <Route path="/CheckOut" element={<Checkout2 />} />
                 <Route path="/PageCart" element={<PageCart />} />
-                <Route path="/Comprobante" element={<Comprobante/>} />
               </Routes>
             </BrowserRouter>
 

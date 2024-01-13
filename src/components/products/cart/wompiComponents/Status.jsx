@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Table } from 'react-bootstrap';
+import { Button, Container, Table } from 'react-bootstrap';
 import axios from 'axios';
 import { FcApproval, FcHighPriority, FcInfo } from "react-icons/fc";
 
@@ -7,7 +7,8 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { setStatus2, setReferencia2, setNumero2, setStatus_message2 } from '../../../../features/wompi/WompiSlice';
 
-import { Link } from "react-router-dom";
+import {jsPDF} from "jspdf"
+
 
 export default function Status({ setEsconder }) {
 
@@ -29,6 +30,8 @@ export default function Status({ setEsconder }) {
   const [status, setStatus] = useState("");
   const [status_message, setStatus_message] = useState("");
 
+  const [amount, setAmount] = useState("");
+
   useEffect(() => {
     const consultarTransaccion = async () => {
       try {
@@ -44,6 +47,7 @@ export default function Status({ setEsconder }) {
         dispatch(setStatus2(data.status));
         setStatus_message(data.status_message)
         dispatch(setStatus_message2(data.status_message));
+        setAmount((data.amount_in_cents/100))
 
         if (data.status !== 'APPROVED' && data.status !== 'DECLINED' && data.status !== 'ERROR') {
           // Si el estado no es "APPROVED" ni "DECLINED", vuelve a consultar después de un tiempo (por ejemplo, 5 segundos)
@@ -58,6 +62,37 @@ export default function Status({ setEsconder }) {
     // Inicia la consulta
     consultarTransaccion();
   }, [transaccionId]);
+
+
+  //comprobante de pago
+  const generarPDF = () => {
+    const doc = new jsPDF();
+    doc.text(`Pedido a nombre de: ${nameOrder}`,95,20);
+    doc.text(`Informaicíon de la transacción`,95,20);
+    const columns =['Transacción #','Referencia','Email','Total']
+    const data =[
+      [`${transaccion}`,`${referencia}`,`${emailPay}`,`${amount}`]
+    ];
+    doc.text(`Informaicíon del pagador`,95,20);
+    const columns2 =['Nombre','Teléfono']
+    const data2 =[
+      [`${namePay}`,`${numero}`]
+    ];
+
+    doc.autoTable({
+      startY: 30,
+      head: [columns],
+      body: data
+    })
+    doc.autoTable({
+      startY: 30,
+      head: [columns2],
+      body: data2
+    })
+
+    doc.save(`Comprobante_${referencia}.pdf`)
+  }
+
 
   return (
 
@@ -95,6 +130,9 @@ export default function Status({ setEsconder }) {
             <tr>
               <td><b>Email</b>{tab}{tab}{tab}{emailPay}</td>
             </tr>
+            <tr>
+              <td><b>Total</b>{tab}{tab}{tab}{amount}</td>
+            </tr>
           </tbody>
           <tr style={{ backgroundColor: '#A5FF45' }}>
             <th colSpan={1}>Información del pagador</th>
@@ -109,9 +147,10 @@ export default function Status({ setEsconder }) {
           </tbody>
         </Table>
 
+        <Button variant='sucess'>Generar PDF</Button>
       </Container>
 
-      <Link to="/Comprobante"><button>Descargar Comprobante</button></Link>
+      
 
     </>
   )

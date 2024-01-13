@@ -135,7 +135,7 @@ export default function Nequi({ token, amount, hash, referenciaDePago, setEscond
                                     EnvioTokenNequi();
                                 }}
                             >
-                                Pagar Con Nequi
+                                Pagar Con Nequi ${(amount/100)}
                             </Button>
 
                             <Button variant="danger">
