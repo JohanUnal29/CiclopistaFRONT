@@ -10,6 +10,8 @@ import { setStatus2, setReferencia2, setNumero2, setStatus_message2 } from '../.
 import {jsPDF} from "jspdf"
 import 'jspdf-autotable'
 
+import cplogo from "../../../../Img/cplogo.png"
+
 
 export default function Status({ setEsconder }) {
 
@@ -68,26 +70,27 @@ export default function Status({ setEsconder }) {
   //comprobante de pago
   const generarPDF = () => {
     const doc = new jsPDF();
-    doc.text(`Pedido a nombre de: ${nameOrder}`,20,10);
-    doc.text(`estado de la transacción: ${status}`,20,30);
-    doc.text(`Informaición de la transacción`,20,50);
+    doc.addImage(cplogo, png, 20, 10, 600, 300, alias, 'FAST', 0)
+    doc.text(`Pedido a nombre de: ${nameOrder}`,20,40);
+    doc.text(`estado de la transacción: ${status}`,20,60);
+    doc.text(`Informaición de la transacción`,20,80);
     const columns =['Transacción #','Referencia','Email','Total']
     const data =[
       [`${transaccion}`,`${referencia}`,`${emailPay}`,`${amount}`]
     ];
     doc.autoTable({
-      startY: 70,
+      startY: 100,
       head: [columns],
       body: data
     })
-    doc.text(`Informaición del pagador`,20,90);
+    doc.text(`Informaición del pagador`,20,120);
     const columns2 =['Nombre','Teléfono']
     const data2 =[
       [`${namePay}`,`${numero}`]
     ];
 
     doc.autoTable({
-      startY: 110,
+      startY: 130,
       head: [columns2],
       body: data2
     })
