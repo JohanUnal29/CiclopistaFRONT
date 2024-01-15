@@ -70,7 +70,7 @@ export default function Status({ setEsconder }) {
   //comprobante de pago
   const generarPDF = () => {
     const doc = new jsPDF();
-    doc.addImage(cplogo, png, 20, 10, 600, 300, alias, 'FAST', 0)
+    doc.addImage(cplogo, 'png', 20, 10, 600, 300, 'cplogo', 'FAST', 0)
     doc.text(`Pedido a nombre de: ${nameOrder}`,20,40);
     doc.text(`estado de la transacción: ${status}`,20,60);
     doc.text(`Informaición de la transacción`,20,80);
