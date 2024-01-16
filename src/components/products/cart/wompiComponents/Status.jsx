@@ -70,10 +70,10 @@ export default function Status({ setEsconder }) {
   //comprobante de pago
   const generarPDF = () => {
     const doc = new jsPDF();
-    doc.addImage(cplogo, 'png', 50, 10, 60, 30, 'cplogo', 'FAST', 0)
-    doc.text(`Pedido a nombre de: ${nameOrder}`,30,40);
-    doc.text(`Estado de la transacción: ${status}`,40,60);
-    doc.text(`Informaición de la transacción:`,30,90);
+    doc.addImage(cplogo, 'png', 60, 10, 60, 30, 'cplogo', 'FAST', 0)
+    doc.text(`Pedido a nombre de: ${nameOrder}`,50,40);
+    doc.text(`Estado de la transacción: ${status}`,60,60);
+    doc.text(`Informaición de la transacción:`,60,90);
     const columns =['Transacción #','Referencia','Email','Total']
     const data =[
       [`${transaccion}`,`${referencia}`,`${emailPay}`,`${amount}`]
@@ -83,7 +83,7 @@ export default function Status({ setEsconder }) {
       head: [columns],
       body: data
     })
-    doc.text(`Informaición del pagador`,40,135);
+    doc.text(`Informaición del pagador`,60,135);
     const columns2 =['Nombre','Teléfono']
     const data2 =[
       [`${namePay}`,`${numero}`]
