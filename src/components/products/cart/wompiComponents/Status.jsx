@@ -71,8 +71,8 @@ export default function Status({ setEsconder }) {
   const generarPDF = () => {
     const doc = new jsPDF();
     doc.addImage(cplogo, 'png', 65, 10, 60, 30, 'cplogo', 'FAST', 0)
-    doc.text(`Pedido a nombre de: ${nameOrder}`,42,40);
-    doc.text(`Estado de la transacción: ${status}`,60,50);
+    doc.text(`Pedido a nombre de: ${nameOrder}`,42,50);
+    doc.text(`Estado de la transacción: ${status}`,60,60);
     doc.text(`Informaición de la transacción:`,68,90);
     const columns =['Transacción #','Referencia','Email','Total']
     const data =[
@@ -83,7 +83,7 @@ export default function Status({ setEsconder }) {
       head: [columns],
       body: data
     })
-    doc.text(`Informaición del pagador`,68,135);
+    doc.text(`Informaición del pagador`,70,135);
     const columns2 =['Nombre','Teléfono']
     const data2 =[
       [`${namePay}`,`${numero}`]
