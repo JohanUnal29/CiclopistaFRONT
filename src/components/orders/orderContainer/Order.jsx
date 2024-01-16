@@ -5,6 +5,9 @@ import { MdDelete } from "react-icons/md";
 import "./Order.css";
 import { useAuth } from '../../../context/AuthContext';
 
+import axios from "axios";
+import Swal from "sweetalert2";
+
 const deleteTicket = async (id) => {
 
   const apiURL = process.env.REACT_APP_API_URL;
