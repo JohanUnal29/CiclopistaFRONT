@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Col, Card, Button, Modal } from 'react-bootstrap';
 import { MdDelete } from "react-icons/md";
 import "./Order.css";
-import { useAuth } from '../../../context/AuthContext';
+import { useAuth } from '../../../context/AuthContext.jsx';
 
 import axios from "axios";
 import Swal from "sweetalert2";
