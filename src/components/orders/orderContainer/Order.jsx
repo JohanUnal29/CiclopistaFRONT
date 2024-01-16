@@ -9,14 +9,12 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 
-
 const Order = ({ order }) => {
 
-  const deleteTicket = async (id) => {
+  const apiURL = process.env.REACT_APP_API_URL;
+  const { user, loading } = useAuth();
 
-    const apiURL = process.env.REACT_APP_API_URL;
-    const { user, loading } = useAuth();
-  
+  const deleteTicket = async (id) => {
     try {
       axios
         .delete(`${apiURL}/api/purchase/${id}/${user.uid}`)
@@ -36,7 +34,7 @@ const Order = ({ order }) => {
       alert(error.message);
     }
   };
-  
+
   return (
     <Col sm={6} md={4} lg={3} className="item-card">
       <Card style={{ width: '18rem' }}>
@@ -49,7 +47,7 @@ const Order = ({ order }) => {
           <Card.Text>Departamento: {order.departamento}</Card.Text>
           <Card.Text>Total: {order.amount}</Card.Text>
           <Card.Text>Estado de la transacción: {order.statusPay}</Card.Text>
-          <Card.Text><MdDelete onClick={() => deleteTicket(order._id) } /></Card.Text>
+          <Card.Text><MdDelete onClick={() => deleteTicket(order._id)} /></Card.Text>
           <Button variant="primary" style={{ backgroundColor: 'black' }}>
             <Link to={`/orderr/${order._id}`} style={{ textDecoration: 'none', color: 'white' }}>Ver más</Link>
           </Button>
