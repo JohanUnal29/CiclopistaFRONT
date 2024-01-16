@@ -80,7 +80,7 @@ export default function Status({ setEsconder }) {
 
         if (data.status === 'APPROVED' || data.status === 'DECLINED' || data.status === 'ERROR') {
           // Si el estado no es "APPROVED" ni "DECLINED", vuelve a consultar después de un tiempo (por ejemplo, 5 segundos)
-          uptadeTicket(data.id)
+          uptadeTicket(referencia)
         }
 
       } catch (error) {

@@ -14,6 +14,9 @@ const Order = ({ order }) => {
   const apiURL = process.env.REACT_APP_API_URL;
   const { user, loading } = useAuth();
 
+  const iconStyle = {
+    cursor: 'pointer',
+  };
   const deleteTicket = async (id) => {
     try {
       axios
@@ -47,7 +50,7 @@ const Order = ({ order }) => {
           <Card.Text>Departamento: {order.departamento}</Card.Text>
           <Card.Text>Total: {order.amount}</Card.Text>
           <Card.Text>Estado de la transacción: {order.statusPay}</Card.Text>
-          <Card.Text><MdDelete onClick={() => deleteTicket(order._id)} /></Card.Text>
+          <Card.Text><MdDelete style={iconStyle} onClick={() => deleteTicket(order._id)} /></Card.Text>
           <Button variant="primary" style={{ backgroundColor: 'black' }}>
             <Link to={`/orderr/${order._id}`} style={{ textDecoration: 'none', color: 'white' }}>Ver más</Link>
           </Button>
