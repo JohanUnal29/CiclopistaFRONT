@@ -8,32 +8,35 @@ import { useAuth } from '../../../context/AuthContext.jsx';
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const deleteTicket = async (id) => {
 
-  const apiURL = process.env.REACT_APP_API_URL;
-  const { user, loading } = useAuth();
-
-  try {
-    axios
-      .delete(`${apiURL}/api/purchase/${id}/${user.uid}`)
-      .then((res) => {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Orden Eliminada",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  } catch (error) {
-    alert(error.message);
-  }
-};
 
 const Order = ({ order }) => {
+
+  const deleteTicket = async (id) => {
+
+    const apiURL = process.env.REACT_APP_API_URL;
+    const { user, loading } = useAuth();
+  
+    try {
+      axios
+        .delete(`${apiURL}/api/purchase/${id}/${user.uid}`)
+        .then((res) => {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Orden Eliminada",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+  
   return (
     <Col sm={6} md={4} lg={3} className="item-card">
       <Card style={{ width: '18rem' }}>
