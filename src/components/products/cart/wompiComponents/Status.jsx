@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { setStatus2, setReferencia2, setNumero2, setStatus_message2 } from '../../../../features/wompi/WompiSlice';
 
-import {jsPDF} from "jspdf"
+import { jsPDF } from "jspdf"
 import 'jspdf-autotable'
 
 import cplogo from "../../../../Img/cplogo.png"
@@ -35,6 +35,27 @@ export default function Status({ setEsconder }) {
 
   const [amount, setAmount] = useState("");
 
+  const apiURL = process.env.REACT_APP_API_URL;
+
+  const uptadeTicket = async (id) => {
+    try {
+      const changes = {
+        statusPay: status,
+      };
+      axios
+        .put(`${apiURL}/api/purchase/${id}`, changes)
+        .then((res) => {
+          console.log("status actualizado")
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {
+      alert(error.message);
+    }
+
+  };
+
   useEffect(() => {
     const consultarTransaccion = async () => {
       try {
@@ -50,12 +71,18 @@ export default function Status({ setEsconder }) {
         dispatch(setStatus2(data.status));
         setStatus_message(data.status_message)
         dispatch(setStatus_message2(data.status_message));
-        setAmount((data.amount_in_cents/100))
+        setAmount((data.amount_in_cents / 100))
 
         if (data.status !== 'APPROVED' && data.status !== 'DECLINED' && data.status !== 'ERROR') {
           // Si el estado no es "APPROVED" ni "DECLINED", vuelve a consultar después de un tiempo (por ejemplo, 5 segundos)
           setTimeout(consultarTransaccion, 5000);
         }
+
+        if (data.status === 'APPROVED' || data.status === 'DECLINED' || data.status === 'ERROR') {
+          // Si el estado no es "APPROVED" ni "DECLINED", vuelve a consultar después de un tiempo (por ejemplo, 5 segundos)
+          uptadeTicket(data.id)
+        }
+
       } catch (error) {
         console.error(error);
         // Manejar el error según tus necesidades
@@ -71,22 +98,22 @@ export default function Status({ setEsconder }) {
   const generarPDF = () => {
     const doc = new jsPDF();
     doc.addImage(cplogo, 'png', 70, 10, 60, 30, 'cplogo', 'FAST', 0)
-    doc.text(`Pedido a nombre de: ${nameOrder}`,42,50);
-    doc.text(`Estado de la transacción: ${status}`,60,60);
-    doc.text(`Información de la transacción:`,68,90);
-    const columns =['Transacción #','Referencia','Email','Total']
-    const data =[
-      [`${transaccion}`,`${referencia}`,`${emailPay}`,`${amount}`]
+    doc.text(`Pedido a nombre de: ${nameOrder}`, 42, 50);
+    doc.text(`Estado de la transacción: ${status}`, 60, 60);
+    doc.text(`Información de la transacción:`, 68, 90);
+    const columns = ['Transacción #', 'Referencia', 'Email', 'Total']
+    const data = [
+      [`${transaccion}`, `${referencia}`, `${emailPay}`, `${amount}`]
     ];
     doc.autoTable({
       startY: 100,
       head: [columns],
       body: data
     })
-    doc.text(`Información del pagador:`,74,135);
-    const columns2 =['Nombre','Teléfono']
-    const data2 =[
-      [`${namePay}`,`${numero}`]
+    doc.text(`Información del pagador:`, 74, 135);
+    const columns2 = ['Nombre', 'Teléfono']
+    const data2 = [
+      [`${namePay}`, `${numero}`]
     ];
 
     doc.autoTable({
@@ -114,7 +141,7 @@ export default function Status({ setEsconder }) {
           <div><FcHighPriority /> {status_message}</div>
         )}
         {status === "PENDING" && (
-          <div><FcHighPriority /> Transacción Pendiente <br />
+          <div><FcHighPriority /> Transacción Pendiente<br />
             Si deseas puedes esperar en esta pestaña para recibir una respuesta final e imprimir tu comprobante<br />
             o en un rato se notificara a tu correo correo el estado final por parte de Wompi</div>
         )}
@@ -155,7 +182,7 @@ export default function Status({ setEsconder }) {
         <Button variant='danger' disabled={status === "PENDING"} onClick={generarPDF}>Generar PDF</Button>
       </Container>
 
-      
+
 
     </>
   )

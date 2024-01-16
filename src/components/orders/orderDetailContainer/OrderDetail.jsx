@@ -49,6 +49,7 @@ const OrderDetail = ({ order, user }) => {
             <th>Mensaje</th>
             <th>Total pedido</th>
             <th>Estado de la orden</th>
+            <th>Estado de la transacción</th>
           </tr>
         </thead>
         <tbody>
@@ -66,6 +67,7 @@ const OrderDetail = ({ order, user }) => {
             </select>
               <Button variant="success" onClick={() => uptadeOder(order._id)}>Actualizar Estado</Button>
             </td>
+            <td>{order.statusPay}</td>
           </tr>
         </tbody>
       </Table>

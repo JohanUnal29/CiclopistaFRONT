@@ -37,7 +37,7 @@ export default function OrderListContainer() {
           });
       }
     }
-  }, [status, user]);
+  }, [status, user, orders]);
 
   return (
     <div>
