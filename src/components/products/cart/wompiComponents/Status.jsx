@@ -177,7 +177,6 @@ export default function Status({ setEsconder }) {
         </Table>
 
         <Button variant='danger' disabled={status === "PENDING"} onClick={generarPDF}>Generar PDF</Button>
-        <Button variant='danger' onClick={updateTicket(referencia)}>actualizar</Button>
       </Container>
 
 
