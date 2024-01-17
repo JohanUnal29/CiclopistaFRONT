@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Container, Row, Col, Button, Table } from 'react-bootstrap';
 import axios from "axios";
+import Swal from "sweetalert2";
 import './OrderDetail.css';
 import { Link } from "react-router-dom";
 
