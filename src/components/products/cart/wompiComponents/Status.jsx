@@ -37,13 +37,13 @@ export default function Status({ setEsconder }) {
 
   const apiURL = process.env.REACT_APP_API_URL;
 
-  const uptadeTicket = async (id) => {
+  const uptadeTicket = async (referencia) => {
     try {
       const changes = {
         statusPay: status,
       };
       axios
-        .put(`${apiURL}/api/purchase/${id}`, changes)
+        .put(`${apiURL}/api/purchase/${referencia}`, changes)
         .then((res) => {
           console.log("status actualizado")
         })
