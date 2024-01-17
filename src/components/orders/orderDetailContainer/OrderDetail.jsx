@@ -3,7 +3,7 @@ import { Modal, Container, Row, Col, Button, Table } from 'react-bootstrap';
 import axios from "axios";
 import Swal from "sweetalert2";
 import './OrderDetail.css';
-import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { MdDelete } from "react-icons/md";
 
@@ -47,7 +47,6 @@ const OrderDetail = ({ order, user }) => {
               showConfirmButton: false,
               timer: 1500,
             });
-            <Navigate to='/orders'/>
           })
           .catch((err) => {
             console.log(err);
@@ -112,7 +111,7 @@ const OrderDetail = ({ order, user }) => {
               <Button variant="success" onClick={() => uptadeOder(order._id)}>Actualizar Estado</Button>
             </td>
             <td>{order.statusPay}</td>
-            <td><MdDelete style={iconStyle} onClick={() => deleteTicket(order._id)} /></td>
+            <td><MdDelete style={iconStyle} onClick={() => deleteTicket(order._id)} ><Link to='/orders'></Link></MdDelete></td>
           </tr>
         </tbody>
       </Table>
