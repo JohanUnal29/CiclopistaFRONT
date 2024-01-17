@@ -37,7 +37,7 @@ export default function Status({ setEsconder }) {
 
   const apiURL = process.env.REACT_APP_API_URL;
 
-  const uptadeTicket = async (referencia) => {
+  const updateTicket = async (referencia) => {
     try {
       const changes = {
         statusPay: status,
@@ -73,8 +73,7 @@ export default function Status({ setEsconder }) {
         dispatch(setStatus_message2(data.status_message));
         setAmount((data.amount_in_cents / 100))
 
-        uptadeTicket(referencia)
-        
+        await updateTicket(referencia);
         
         if (data.status !== 'APPROVED' && data.status !== 'DECLINED' && data.status !== 'ERROR') {
           // Si el estado no es "APPROVED" ni "DECLINED", vuelve a consultar después de un tiempo (por ejemplo, 5 segundos)
@@ -178,7 +177,7 @@ export default function Status({ setEsconder }) {
         </Table>
 
         <Button variant='danger' disabled={status === "PENDING"} onClick={generarPDF}>Generar PDF</Button>
-        <Button variant='danger' onClick={uptadeTicket(referencia)}>actualizar</Button>
+        <Button variant='danger' onClick={updateTicket(referencia)}>actualizar</Button>
       </Container>
 
 
