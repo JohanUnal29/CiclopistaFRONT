@@ -17,26 +17,44 @@ const Order = ({ order }) => {
   const iconStyle = {
     cursor: 'pointer',
   };
+
+
   const deleteTicket = async (id) => {
     try {
-      axios
-        .delete(`${apiURL}/api/purchase/${id}/${user.uid}`)
-        .then((res) => {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Orden Eliminada",
-            showConfirmButton: false,
-            timer: 1500,
+      const result = await Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Esta acción no se puede deshacer',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+      });
+
+      if (result.isConfirmed) {
+        // Si el usuario confirma, procede con la eliminación
+        axios
+          .delete(`${apiURL}/api/purchase/${id}/${user.uid}`)
+          .then((res) => {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Orden Eliminada',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          })
+          .catch((err) => {
+            console.log(err);
           });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      }
+      // Si el usuario cancela, no haces nada
     } catch (error) {
       alert(error.message);
     }
   };
+
 
   return (
     <Col sm={6} md={4} lg={3} className="item-card">

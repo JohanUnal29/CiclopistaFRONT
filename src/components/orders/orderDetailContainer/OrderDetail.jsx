@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Container, Row, Col, Button, Table } from 'react-bootstrap';
 import axios from "axios";
 import './OrderDetail.css';
+import { Link } from "react-router-dom";
 
-
-const apiURL = process.env.REACT_APP_API_URL;
+import { MdDelete } from "react-icons/md";
 
 const OrderDetail = ({ order, user }) => {
 
@@ -14,7 +14,49 @@ const OrderDetail = ({ order, user }) => {
 
   const [status, setStatus] = useState();
 
-  console.log(user.uid);
+  const apiURL = process.env.REACT_APP_API_URL;
+
+  const iconStyle = {
+    cursor: 'pointer',
+  };
+
+
+  const deleteTicket = async (id) => {
+    try {
+      const result = await Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Esta acción no se puede deshacer',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+      });
+
+      if (result.isConfirmed) {
+        // Si el usuario confirma, procede con la eliminación
+        axios
+          .delete(`${apiURL}/api/purchase/${id}/${user.uid}`)
+          .then((res) => {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Orden Eliminada',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            <Link to='/orders'/>
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+      // Si el usuario cancela, no haces nada
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   const uptadeOder = async (id) => {
 
@@ -50,6 +92,7 @@ const OrderDetail = ({ order, user }) => {
             <th>Total pedido</th>
             <th>Estado de la orden</th>
             <th>Estado de la transacción</th>
+            <th>Eliminar orden</th>
           </tr>
         </thead>
         <tbody>
@@ -68,6 +111,7 @@ const OrderDetail = ({ order, user }) => {
               <Button variant="success" onClick={() => uptadeOder(order._id)}>Actualizar Estado</Button>
             </td>
             <td>{order.statusPay}</td>
+            <td><MdDelete style={iconStyle} onClick={() => deleteTicket(order._id)} /></td>
           </tr>
         </tbody>
       </Table>
