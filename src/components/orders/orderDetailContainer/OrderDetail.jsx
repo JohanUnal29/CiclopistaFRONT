@@ -111,7 +111,7 @@ const OrderDetail = ({ order, user }) => {
               <Button variant="success" onClick={() => uptadeOder(order._id)}>Actualizar Estado</Button>
             </td>
             <td>{order.statusPay}</td>
-            <td><MdDelete style={iconStyle} onClick={() => deleteTicket(order._id)} ><Link to='/orders'></Link></MdDelete></td>
+            <td><Link to='/orders'><MdDelete style={iconStyle} onClick={() => deleteTicket(order._id)} /></Link></td>
           </tr>
         </tbody>
       </Table>
