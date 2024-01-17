@@ -3,11 +3,13 @@ import { Modal, Container, Row, Col, Button, Table } from 'react-bootstrap';
 import axios from "axios";
 import Swal from "sweetalert2";
 import './OrderDetail.css';
-import { Link } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
 import { MdDelete } from "react-icons/md";
 
 const OrderDetail = ({ order, user }) => {
+
+  const history = useHistory();
 
   const imgurl = "https://drive.google.com/uc?export=download&id=";
   
@@ -47,7 +49,7 @@ const OrderDetail = ({ order, user }) => {
               showConfirmButton: false,
               timer: 1500,
             });
-            <Link to='/orders'/>
+            history.push('/orders');
           })
           .catch((err) => {
             console.log(err);
