@@ -55,8 +55,6 @@ export default function Status({ setEsconder }) {
         dispatch(setStatus_message2(data.status_message));
         setAmount((data.amount_in_cents / 100))
 
-        await updateTicket(referencia);
-
         if (data.status !== 'APPROVED' && data.status !== 'DECLINED' && data.status !== 'ERROR') {
           // Si el estado no es "APPROVED" ni "DECLINED", vuelve a consultar después de un tiempo (por ejemplo, 5 segundos)
           setTimeout(consultarTransaccion, 5000);
