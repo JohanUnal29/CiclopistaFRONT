@@ -37,24 +37,31 @@ export default function Status({ setEsconder }) {
 
   const apiURL = process.env.REACT_APP_API_URL;
 
-  const updateTicket = async (referencia) => {
-    try {
-      const changes = {
-        statusPay: status,
-      };
-      axios
-        .put(`${apiURL}/api/purchase/${referencia}`, changes)
-        .then((res) => {
-          console.log("status actualizado")
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } catch (error) {
-      alert(error.message);
-    }
+  
 
-  };
+  useEffect(() => {
+    const updateTicket = async () => {
+      try {
+        const changes = {
+          statusPay: status,
+        };
+        axios
+          .put(`${apiURL}/api/purchase/${referencia}`, changes)
+          .then((res) => {
+            console.log("status actualizado")
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } catch (error) {
+        alert(error.message);
+      }
+  
+    };
+
+    // Inicia la consulta
+    updateTicket();
+  }, [status]);
 
   useEffect(() => {
     const consultarTransaccion = async () => {
@@ -73,10 +80,8 @@ export default function Status({ setEsconder }) {
         dispatch(setStatus_message2(data.status_message));
         setAmount((data.amount_in_cents / 100))
 
-        if (data.status === 'APPROVED' || data.status === 'ERROR') {
           await updateTicket(referencia);
-        }
-
+      
         if (data.status !== 'APPROVED' && data.status !== 'DECLINED' && data.status !== 'ERROR') {
           // Si el estado no es "APPROVED" ni "DECLINED", vuelve a consultar después de un tiempo (por ejemplo, 5 segundos)
           setTimeout(consultarTransaccion, 5000);
