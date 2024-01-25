@@ -330,9 +330,10 @@ const Product = ({ product }) => {
             <label>Imagen</label>
             <img src={thumbnails}
               alt="profile"
+              onClick={() => setModalShow(true)}
               style={{
                 width: "18rem",
-                
+                cursor: "pointer",
                 objectFit: "cover",
               }}
             />
@@ -444,6 +445,7 @@ const Product = ({ product }) => {
             <br />
 
             <label>Imagen</label>
+            <Button onClick={() => setModalShow(true)} variant="Dark">Insetar Imagen</Button>
             <ImageModal
               show={modalShow}
               onHide={() => setModalShow(false)}
