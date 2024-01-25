@@ -5,14 +5,29 @@ import "./ProductsContainer.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 
+import { useSelector, useDispatch } from 'react-redux'
+
+import { setImage } from "../../../features/product/ProductSlice.jsx";
+
+//
+import ImageModal from "./ImageModal.jsx"
+
 //firebase
 import { useAuth } from "../../../context/AuthContext.jsx";
 
+
 const Product = ({ product }) => {
+
+  const dispatch = useDispatch()
+
+  const [modalShow, setModalShow] = useState(false)
+
   const imgurl = "https://drive.google.com/uc?export=download&id=";
   const apiURL = process.env.REACT_APP_API_URL;
 
-  const { user, loading } = useAuth();  
+  const { user, loading } = useAuth();
+
+  const image = useSelector((state) => state.product.value.image)
 
   const deleteProduct = async (id) => {
     try {
@@ -53,7 +68,6 @@ const Product = ({ product }) => {
   const [stock2, setStock2] = useState();
   const [category2, setCategory2] = useState("");
   const [subCategory2, setSubCategory2] = useState("");
-  const [thumbnails2, setThumbnails2] = useState("");
 
   const [modalInsertar, setModalInsertar] = useState(false);
   const [modalAgregar, setModalAgregar] = useState(false);
@@ -81,7 +95,6 @@ const Product = ({ product }) => {
     setStock2();
     setCategory2("sillines");
     setSubCategory2("SillinesSinResortes");
-    setThumbnails2("");
   };
 
   const addProduct = async () => {
@@ -95,7 +108,7 @@ const Product = ({ product }) => {
         stock: stock2,
         category: category2,
         subCategory: subCategory2,
-        thumbnails: thumbnails2,
+        thumbnails: image,
       };
       console.log("producto agregado: " + JSON.stringify(add));
       axios
@@ -124,7 +137,7 @@ const Product = ({ product }) => {
     setStock2();
     setCategory2("");
     setSubCategory2("");
-    setThumbnails2("");
+    dispatch(setImage(""));
   };
 
   const uptadeProduct = async (id) => {
@@ -175,7 +188,7 @@ const Product = ({ product }) => {
         <Card style={{ width: "18rem" }}>
           <Card.Img
             variant="top"
-            src={imgurl + product.thumbnails}
+            src={product.thumbnails}
             alt={product.title}
           />
           <Card.Body>
@@ -315,12 +328,17 @@ const Product = ({ product }) => {
             <br />
 
             <label>Imagen</label>
-            <input
-              className="form-control"
-              placeholder="Imagen"
-              type="text"
-              value={thumbnails}
-              onChange={(e) => setThumbnails(e.target.value)}
+            <img src={thumbnails}
+              alt="profile"
+              style={{
+                width: "18rem",
+                
+                objectFit: "cover",
+              }}
+            />
+            <ImageModal
+              show={modalShow}
+              onHide={() => setModalShow(false)}
             />
             <br />
           </div>
@@ -426,12 +444,9 @@ const Product = ({ product }) => {
             <br />
 
             <label>Imagen</label>
-            <input
-              className="form-control"
-              placeholder="Imagen"
-              type="text"
-              value={thumbnails2}
-              onChange={(e) => setThumbnails2(e.target.value)}
+            <ImageModal
+              show={modalShow}
+              onHide={() => setModalShow(false)}
             />
             <br />
           </div>
