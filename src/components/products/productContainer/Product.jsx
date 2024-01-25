@@ -58,7 +58,7 @@ const Product = ({ product }) => {
   const [stock, setStock] = useState();
   const [category, setCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
-  const [thumbnails, setThumbnails] = useState("");
+  const [image2, setImage2] = useState("");
 
   const [title2, setTitle2] = useState("");
   const [description2, setDescription2] = useState("");
@@ -82,7 +82,7 @@ const Product = ({ product }) => {
     setStock(product.stock);
     setCategory(product.category);
     setSubCategory(product.subCategory);
-    setThumbnails(product.thumbnails);
+    setImage2(product.image);
   };
 
   const abrirModalAgregar = () => {
@@ -108,7 +108,7 @@ const Product = ({ product }) => {
         stock: stock2,
         category: category2,
         subCategory: subCategory2,
-        thumbnails: image,
+        image: image,
       };
       console.log("producto agregado: " + JSON.stringify(add));
       axios
@@ -151,7 +151,7 @@ const Product = ({ product }) => {
         stock: stock,
         category: category,
         subCategory: subCategory,
-        thumbnails: thumbnails,
+        image: image,
       };
       axios
         .put(`${apiURL}/api/products/${id}/${user.uid}`, changes)
@@ -179,7 +179,7 @@ const Product = ({ product }) => {
     setStock();
     setCategory("");
     setSubCategory("");
-    setThumbnails("");
+    setImage2("");
   };
 
   return (
@@ -188,7 +188,7 @@ const Product = ({ product }) => {
         <Card style={{ width: "18rem" }}>
           <Card.Img
             variant="top"
-            src={product.thumbnails}
+            src={product.image}
             alt={product.title}
           />
           <Card.Body>
@@ -328,7 +328,7 @@ const Product = ({ product }) => {
             <br />
 
             <label>Imagen</label>
-            <img src={thumbnails}
+            <img src={image2}
               alt="profile"
               onClick={() => setModalShow(true)}
               style={{
