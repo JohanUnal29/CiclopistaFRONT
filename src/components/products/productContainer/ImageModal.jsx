@@ -40,8 +40,9 @@ export default function ImageModal(props) {
       });
 
     setFileName(file.name);
+    
     console.log("filename "+fileName.name)
-    console.log("file "+file)
+    console.log(JSON.stringify(file, null, 2));
     setSelectedFile(file)
   };
 
