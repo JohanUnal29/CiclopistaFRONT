@@ -108,7 +108,7 @@ const Product = ({ product }) => {
         stock: stock2,
         category: category2,
         subCategory: subCategory2,
-        image,
+        image: image,
       };
       console.log("producto agregado: " + JSON.stringify(add));
       axios

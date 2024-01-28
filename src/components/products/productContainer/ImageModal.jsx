@@ -41,11 +41,7 @@ export default function ImageModal(props) {
 
     setFileName(file.name);
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setSelectedFile(reader.result);
-    };
-    reader.readAsDataURL(file);
+    setSelectedFile(file)
   };
 
   const handleUpdateProfilePic = () => {
