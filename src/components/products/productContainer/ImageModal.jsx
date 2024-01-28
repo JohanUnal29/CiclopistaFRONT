@@ -15,7 +15,7 @@ export default function ImageModal(props) {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
+    const [file] = e.target.files;
     const SIZE_50MB = 50 * 1024 * 1024;
     const isValidSize = file.size < SIZE_50MB;
     // const isValidSize = file.size < 200 * 1024
@@ -40,10 +40,12 @@ export default function ImageModal(props) {
       });
 
     setFileName(file.name);
-    
-    console.log("filename "+fileName.name)
-    console.log(JSON.stringify(file, null, 2));
-    setSelectedFile(file)
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setSelectedFile(reader.result);
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleUpdateProfilePic = () => {
