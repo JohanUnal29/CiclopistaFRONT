@@ -15,7 +15,7 @@ export default function ImageModal(props) {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (e) => {
-    const [file] = e.target.files[0];
+    const file = e.target.files[0];
     const SIZE_50MB = 50 * 1024 * 1024;
     const isValidSize = file.size < SIZE_50MB;
     // const isValidSize = file.size < 200 * 1024
