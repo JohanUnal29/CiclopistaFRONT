@@ -53,7 +53,7 @@ const Product = ({ product }) => {
       alert(error.message);
     }
   };
-image
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [code, setCode] = useState("");
