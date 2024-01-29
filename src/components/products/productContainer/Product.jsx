@@ -29,6 +29,10 @@ const Product = ({ product }) => {
 
   const [selectedFile2, setSelectedFile2] = useState(null);
 
+  const manejarCambioDeEstado = (nuevoValor) => {
+    setSelectedFile2(nuevoValor);
+  };
+
   const image = useSelector((state) => state.product.value.image)
 
   const deleteProduct = async (id) => {
@@ -451,6 +455,7 @@ const Product = ({ product }) => {
             <Button onClick={() => setModalShow(true)} variant="Dark">Insetar Imagen</Button>
             <ImageModal
               show={modalShow}
+              onCambioDeEstado={manejarCambioDeEstado}
               onHide={() => setModalShow(false)}
             />
             <br />

@@ -53,7 +53,7 @@ export default function ImageModal(props) {
 
   const handleUpdateProfilePic = () => {
     
-    props.setSelectedFile2(file2)
+    props.onCambioDeEstado(file2)
     props.onHide();
 
   };
