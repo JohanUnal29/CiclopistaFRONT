@@ -71,7 +71,7 @@ const Product = ({ product }) => {
 
   const handleUpdateProfilePic = () => {
 
-    
+    console.log("archivo 2"+file2)
     setSelectedFile2(file2)
     setModalShow2(false)
 
@@ -162,7 +162,7 @@ const Product = ({ product }) => {
         stock: stock2,
         category: category2,
         subCategory: subCategory2,
-        image: selectedFile2,
+        image: file2,
       };
       console.log("producto agregado: " + JSON.stringify(add));
       axios
