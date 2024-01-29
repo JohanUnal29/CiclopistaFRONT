@@ -87,7 +87,7 @@ const Product = ({ product }) => {
         stock: stock,
         category: category,
         subCategory: subCategory,
-        image: selectedFile2,
+        
       };
       axios
         .put(`${apiURL}/api/products/${id}/${user.uid}`, changes)
