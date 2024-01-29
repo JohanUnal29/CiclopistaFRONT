@@ -18,13 +18,6 @@ import { useAuth } from "../../../context/AuthContext.jsx";
 
 const Product = ({ product }) => {
 
-  useEffect(() => {
-    if(selectedFile2 != null){
-      console.log("archivo")
-    console.log(JSON.stringify(selectedFile2, null, 2));
-    }
-  }, [selectedFile2]);
-
   const dispatch = useDispatch()
 
   const [modalShow, setModalShow] = useState(false)
