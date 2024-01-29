@@ -21,13 +21,61 @@ const Product = ({ product }) => {
   const dispatch = useDispatch()
 
   const [modalShow, setModalShow] = useState(false)
+  const [modalShow2, setModalShow2] = useState(false)
 
   const imgurl = "https://drive.google.com/uc?export=download&id=";
   const apiURL = process.env.REACT_APP_API_URL;
 
   const { user, loading } = useAuth();
 
+  //sistema de imagenes
   const [selectedFile2, setSelectedFile2] = useState(null);
+  const [fileName, setFileName] = useState("Subir una imagen");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [file2, setFile2] = useState(null)
+
+  const handleFileChange = (e) => {
+    const [file] = e.target.files;
+    const SIZE_50MB = 50 * 1024 * 1024;
+    const isValidSize = file.size < SIZE_50MB;
+    // const isValidSize = file.size < 200 * 1024
+    const isNameOfOneImageRegEx = /.(jpe?g|gif|png)$/i;
+    const isValidType = isNameOfOneImageRegEx.test(file.name);
+
+    if (!isValidSize)
+      return Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "¡Imagen muy pesada, excede los 50MB!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    if (!isValidType)
+      return Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "¡Solo puedes subir imagenes!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+    setFileName(file.name);
+    setFile2(file)
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setSelectedFile(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleUpdateProfilePic = () => {
+
+    setSelectedFile2(file2)
+    setModalShow2(false)
+
+  };
+
+  //acá termina sistema de imagenes
 
   const manejarCambioDeEstado = (nuevoValor) => {
     setSelectedFile2(nuevoValor);
@@ -450,12 +498,41 @@ const Product = ({ product }) => {
             <br />
 
             <label>Imagen</label>
-            <Button onClick={() => setModalShow(true)} variant="Dark">Insetar Imagen</Button>
-            <ImageModal
-              show={modalShow}
-              onCambioDeEstado={manejarCambioDeEstado}
-              onHide={() => setModalShow(false)}
-            />
+            <Modal show={modalShow2} aria-labelledby="contained-modal-title-vcenter">
+              <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">Imagen</Modal.Title>
+              </Modal.Header>
+              <Modal.Body className="d-flex flex-column align-items-center justify-content-center">
+                <Form.Group controlId="formFile" className="mb-3">
+                  <Form.Label>Seleccionar imagen</Form.Label>
+                  <Form.Control
+                    type="file"
+                    accept=".jpg, .jpeg, .gif, .png"
+                    onChange={handleFileChange}
+                  />
+                </Form.Group>
+                <img
+                  className="img-fluid mt-2"
+                  src={selectedFile}
+                  alt="profile-previw"
+                />
+              </Modal.Body>
+              <Modal.Footer>
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    setModalShow2(false);
+                    setSelectedFile(null);
+                  }}
+                >
+                  Cancelar
+                </Button>
+                <Button variant="primary" onClick={handleUpdateProfilePic}>
+                  Actualizar imagen
+                </Button>
+              </Modal.Footer>
+            </Modal>
+            <Button onClick={() => setModalShow2(true)} variant="Dark">Insetar Imagen</Button>
             <br />
           </div>
 
