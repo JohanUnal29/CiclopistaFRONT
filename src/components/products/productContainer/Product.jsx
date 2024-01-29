@@ -36,7 +36,7 @@ const Product = ({ product }) => {
 
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
-    console.log("archivo seleccionado"+selectedFile)
+    console.log("archivo seleccionado" + selectedFile)
     console.log(e.target.files[0])
     const SIZE_50MB = 50 * 1024 * 1024;
     const isValidSize = e.target.files[0].size < SIZE_50MB;
@@ -61,11 +61,11 @@ const Product = ({ product }) => {
         timer: 1500,
       });
 
-  
+
   };
 
   const handleUpdateProfilePic = () => {
-    console.log("file2: "+file2)
+    console.log("file2: " + file2)
     setModalShow2(false)
 
   };
@@ -495,16 +495,9 @@ const Product = ({ product }) => {
             <br />
 
             <label>Imagen</label>
-            
-                <Form.Group controlId="formFile" className="mb-3">
-                  <Form.Label>Seleccionar imagen</Form.Label>
-                  <Form.Control
-                    type="file"
-                    accept=".jpg, .jpeg, .gif, .png"
-                    onChange={handleFileChange}
-                  />
-                </Form.Group>
-                                      
+
+            <input type="file" accept="image/*" onChange={handleFileChange}></input>
+
             <br />
           </div>
 
