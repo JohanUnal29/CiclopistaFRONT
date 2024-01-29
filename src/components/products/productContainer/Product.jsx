@@ -60,7 +60,7 @@ const Product = ({ product }) => {
       });
 
     setFileName(file.name);
-    setFile2(file)
+    setFile2(e.target.files[0])
     console.log(file)
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -70,9 +70,7 @@ const Product = ({ product }) => {
   };
 
   const handleUpdateProfilePic = () => {
-
-    console.log("archivo 2"+file2)
-    setSelectedFile2(file2)
+    console.log("file2: "+file2)
     setModalShow2(false)
 
   };
