@@ -33,8 +33,6 @@ const Product = ({ product }) => {
     setSelectedFile2(nuevoValor);
   };
 
-  const image = useSelector((state) => state.product.value.image)
-
   const deleteProduct = async (id) => {
     try {
       axios
@@ -114,7 +112,7 @@ const Product = ({ product }) => {
         stock: stock2,
         category: category2,
         subCategory: subCategory2,
-        image: image,
+        image: selectedFile2,
       };
       console.log("producto agregado: " + JSON.stringify(add));
       axios
