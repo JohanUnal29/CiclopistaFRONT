@@ -273,11 +273,7 @@ const Product = ({ product }) => {
                 objectFit: "cover",
               }}
             />
-            <ImageModal
-              show={modalShow}
-              setSelectedFile2={setSelectedFile2}
-              onHide={() => setModalShow(false)}
-            />
+            
             <br />
           </div>
 
