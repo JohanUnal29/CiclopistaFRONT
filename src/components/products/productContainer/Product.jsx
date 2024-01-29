@@ -35,13 +35,14 @@ const Product = ({ product }) => {
   const [file2, setFile2] = useState(null)
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFile2(e.target.files[0]);
+    setSelectedFile(e.target.files[0]);
+    console.log(selectedFile)
+    console.log(e.target.files[0])
     const SIZE_50MB = 50 * 1024 * 1024;
-    const isValidSize = file.size < SIZE_50MB;
+    const isValidSize = e.target.files[0].size < SIZE_50MB;
     // const isValidSize = file.size < 200 * 1024
     const isNameOfOneImageRegEx = /.(jpe?g|gif|png)$/i;
-    const isValidType = isNameOfOneImageRegEx.test(file.name);
+    const isValidType = isNameOfOneImageRegEx.test(e.target.files[0].name);
 
     if (!isValidSize)
       return Swal.fire({
@@ -60,14 +61,7 @@ const Product = ({ product }) => {
         timer: 1500,
       });
 
-    setFileName(file.name);
-    console.log(file)
-    console.log("file 2"+file2)
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setSelectedFile(reader.result);
-    };
-    reader.readAsDataURL(file);
+  
   };
 
   const handleUpdateProfilePic = () => {
@@ -161,7 +155,7 @@ const Product = ({ product }) => {
         stock: stock2,
         category: category2,
         subCategory: subCategory2,
-        image: file2,
+        image: selectedFile,
       };
       console.log("producto agregado: " + JSON.stringify(add));
       axios
@@ -508,11 +502,6 @@ const Product = ({ product }) => {
                     onChange={handleFileChange}
                   />
                 </Form.Group>
-                <img
-                  className="img-fluid mt-2"
-                  src={selectedFile}
-                  alt="profile-previw"
-                />
                                       
             <br />
           </div>
