@@ -53,7 +53,7 @@ const Product = ({ product }) => {
       alert(error.message);
     }
   };
-
+image
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [code, setCode] = useState("");
@@ -155,7 +155,7 @@ const Product = ({ product }) => {
         stock: stock,
         category: category,
         subCategory: subCategory,
-        image,
+        image: selectedFile2,
       };
       axios
         .put(`${apiURL}/api/products/${id}/${user.uid}`, changes)
