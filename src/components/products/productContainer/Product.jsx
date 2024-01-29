@@ -35,7 +35,7 @@ const Product = ({ product }) => {
   const [file2, setFile2] = useState(null)
 
   const handleFileChange = (e) => {
-    const [file] = e.target.files;
+    const file = e.target.files[0];
     const SIZE_50MB = 50 * 1024 * 1024;
     const isValidSize = file.size < SIZE_50MB;
     // const isValidSize = file.size < 200 * 1024
@@ -61,6 +61,7 @@ const Product = ({ product }) => {
 
     setFileName(file.name);
     setFile2(file)
+    console.log(file)
     const reader = new FileReader();
     reader.onloadend = () => {
       setSelectedFile(reader.result);
@@ -70,6 +71,7 @@ const Product = ({ product }) => {
 
   const handleUpdateProfilePic = () => {
 
+    
     setSelectedFile2(file2)
     setModalShow2(false)
 
@@ -500,7 +502,7 @@ const Product = ({ product }) => {
             <label>Imagen</label>
             <Modal show={modalShow2} aria-labelledby="contained-modal-title-vcenter">
               <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">Imagen</Modal.Title>
+                <Modal.Title id="contained-modal-title-vcenter">Imagen comprobante</Modal.Title>
               </Modal.Header>
               <Modal.Body className="d-flex flex-column align-items-center justify-content-center">
                 <Form.Group controlId="formFile" className="mb-3">
