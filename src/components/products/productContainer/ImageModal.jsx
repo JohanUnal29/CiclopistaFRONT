@@ -40,7 +40,6 @@ export default function ImageModal(props) {
       });
 
     setFileName(file.name);
-    props.setSelectedFile2(file)
 
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -51,7 +50,7 @@ export default function ImageModal(props) {
 
   const handleUpdateProfilePic = () => {
     
-    dispatch(setImage(selectedFile))
+    props.setSelectedFile2(file)
     props.onHide();
 
   };
