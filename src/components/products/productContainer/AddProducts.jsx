@@ -10,6 +10,7 @@ export default function AddProducts() {
     const { user, loading } = useAuth();
     const [selectedFile, setSelectedFile] = useState(null);
     const [selectedFile2, setSelectedFile2] = useState(null);
+    const [fileName, setFileName] = useState(null);
 
     const [title2, setTitle2] = useState("");
     const [description2, setDescription2] = useState("");
