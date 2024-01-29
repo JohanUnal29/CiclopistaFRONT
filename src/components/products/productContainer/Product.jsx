@@ -19,8 +19,10 @@ import { useAuth } from "../../../context/AuthContext.jsx";
 const Product = ({ product }) => {
 
   useEffect(() => {
-    console.log("archivo")
+    if(selectedFile2){
+      console.log("archivo")
     console.log(JSON.stringify(selectedFile2, null, 2));
+    }
   }, [selectedFile2]);
 
   const dispatch = useDispatch()
