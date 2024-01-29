@@ -14,6 +14,7 @@ import PageCart from "./components/products/cart/PageCart";
 import { AuthProvider } from "./context/AuthContext";
 import { Provider } from 'react-redux'
 import { store } from "./app/Store.jsx";
+import AddProducts from "./components/products/productContainer/AddProducts.jsx";
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
                 <Route path="/UserManager" element={<UserListContainer />} />
                 <Route path="/CheckOut" element={<Checkout2 />} />
                 <Route path="/PageCart" element={<PageCart />} />
+                <Route path="/Addproducts" element={<AddProducts />} />
               </Routes>
             </BrowserRouter>
 
