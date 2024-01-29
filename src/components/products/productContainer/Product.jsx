@@ -36,7 +36,7 @@ const Product = ({ product }) => {
 
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
-    console.log(selectedFile)
+    console.log("archivo seleccionado"+selectedFile)
     console.log(e.target.files[0])
     const SIZE_50MB = 50 * 1024 * 1024;
     const isValidSize = e.target.files[0].size < SIZE_50MB;
@@ -146,6 +146,8 @@ const Product = ({ product }) => {
 
   const addProduct = async () => {
     try {
+      const formData = new FormData();
+      formData.append("image", selectedFile);
       const add = {
         title: title2,
         description: description2,
@@ -155,11 +157,11 @@ const Product = ({ product }) => {
         stock: stock2,
         category: category2,
         subCategory: subCategory2,
-        image: selectedFile,
       };
       console.log("producto agregado: " + JSON.stringify(add));
+      console.log("imagen: " + JSON.stringify(formData));
       axios
-        .post(`${apiURL}/api/products/addproduct/${user.uid}`, add)
+        .post(`${apiURL}/api/products/addproduct/${user.uid}`, add, formData)
         .then((res) => {
           Swal.fire({
             position: "center",
