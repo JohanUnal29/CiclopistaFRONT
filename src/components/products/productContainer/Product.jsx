@@ -18,6 +18,11 @@ import { useAuth } from "../../../context/AuthContext.jsx";
 
 const Product = ({ product }) => {
 
+  useEffect(() => {
+    console.log("archivo")
+    console.log(JSON.stringify(selectedFile2, null, 2));
+  }, [selectedFile2]);
+
   const dispatch = useDispatch()
 
   const [modalShow, setModalShow] = useState(false)
@@ -341,7 +346,7 @@ const Product = ({ product }) => {
             />
             <ImageModal
               show={modalShow}
-              setSelectedFile2={selectedFile2}
+              setSelectedFile2={setSelectedFile2}
               onHide={() => setModalShow(false)}
             />
             <br />
