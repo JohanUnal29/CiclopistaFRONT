@@ -13,7 +13,6 @@ export default function ImageModal(props) {
 
   const [fileName, setFileName] = useState("Subir una imagen");
   const [selectedFile, setSelectedFile] = useState(null);
-  const [selectedFile2, setSelectedFile2] = useState(null);
 
   const handleFileChange = (e) => {
     const [file] = e.target.files;
@@ -41,7 +40,7 @@ export default function ImageModal(props) {
       });
 
     setFileName(file.name);
-    setSelectedFile2(file)
+    props.setSelectedFile2(file)
 
     const reader = new FileReader();
     reader.onloadend = () => {

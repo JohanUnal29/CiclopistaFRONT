@@ -27,6 +27,8 @@ const Product = ({ product }) => {
 
   const { user, loading } = useAuth();
 
+  const [selectedFile2, setSelectedFile2] = useState(null);
+
   const image = useSelector((state) => state.product.value.image)
 
   const deleteProduct = async (id) => {
@@ -339,6 +341,7 @@ const Product = ({ product }) => {
             />
             <ImageModal
               show={modalShow}
+              setSelectedFile2={selectedFile2}
               onHide={() => setModalShow(false)}
             />
             <br />
