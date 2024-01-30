@@ -11,7 +11,7 @@ export const productSlice = createSlice({
     initialState,
     reducers: {
         setImage: (state, actions) => {
-            state.value.image = actions.file
+            state.value.image = actions.payload
         }
     }
 })
