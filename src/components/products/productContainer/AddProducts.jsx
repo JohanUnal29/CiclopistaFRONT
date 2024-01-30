@@ -26,9 +26,15 @@ export default function AddProducts() {
     const [category2, setCategory2] = useState("");
     const [subCategory2, setSubCategory2] = useState("");
 
+    const print = () => {
+        console.log(selectedFile2)
+        console.log(fileName)
+    }
+
     const handleFileChange = (e) => {
+        setSelectedFile2(e.target.files[0])
         const file = e.target.files[0];
-        setSelectedFile2(file)
+        
 
         dispatch(setImage(file))
 
@@ -78,6 +84,7 @@ export default function AddProducts() {
                 image: selectedFile2,
             };
             console.log("producto agregado: " + JSON.stringify(add));
+            console.log("producto agregado: " + JSON.stringify(selectedFile2));
             axios
                 .post(`${apiURL}/api/products/addproduct/${user.uid}`, add)
                 .then((res) => {
@@ -199,7 +206,7 @@ export default function AddProducts() {
                 type="button"
                 variant="success"
                 onClick={() => {
-                    addProduct();
+                    print();
                 }}
             >
                 Agregar
