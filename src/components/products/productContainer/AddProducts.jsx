@@ -28,9 +28,9 @@ export default function AddProducts() {
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        setSelectedFile2(e.target.files[0])
+        setSelectedFile2(file)
 
-        dispatch(setImage(e.target.files[0]))
+        dispatch(setImage(file))
 
         const SIZE_50MB = 50 * 1024 * 1024;
         const isValidSize = file.size < SIZE_50MB;
