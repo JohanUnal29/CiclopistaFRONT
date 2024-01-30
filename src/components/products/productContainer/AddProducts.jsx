@@ -5,8 +5,13 @@ import { Button, Form } from "react-bootstrap";
 
 import { useAuth } from "../../../context/AuthContext";
 
+import { useSelector, useDispatch } from 'react-redux'
+
+import { setImage } from "../../../features/product/ProductSlice";
+
 export default function AddProducts() {
     const apiURL = process.env.REACT_APP_API_URL;
+    const dispatch = useDispatch()
     const { user, loading } = useAuth();
     const [selectedFile, setSelectedFile] = useState(null);
     const [selectedFile2, setSelectedFile2] = useState(null);
@@ -24,6 +29,9 @@ export default function AddProducts() {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         setSelectedFile2(e.target.files[0])
+
+        dispatch(setImage(e.target.files[0]))
+
         const SIZE_50MB = 50 * 1024 * 1024;
         const isValidSize = file.size < SIZE_50MB;
         // const isValidSize = file.size < 200 * 1024
@@ -48,7 +56,7 @@ export default function AddProducts() {
             });
 
         setFileName(file.name);
-
+        console.log(file)
         const reader = new FileReader();
         reader.onloadend = () => {
             setSelectedFile(reader.result);
