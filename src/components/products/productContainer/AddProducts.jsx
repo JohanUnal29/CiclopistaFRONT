@@ -70,6 +70,23 @@ export default function AddProducts() {
         reader.readAsDataURL(file);
     };
 
+    const addProduct2 = () => {
+        
+            const add = {
+                title: title2,
+                description: description2,
+                code: code2,
+                price: price2,
+                status: status2,
+                stock: stock2,
+                category: category2,
+                subCategory: subCategory2,
+                image: selectedFile2,        
+            };
+
+            console.log("producto agregado: " + JSON.stringify(add))
+    }
+
     const addProduct = async () => {
         try {
             const add = {
