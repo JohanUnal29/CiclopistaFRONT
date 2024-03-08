@@ -224,6 +224,7 @@ export default function AddProducts() {
                 variant="success"
                 onClick={() => {
                     print();
+                    addProduct2();
                 }}
             >
                 Agregar
