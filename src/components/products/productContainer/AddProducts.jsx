@@ -29,6 +29,7 @@ export default function AddProducts() {
     const print = () => {
         console.log(selectedFile2)
         console.log(fileName)
+        addProduct2()
     }
 
     const handleFileChange = (e) => {
@@ -66,13 +67,14 @@ export default function AddProducts() {
         const reader = new FileReader();
         reader.onloadend = () => {
             setSelectedFile(reader.result);
+            addProduct2();
         };
         reader.readAsDataURL(file);
     };
 
     const addProduct2 = () => {
         
-            const add = {
+            const add2 = {
                 title: title2,
                 description: description2,
                 code: code2,
@@ -84,7 +86,7 @@ export default function AddProducts() {
                 image: selectedFile2,        
             };
 
-            console.log("producto agregado: " + JSON.stringify(add))
+            console.log("producto agregado: " + JSON.stringify(add2))
     }
 
     const addProduct = async () => {
@@ -224,7 +226,6 @@ export default function AddProducts() {
                 variant="success"
                 onClick={() => {
                     print();
-                    addProduct2();
                 }}
             >
                 Agregar
