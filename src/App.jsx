@@ -15,6 +15,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { Provider } from 'react-redux'
 import { store } from "./app/Store.jsx";
 import AddProducts from "./components/products/productContainer/AddProducts.jsx";
+import AddProduct from "./components/products/productContainer/AddProduct.jsx";
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
                 <Route path="/CheckOut" element={<Checkout2 />} />
                 <Route path="/PageCart" element={<PageCart />} />
                 <Route path="/Addproducts" element={<AddProducts />} />
+                <Route path="/Addproduct" element={<AddProduct />} />
               </Routes>
             </BrowserRouter>
 

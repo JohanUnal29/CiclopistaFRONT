@@ -160,7 +160,7 @@ const Product = ({ product }) => {
                 </Button>
                 <br />
                 <br />
-                <Link to="/Addproducts">
+                <Link to="/Addproduct">
                   <Button
                     variant="success"
                   >
