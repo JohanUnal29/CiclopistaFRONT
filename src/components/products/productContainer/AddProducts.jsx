@@ -87,6 +87,8 @@ export default function AddProducts() {
             };
 
             console.log("producto agregado: " + JSON.stringify(add2))
+            console.log("imagen agregado: " + add2.image)
+            console.log("verificar img: "+ selectedFile2)
     }
 
     const addProduct = async () => {
