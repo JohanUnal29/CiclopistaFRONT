@@ -14,6 +14,7 @@ import ImageModal from "./ImageModal.jsx"
 
 //firebase
 import { useAuth } from "../../../context/AuthContext.jsx";
+import AddProducts from "./AddProducts.jsx";
 
 
 const Product = ({ product }) => {
@@ -160,13 +161,14 @@ const Product = ({ product }) => {
                 </Button>
                 <br />
                 <br />
-                <Link to="/Addproduct">
+                
                   <Button
                     variant="success"
                   >
                     Agregar producto
                   </Button>
-                </Link>
+                
+                 <AddProducts/>
 
               </>
             )}

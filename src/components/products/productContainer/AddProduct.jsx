@@ -4,42 +4,33 @@ import { useAuth } from '../../../context/AuthContext';
 
 export default function AddProduct() {
     const { user, loading } = useAuth();
-    const [file, setFile] = useState(null);
-    const [description, setDescription] = useState("");
-    const [imageName, setImageName] = useState("");
-
     const apiURL = process.env.REACT_APP_API_URL;
 
-    const submit = async event => {
-        event.preventDefault();
+    const [files, setFiles] = useState([])
 
-        const formData = new FormData();
-        formData.append("image", file);
-        formData.append("description", description);
+    async function handleSubmit(e) {
+        e.preventDefault();
+    }
 
-        try {
-            const result = await axios.post(`${apiURL}/api/products/addproduct/${user.uid}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
-            setImageName(result.data.imageName);
-        } catch (error) {
-            console.error("Error al enviar la imagen:", error);
-        }
+    function onImageChange(e) {
+        const selectedFiles = e.target.files;
+        setFiles(selectedFiles)
+    }
+
+    async function fetchImages() {
+
     }
 
     return (
         <div>
-            <form onSubmit={submit}>
-                <input
-                    onChange={e => setFile(e.target.files[0])}
-                    type="file"
-                    accept="image/*"
-                />
-                <input
-                    onChange={e => setDescription(e.target.value)}
-                    type="text"
-                />
-                <button type="submit">Submit</button>
+            <form method='post' onSubmit={handleSubmit}>
+                <input onChange={onImageChange} type='file' accept='image/*' alt='gg' name='image' multiple></input>
+                <button type='submit'>Upload</button>
+                <button type='button' onClick={fetchImages}>Fecth</button>
             </form>
-            {imageName && <img src={`/api/images/${imageName}`} alt="Uploaded" />}
+            <div>
+                
+            </div>
         </div>
     );
 }

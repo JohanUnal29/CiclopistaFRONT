@@ -7,7 +7,6 @@ import './ProductDetail.css';
 
 const ProductDetail = ({ product }) => {
 
-  const imgurl = "https://drive.google.com/uc?export=download&id=";
   const { carrito, agregarAlCarrito } = useContext(CartContext);
   console.log("carrito:");
     console.log(carrito);
@@ -35,7 +34,7 @@ const ProductDetail = ({ product }) => {
       <Row>
         <Col className="contdetalle">
           <Card style={{ width: '30rem' }}>
-            <Card.Img src={imgurl+product.thumbnails} />
+            <Card.Img src={product.image} />
           </Card>
         </Col>
         <Col className="contdetalle2">
