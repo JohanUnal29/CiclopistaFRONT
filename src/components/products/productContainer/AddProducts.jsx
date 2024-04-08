@@ -35,79 +35,83 @@ export default function AddProducts() {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        
-        console.log("ejecutando")
+        try {
+            e.preventDefault()
 
-        const formData = new FormData()
+            console.log("ejecutando")
 
-        for (const [key, value] of Object.entries(form)) {
-            formData.append(key, value)
-        }
+            const formData = new FormData()
 
-        axios
-            .post(`${apiURL}/api/products/addproduct/${user.uid}`, formData)
-            .then((res) => {
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "Producto agregado",
-                    showConfirmButton: false,
-                    timer: 1500,
+            for (const [key, value] of Object.entries(form)) {
+                formData.append(key, value)
+            }
+
+            axios
+                .post(`${apiURL}/api/products/addproduct/${user.uid}`, formData)
+                .then((res) => {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Producto agregado",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
                 });
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        } catch (error) {
+            alert(error.message)
+        }
 
     }
 
     return (
         <>
-        <form onSubmit={handleSubmit}>
-            <h2>Crear Producto</h2>
-            <div>
-                <input 
-                    type="text"
-                    required
-                    name="title"
-                    placeholder="title"
-                    value={form.title}
-                    onChange={handleChange}
-                />
-                <input 
-                    type="text"
-                    required
-                    name="description"
-                    placeholder="description"
-                    value={form.description}
-                    onChange={handleChange}
-                />
-                <input 
-                    type="text"
-                    required
-                    name="code"
-                    placeholder="code"
-                    value={form.code}
-                    onChange={handleChange}
-                />
-                <input 
-                    type="text"
-                    required
-                    name="price"
-                    placeholder="price"
-                    value={form.price}
-                    onChange={handleChange}
-                />
-                <input 
-                    type="text"
-                    required
-                    name="stock"
-                    placeholder="stock"
-                    value={form.stock}
-                    onChange={handleChange}
-                />
-                {/* <input 
+            <form onSubmit={handleSubmit}>
+                <h2>Crear Producto</h2>
+                <div>
+                    <input
+                        type="text"
+                        required
+                        name="title"
+                        placeholder="title"
+                        value={form.title}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="text"
+                        required
+                        name="description"
+                        placeholder="description"
+                        value={form.description}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="text"
+                        required
+                        name="code"
+                        placeholder="code"
+                        value={form.code}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="text"
+                        required
+                        name="price"
+                        placeholder="price"
+                        value={form.price}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="text"
+                        required
+                        name="stock"
+                        placeholder="stock"
+                        value={form.stock}
+                        onChange={handleChange}
+                    />
+                    {/* <input 
                     type="text"
                     required
                     name="category"
@@ -123,16 +127,16 @@ export default function AddProducts() {
                     value={form.subCategory}
                     onChange={handleChange}
                 /> */}
-                <input 
-                    type="file"
-                    name="image"
-                    placeholder="image"
-                    accept='image/png, image/jpeg'
-                    onChange={handleChange}
-                />
-                <button type="submit">Crear Producto</button>
-            </div>
-        </form>
+                    <input
+                        type="file"
+                        name="image"
+                        placeholder="image"
+                        accept='image/png, image/jpeg'
+                        onChange={handleChange}
+                    />
+                    <button type="submit">Crear Producto</button>
+                </div>
+            </form>
         </>
     )
 }
