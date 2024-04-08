@@ -16,10 +16,7 @@ export default function AddProducts() {
         description: '',
         code: '',
         price: '',
-        status: '',
         stock: '',
-        category: '',
-        subCategory: '',
         image: null
     }
 
@@ -104,20 +101,12 @@ export default function AddProducts() {
                 <input 
                     type="text"
                     required
-                    name="status"
-                    placeholder="status"
-                    value={form.status}
-                    onChange={handleChange}
-                />
-                <input 
-                    type="text"
-                    required
                     name="stock"
                     placeholder="stock"
                     value={form.stock}
                     onChange={handleChange}
                 />
-                <input 
+                {/* <input 
                     type="text"
                     required
                     name="category"
@@ -132,7 +121,7 @@ export default function AddProducts() {
                     placeholder="subCategory"
                     value={form.subCategory}
                     onChange={handleChange}
-                />
+                /> */}
                 <input 
                     type="file"
                     name="image"
