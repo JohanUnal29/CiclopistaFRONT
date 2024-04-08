@@ -25,7 +25,7 @@ export default function AddProducts() {
 
     const apiURL = process.env.REACT_APP_API_URL;
     const { user, loading } = useAuth();
-    const [form, setForm] = useState;
+    const [form, setForm] = useState(defaultValue);
     const [isLoading, setIsLoading] = useState(false)
 
     const handleChange = (e) => {
