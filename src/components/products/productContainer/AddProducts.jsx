@@ -36,12 +36,13 @@ export default function AddProducts() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        setIsLoading(true)
+        
+        console.log("ejecutando")
 
         const formData = new FormData()
 
         for (const [key, value] of Object.entries(form)) {
-            formData.append(key, !value)
+            formData.append(key, value)
         }
 
         axios
