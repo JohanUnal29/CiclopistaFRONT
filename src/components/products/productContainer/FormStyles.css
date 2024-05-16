@@ -34,7 +34,10 @@ input[type="file"]:focus {
 select {
     height: 40px;
     margin-bottom: 15px;
+    padding: 8px; /* Ajustar padding */
     font-size: 16px;
+    color: #333; /* Color del texto */
+    line-height: 1.5; /* Ajustar line-height */
 }
 
 input[type="file"] {
