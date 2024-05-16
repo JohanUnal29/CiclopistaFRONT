@@ -5,7 +5,7 @@ import { Button, Modal } from "react-bootstrap";
 
 import { useAuth } from "../../../context/AuthContext";
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 
 import { setShow } from "../../../features/modal/ModalSlice";
 
