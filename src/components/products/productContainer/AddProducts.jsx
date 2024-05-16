@@ -64,6 +64,7 @@ export default function AddProducts() {
                         showConfirmButton: false,
                         timer: 1500,
                     });
+                    dispatch(setShow(false));
                 })
                 .catch((err) => {
                     console.log(err);
