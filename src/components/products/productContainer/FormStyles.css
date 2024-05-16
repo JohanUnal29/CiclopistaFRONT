@@ -34,6 +34,7 @@ input[type="file"]:focus {
 select {
     height: 40px;
     margin-bottom: 15px;
+    font-size: 16px;
 }
 
 input[type="file"] {
