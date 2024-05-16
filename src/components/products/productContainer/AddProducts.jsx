@@ -17,8 +17,6 @@ export default function AddProducts() {
 
     const show = useSelector((state) => state.modal.value.show);
 
-    dispatch(setEmailPay2(e.target.value))
-
     const defaultValue = {
         title: '',
         description: '',

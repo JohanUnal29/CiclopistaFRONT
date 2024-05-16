@@ -45,7 +45,6 @@ function App() {
                 <Route path="/CheckOut" element={<Checkout2 />} />
                 <Route path="/PageCart" element={<PageCart />} />
                 <Route path="/Addproducts" element={<AddProducts />} />
-                <Route path="/Addproduct" element={<AddProduct />} />
               </Routes>
             </BrowserRouter>
 
