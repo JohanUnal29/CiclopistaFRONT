@@ -36,6 +36,10 @@ select {
     margin-bottom: 15px;
 }
 
+input[type="file"] {
+    margin-top: 15px;
+}
+
 input[type="file"]::file-selector-button {
     background: #007BFF;
     color: white;
