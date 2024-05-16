@@ -15,7 +15,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { Provider } from 'react-redux'
 import { store } from "./app/Store.jsx";
 import AddProducts from "./components/products/productContainer/AddProducts.jsx";
-import AddProduct from "./components/products/productContainer/AddProduct.jsx";
+
 
 
 function App() {
