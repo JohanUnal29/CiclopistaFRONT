@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 import { useSelector, useDispatch } from 'react-redux'
 
-import { setImage } from "../../../features/product/ProductSlice.jsx";
+import { setShow } from "../../../features/modal/ModalSlice.jsx";
 
 //
 import ImageModal from "./ImageModal.jsx"
@@ -63,6 +63,7 @@ const Product = ({ product }) => {
   const [image2, setImage2] = useState("");
 
   const [modalInsertar, setModalInsertar] = useState(false);
+  
 
   const abrirModalInsertar = () => {
     setModalInsertar(true);
@@ -77,6 +78,8 @@ const Product = ({ product }) => {
     setImage2(product.image);
   };
 
+
+
   const uptadeProduct = async (id) => {
     try {
       const changes = {
@@ -88,7 +91,7 @@ const Product = ({ product }) => {
         stock: stock,
         category: category,
         subCategory: subCategory,
-        
+
       };
       axios
         .put(`${apiURL}/api/products/${id}/${user.uid}`, changes)
@@ -161,14 +164,15 @@ const Product = ({ product }) => {
                 </Button>
                 <br />
                 <br />
-                
-                  <Button
-                    variant="success"
-                  >
-                    Agregar producto
-                  </Button>
-                
-                 <AddProducts/>
+
+                <Button
+                  variant="success"
+                  onClick={() => dispatch(setShow(true))}
+                >
+                  Agregar producto
+                </Button>
+
+                <AddProducts />
 
               </>
             )}
@@ -275,7 +279,7 @@ const Product = ({ product }) => {
                 objectFit: "cover",
               }}
             />
-            
+
             <br />
           </div>
 
