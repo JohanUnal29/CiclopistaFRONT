@@ -7,14 +7,11 @@ import { useAuth } from "../../../context/AuthContext";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { setShow } from "../../../features/modal/ModalSlice";
+import { setShow2 } from "../../../features/modal/ModalSlice";
 
-import './FormStyles.css'
+import './FormStyle.css'
 
-
-
-export default function AddProducts() {
-
+export default function UpdateProducts({ product }) {
     const dispatch = useDispatch()
 
     const show = useSelector((state) => state.modal.value.show);
@@ -48,23 +45,25 @@ export default function AddProducts() {
         try {
             e.preventDefault()
 
-            const formData = new FormData()
+            console.log("ejecutando")
+
+            const changes = new FormData()
 
             for (const [key, value] of Object.entries(form)) {
-                formData.append(key, value)
+                changes.append(key, value)
             }
 
             axios
-                .post(`${apiURL}/api/products/addproduct/${user.uid}`, formData)
+                .put(`${apiURL}/api/products/${id}/${user.uid}`, changes)
                 .then((res) => {
                     Swal.fire({
                         position: "center",
                         icon: "success",
-                        title: "Producto agregado",
+                        title: "Producto actualizado",
                         showConfirmButton: false,
                         timer: 1500,
                     });
-                    dispatch(setShow(false));
+                    dispatch(setShow2(false));
                 })
                 .catch((err) => {
                     console.log(err);
@@ -77,8 +76,7 @@ export default function AddProducts() {
 
     return (
         <>
-
-            <Modal show={show} onHide={() => dispatch(setShow(false))}>
+            <Modal show={show} onHide={() => dispatch(setShow2(false))}>
                 <Modal.Header>
                     <Modal.Title>Agregar Producto</Modal.Title>
                 </Modal.Header>
@@ -90,7 +88,7 @@ export default function AddProducts() {
                                 required
                                 name="title"
                                 placeholder="title"
-                                value={form.title}
+                                value={product.title}
                                 onChange={handleChange}
                             />
                             <input
@@ -98,7 +96,7 @@ export default function AddProducts() {
                                 required
                                 name="description"
                                 placeholder="description"
-                                value={form.description}
+                                value={product.description}
                                 onChange={handleChange}
                             />
                             <input
@@ -106,7 +104,7 @@ export default function AddProducts() {
                                 required
                                 name="code"
                                 placeholder="code"
-                                value={form.code}
+                                value={product.code}
                                 onChange={handleChange}
                             />
                             <input
@@ -114,7 +112,7 @@ export default function AddProducts() {
                                 required
                                 name="price"
                                 placeholder="price"
-                                value={form.price}
+                                value={product.price}
                                 onChange={handleChange}
                             />
                             <input
@@ -122,13 +120,13 @@ export default function AddProducts() {
                                 required
                                 name="stock"
                                 placeholder="stock"
-                                value={form.stock}
+                                value={product.stock}
                                 onChange={handleChange}
                             />
                             <select
                                 required
                                 name="category"
-                                value={form.category}
+                                value={product.category}
                                 onChange={handleChange}
                             >
                                 <option value="Repuestos">Selecciona la categoria</option>
@@ -171,12 +169,22 @@ export default function AddProducts() {
                                 accept='image/png, image/jpeg'
                                 onChange={handleChange}
                             />
-                            
+
+                            <img src={product.image}
+                                alt="profile"
+                                onClick={() => setModalShow(true)}
+                                style={{
+                                    width: "18rem",
+                                    cursor: "pointer",
+                                    objectFit: "cover",
+                                }}
+                            />
+
                         </div>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="danger" onClick={() => dispatch(setShow(false))}>
+                    <Button variant="danger" onClick={() => dispatch(setShow2(false))}>
                         Cancelar
                     </Button>
                     <Button type="submit" onClick={handleSubmit}>Crear Producto</Button>
