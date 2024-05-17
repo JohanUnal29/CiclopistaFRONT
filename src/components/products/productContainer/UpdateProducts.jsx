@@ -54,7 +54,7 @@ export default function UpdateProducts({ product }) {
             }
 
             axios
-                .put(`${apiURL}/api/products/${id}/${user.uid}`, changes)
+                .put(`${apiURL}/api/products/${product.id}/${user.uid}`, changes)
                 .then((res) => {
                     Swal.fire({
                         position: "center",
@@ -172,7 +172,6 @@ export default function UpdateProducts({ product }) {
 
                             <img src={product.image}
                                 alt="profile"
-                                onClick={() => setModalShow(true)}
                                 style={{
                                     width: "18rem",
                                     cursor: "pointer",
