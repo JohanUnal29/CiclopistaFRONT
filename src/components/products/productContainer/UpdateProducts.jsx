@@ -12,8 +12,7 @@ import { setShow2 } from "../../../features/modal/ModalSlice";
 import './FormStyles.css'
 
 export default function UpdateProducts({ product }) {
-    const dispatch = useDispatch()
-
+    const dispatch = useDispatch();
     const show = useSelector((state) => state.modal.value.show);
 
     const defaultValue = {
@@ -25,60 +24,66 @@ export default function UpdateProducts({ product }) {
         image: null,
         category: '',
         subCategory: ''
-    }
+    };
 
     const apiURL = process.env.REACT_APP_API_URL;
-    const { user, loading } = useAuth();
+    const { user } = useAuth();
     const [form, setForm] = useState(defaultValue);
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        if (product) {
+            setForm({
+                title: product.title,
+                description: product.description,
+                code: product.code,
+                price: product.price,
+                stock: product.stock,
+                image: null, // Reset image input as file inputs are uncontrolled
+                category: product.category,
+                subCategory: product.subCategory
+            });
+        }
+    }, [product]);
 
     const handleChange = (e) => {
         if (e.target.name === 'image') {
-            const file = e.target.files ? e.target.files[0] : null
-            setForm({ ...form, [e.target.name]: file })
+            const file = e.target.files ? e.target.files[0] : null;
+            setForm({ ...form, [e.target.name]: file });
         } else {
-            setForm({ ...form, [e.target.name]: e.target.value })
+            setForm({ ...form, [e.target.name]: e.target.value });
         }
-    }
+    };
 
     const handleSubmit = async (e) => {
         try {
-            e.preventDefault()
+            e.preventDefault();
 
-            console.log("ejecutando")
-
-            const changes = new FormData()
-
+            const changes = new FormData();
             for (const [key, value] of Object.entries(form)) {
-                changes.append(key, value)
+                changes.append(key, value);
             }
 
-            axios
-                .put(`${apiURL}/api/products/${product.id}/${user.uid}`, changes)
-                .then((res) => {
-                    Swal.fire({
-                        position: "center",
-                        icon: "success",
-                        title: "Producto actualizado",
-                        showConfirmButton: false,
-                        timer: 1500,
-                    });
-                    dispatch(setShow2(false));
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        } catch (error) {
-            alert(error.message)
-        }
+            await axios.put(`${apiURL}/api/products/${product.id}/${user.uid}`, changes);
 
-    }
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Producto actualizado",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+            dispatch(setShow2(false));
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     return (
         <>
             <Modal show={show} onHide={() => dispatch(setShow2(false))}>
                 <Modal.Header>
-                    <Modal.Title>Agregar Producto</Modal.Title>
+                    <Modal.Title>Actualizar Producto</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form onSubmit={handleSubmit}>
@@ -88,7 +93,7 @@ export default function UpdateProducts({ product }) {
                                 required
                                 name="title"
                                 placeholder="title"
-                                value={product.title}
+                                value={form.title}
                                 onChange={handleChange}
                             />
                             <input
@@ -96,7 +101,7 @@ export default function UpdateProducts({ product }) {
                                 required
                                 name="description"
                                 placeholder="description"
-                                value={product.description}
+                                value={form.description}
                                 onChange={handleChange}
                             />
                             <input
@@ -104,7 +109,7 @@ export default function UpdateProducts({ product }) {
                                 required
                                 name="code"
                                 placeholder="code"
-                                value={product.code}
+                                value={form.code}
                                 onChange={handleChange}
                             />
                             <input
@@ -112,7 +117,7 @@ export default function UpdateProducts({ product }) {
                                 required
                                 name="price"
                                 placeholder="price"
-                                value={product.price}
+                                value={form.price}
                                 onChange={handleChange}
                             />
                             <input
@@ -120,13 +125,13 @@ export default function UpdateProducts({ product }) {
                                 required
                                 name="stock"
                                 placeholder="stock"
-                                value={product.stock}
+                                value={form.stock}
                                 onChange={handleChange}
                             />
                             <select
                                 required
                                 name="category"
-                                value={product.category}
+                                value={form.category}
                                 onChange={handleChange}
                             >
                                 <option value="Repuestos">Selecciona la categoria</option>
@@ -159,26 +164,27 @@ export default function UpdateProducts({ product }) {
                                 <option value="Cascos">Cascos</option>
                                 <option value="Chaquetas">Chaquetas</option>
                                 <option value="Balines/Cazuelas/Miples/Tornilleria">Balines/Cazuelas/Miples/Tornilleria</option>
-
                             </select>
 
                             <input
                                 type="file"
                                 name="image"
                                 placeholder="image"
-                                accept='image/png, image/jpeg'
+                                accept="image/png, image/jpeg"
                                 onChange={handleChange}
                             />
 
-                            <img src={product.image}
-                                alt="profile"
-                                style={{
-                                    width: "18rem",
-                                    cursor: "pointer",
-                                    objectFit: "cover",
-                                }}
-                            />
-
+                            {product.image && (
+                                <img
+                                    src={product.image}
+                                    alt="product"
+                                    style={{
+                                        width: "18rem",
+                                        cursor: "pointer",
+                                        objectFit: "cover",
+                                    }}
+                                />
+                            )}
                         </div>
                     </form>
                 </Modal.Body>
@@ -186,9 +192,9 @@ export default function UpdateProducts({ product }) {
                     <Button variant="danger" onClick={() => dispatch(setShow2(false))}>
                         Cancelar
                     </Button>
-                    <Button type="submit" onClick={handleSubmit}>Crear Producto</Button>
+                    <Button type="submit" onClick={handleSubmit}>Actualizar Producto</Button>
                 </Modal.Footer>
             </Modal>
         </>
-    )
+    );
 }
