@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { setShow2 } from "../../../features/modal/ModalSlice";
 
-import './FormStyle.css'
+import './FormStyles.css'
 
 export default function UpdateProducts({ product }) {
     const dispatch = useDispatch()
