@@ -15,15 +15,26 @@ export default function UpdateProducts({ product }) {
     const dispatch = useDispatch();
     const show = useSelector((state) => state.modal.value.show);
 
+    const [title2, setTitle2] = useState("");
+    const [description2, setDescription2] = useState("");
+    const [code2, setCode2] = useState("");
+    const [price2, setPrice2] = useState("");
+    const [status2, setStatus2] = useState();
+    const [stock2, setStock2] = useState();
+    const [category2, setCategory2] = useState("");
+    const [subCategory2, setSubCategory2] = useState("");
+    const [image2, setImage2] = useState("");
+
     const defaultValue = {
-        title: '',
-        description: '',
-        code: '',
-        price: '',
-        stock: '',
-        image: null,
-        category: '',
-        subCategory: ''
+        title: title2,
+        description: description2,
+        code: code2,
+        price: price2,
+        status: status2,
+        stock: stock2,
+        image: image2,
+        category: category2,
+        subCategory: subCategory2
     };
 
     const apiURL = process.env.REACT_APP_API_URL;
@@ -33,16 +44,15 @@ export default function UpdateProducts({ product }) {
 
     useEffect(() => {
         if (product) {
-            setForm({
-                title: product.title,
-                description: product.description,
-                code: product.code,
-                price: product.price,
-                stock: product.stock,
-                image: null, // Reset image input as file inputs are uncontrolled
-                category: product.category,
-                subCategory: product.subCategory
-            });
+            setTitle2(product.title);
+            setDescription2(product.description);
+            setCode2(product.code);
+            setPrice2(product.price);
+            setStatus2(product.status);
+            setStock2(product.stock);
+            setCategory2(product.category);
+            setSubCategory2(product.subCategory);
+            setImage2(product.image);
         }
     }, [product]);
 
@@ -174,7 +184,7 @@ export default function UpdateProducts({ product }) {
                                 onChange={handleChange}
                             />
 
-                            {product.image && (
+                            {/* {product.image && (
                                 <img
                                     src={product.image}
                                     alt="product"
@@ -184,7 +194,7 @@ export default function UpdateProducts({ product }) {
                                         objectFit: "cover",
                                     }}
                                 />
-                            )}
+                            )} */}
                         </div>
                     </form>
                 </Modal.Body>
