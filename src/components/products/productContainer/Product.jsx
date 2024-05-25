@@ -18,7 +18,7 @@ import UpdateProducts from "./UpdateProducts.jsx";
 const Product = ({ product }) => {
 
   const dispatch = useDispatch()
-
+  const [assignProduct, setAssignProduct ] = useState()
   const apiURL = process.env.REACT_APP_API_URL;
 
   const { user, loading } = useAuth();
@@ -82,7 +82,10 @@ const Product = ({ product }) => {
                 <br />
                 <Button
                   variant="success"
-                  onClick={() => dispatch(setShow2(true))}
+                  onClick={() => {
+                    dispatch(setShow2(true));
+                    setAssignProduct(product);
+                  }}
                 >
                   Actualizar producto
                 </Button>
@@ -97,7 +100,7 @@ const Product = ({ product }) => {
                 </Button>
 
                 <AddProducts />
-                <UpdateProducts product={product}/>
+                <UpdateProducts product={assignProduct}/>
 
               </>
             )}
