@@ -43,7 +43,7 @@ export default function UpdateProducts({ product }) {
                 image: product.image
             });
         }
-    }, [product]);
+    }, [product._id]);
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
