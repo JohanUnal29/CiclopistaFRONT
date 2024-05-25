@@ -17,6 +17,7 @@ export default function UpdateProducts({ product }) {
     const { user } = useAuth();
     const apiURL = process.env.REACT_APP_API_URL;
 
+    console.log(product)
     const [form, setForm] = useState({
         title: "",
         description: "",

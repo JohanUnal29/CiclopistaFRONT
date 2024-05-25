@@ -85,6 +85,8 @@ const Product = ({ product }) => {
                   onClick={() => {
                     dispatch(setShow2(true));
                     setAssignProduct(product);
+                    console.log(product);
+                    console.log(assignProduct);
                   }}
                 >
                   Actualizar producto
