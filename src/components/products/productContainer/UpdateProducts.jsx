@@ -17,9 +17,6 @@ export default function UpdateProducts({ product }) {
     const { user } = useAuth();
     const apiURL = process.env.REACT_APP_API_URL;
 
-    console.log(product.id)
-    const[id,setId] = useState(product.id)
-
     const [form, setForm] = useState({
         title: "",
         description: "",
@@ -65,7 +62,7 @@ export default function UpdateProducts({ product }) {
                 changes.append(key, value);
             }
 
-            await axios.put(`${apiURL}/api/products/${product.id}/${user.uid}`, changes);
+            await axios.put(`${apiURL}/api/products/${product._id}/${user.uid}`, changes);
 
             Swal.fire({
                 position: "center",
