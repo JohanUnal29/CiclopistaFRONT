@@ -36,7 +36,7 @@ const ProductListContainer = () => {
           console.log(err);
         });
     }
-  }, [categoria, products]);
+  }, [categoria]);
 
   function handlePrevious() {
     setPage((p) => {
