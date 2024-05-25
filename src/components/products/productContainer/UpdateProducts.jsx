@@ -14,61 +14,49 @@ import './FormStyles.css'
 export default function UpdateProducts({ product }) {
     const dispatch = useDispatch();
     const show = useSelector((state) => state.modal.value.show);
-    console.log(product)
-    const [title2, setTitle2] = useState("");
-    const [description2, setDescription2] = useState("");
-    const [code2, setCode2] = useState("");
-    const [price2, setPrice2] = useState("");
-    const [status2, setStatus2] = useState();
-    const [stock2, setStock2] = useState();
-    const [category2, setCategory2] = useState("");
-    const [subCategory2, setSubCategory2] = useState("");
-    const [image2, setImage2] = useState("");
-
-    const defaultValue = {
-        title: title2,
-        description: description2,
-        code: code2,
-        price: price2,
-        status: status2,
-        stock: stock2,
-        image: image2,
-        category: category2,
-        subCategory: subCategory2
-    };
-
-    const apiURL = process.env.REACT_APP_API_URL;
     const { user } = useAuth();
-    const [form, setForm] = useState(defaultValue);
-    const [isLoading, setIsLoading] = useState(false);
+    const apiURL = process.env.REACT_APP_API_URL;
+
+    const [form, setForm] = useState({
+        title: "",
+        description: "",
+        code: "",
+        price: "",
+        status: "",
+        stock: "",
+        category: "",
+        subCategory: "",
+        image: ""
+    });
 
     useEffect(() => {
         if (product) {
-            setTitle2(product.title);
-            setDescription2(product.description);
-            setCode2(product.code);
-            setPrice2(product.price);
-            setStatus2(product.status);
-            setStock2(product.stock);
-            setCategory2(product.category);
-            setSubCategory2(product.subCategory);
-            setImage2(product.image);
+            setForm({
+                title: product.title,
+                description: product.description,
+                code: product.code,
+                price: product.price,
+                status: product.status,
+                stock: product.stock,
+                category: product.category,
+                subCategory: product.subCategory,
+                image: product.image
+            });
         }
     }, [product]);
 
     const handleChange = (e) => {
-        if (e.target.name === 'image') {
-            const file = e.target.files ? e.target.files[0] : null;
-            setForm({ ...form, [e.target.name]: file });
+        const { name, value, files } = e.target;
+        if (name === 'image' && files.length > 0) {
+            setForm((prevForm) => ({ ...prevForm, [name]: files[0] }));
         } else {
-            setForm({ ...form, [e.target.name]: e.target.value });
+            setForm((prevForm) => ({ ...prevForm, [name]: value }));
         }
     };
 
     const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
-            e.preventDefault();
-
             const changes = new FormData();
             for (const [key, value] of Object.entries(form)) {
                 changes.append(key, value);
@@ -144,7 +132,7 @@ export default function UpdateProducts({ product }) {
                                 value={form.category}
                                 onChange={handleChange}
                             >
-                                <option value="Repuestos">Selecciona la categoria</option>
+                                <option value="">Selecciona la categoria</option>
                                 <option value="Grupos">Grupos</option>
                                 <option value="Marcos">Marcos</option>
                                 <option value="Suspensiones/Tenedores">Suspensiones/Tenedores</option>
@@ -175,7 +163,6 @@ export default function UpdateProducts({ product }) {
                                 <option value="Chaquetas">Chaquetas</option>
                                 <option value="Balines/Cazuelas/Miples/Tornilleria">Balines/Cazuelas/Miples/Tornilleria</option>
                             </select>
-
                             <input
                                 type="file"
                                 name="image"
@@ -183,7 +170,6 @@ export default function UpdateProducts({ product }) {
                                 accept="image/png, image/jpeg"
                                 onChange={handleChange}
                             />
-
                             {/* {product.image && (
                                 <img
                                     src={product.image}
