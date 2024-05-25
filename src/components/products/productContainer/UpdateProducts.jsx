@@ -31,7 +31,6 @@ export default function UpdateProducts({ product }) {
     });
 
     useEffect(() => {
-        if (product) {
             setForm({
                 title: product.title,
                 description: product.description,
@@ -43,7 +42,6 @@ export default function UpdateProducts({ product }) {
                 subCategory: product.subCategory,
                 image: product.image
             });
-        }
     }, [product]);
 
     const handleChange = (e) => {
