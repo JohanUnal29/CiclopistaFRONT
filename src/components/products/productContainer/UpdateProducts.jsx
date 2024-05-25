@@ -14,7 +14,7 @@ import './FormStyles.css'
 export default function UpdateProducts({ product }) {
     const dispatch = useDispatch();
     const show = useSelector((state) => state.modal.value.show);
-
+    console.log(product)
     const [title2, setTitle2] = useState("");
     const [description2, setDescription2] = useState("");
     const [code2, setCode2] = useState("");
