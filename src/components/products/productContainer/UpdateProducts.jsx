@@ -11,9 +11,10 @@ import { setShow2 } from "../../../features/modal/ModalSlice";
 
 import './FormStyles.css'
 
-export default function UpdateProducts({ product }) {
+export default function UpdateProducts() {
     const dispatch = useDispatch();
     const show = useSelector((state) => state.modal.value.show);
+    const product = useSelector((state) => state.product.value.product);
     const { user } = useAuth();
     const apiURL = process.env.REACT_APP_API_URL;
 

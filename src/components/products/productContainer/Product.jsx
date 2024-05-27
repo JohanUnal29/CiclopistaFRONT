@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import { useSelector, useDispatch } from 'react-redux'
 
 import { setShow, setShow2 } from "../../../features/modal/ModalSlice.jsx";
+import { setProduct } from "../../../features/product/ProductSlice.jsx";
 
 //firebase
 import { useAuth } from "../../../context/AuthContext.jsx";
@@ -18,7 +19,7 @@ import UpdateProducts from "./UpdateProducts.jsx";
 const Product = ({ product }) => {
 
   const dispatch = useDispatch()
-  const [assignProduct, setAssignProduct ] = useState()
+  
   const apiURL = process.env.REACT_APP_API_URL;
 
   const { user, loading } = useAuth();
@@ -84,9 +85,7 @@ const Product = ({ product }) => {
                   variant="success"
                   onClick={() => {
                     dispatch(setShow2(true));
-                    setAssignProduct(product);
-                    console.log(product);
-                    console.log(assignProduct);
+                    dispatch(setProduct(product));
                   }}
                 >
                   Actualizar producto
@@ -102,7 +101,7 @@ const Product = ({ product }) => {
                 </Button>
 
                 <AddProducts />
-                <UpdateProducts product={assignProduct}/>
+                <UpdateProducts/>
 
               </>
             )}

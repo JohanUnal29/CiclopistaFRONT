@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     value: {
-        image:null,
+        product:'',
     }
 }
 
@@ -10,12 +10,12 @@ export const productSlice = createSlice({
     name: "product",
     initialState,
     reducers: {
-        setImage: (state, actions) => {
-            state.value.image = actions.payload
+        setProduct: (state, actions) => {
+            state.value.product = actions.payload
         }
     }
 })
 
-export const { setImage } = productSlice.actions
+export const { setProduct } = productSlice.actions
 
 export default productSlice.reducer
