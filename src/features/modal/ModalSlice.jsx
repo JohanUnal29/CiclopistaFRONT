@@ -15,7 +15,7 @@ export const modalSlice = createSlice({
             state.value.show = actions.payload
         },
         setShow2: (state, actions) => {
-            state.value.show = actions.payload
+            state.value.show2 = actions.payload
         }
     }
 })
