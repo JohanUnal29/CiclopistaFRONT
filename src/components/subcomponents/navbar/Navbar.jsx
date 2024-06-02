@@ -55,7 +55,7 @@ export default function NavBar() {
               <a className="navbar-brand col-6">
                 <img
                   className="logotipoo"
-                  src="https://drive.google.com/uc?export=download&id=1qvxqCkqCxFeQyxzYarFAgABEMRX9jrIO"
+                  src={process.env.REACT_APP_NAVBAR}
                   alt="Logo Ciclopista"
                 />
               </a>
