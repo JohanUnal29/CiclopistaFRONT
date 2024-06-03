@@ -23,6 +23,7 @@ export default function OrderListContainer() {
         axios.get(`${apiURL}/api/purchase/status/${status}/${user.uid}`)
           .then(res => {
             setOrders(res.data.payload);
+            console.log("por status: "+orders)
           })
           .catch(err => {
             console.log(err);
