@@ -6,7 +6,6 @@ import './Carrito.css';
 
 const Carrito = () => {
 
-    const imgurl = "https://drive.google.com/uc?export=download&id=";
     const { carrito, eliminarDelCarrito } = useContext(CartContext);
 
     const showConfirmation = (id) => {
@@ -33,7 +32,7 @@ const Carrito = () => {
             <tbody>
                 <tr>
                     <td>{prod.title}</td>
-                    <td><img src={imgurl + prod.thumbnails} alt={prod.title} className="imagen-miniatura" /></td>
+                    <td><img src={prod.thumbnails} alt={prod.title} className="imagen-miniatura" /></td>
                     <td>{prod.cantidad}</td>
                     <td>${prod.price}</td>
                     <td>${prod.price * prod.cantidad}</td>
