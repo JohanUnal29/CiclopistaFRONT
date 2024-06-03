@@ -27,7 +27,7 @@ export default function Footer() {
                     <div class="red-social">
                         <a target='blank' href="https://wa.link/3hskoj"><FaWhatsapp className='fa fa-whatsapp' /></a>
                         <a target='blank' href="https://instagram.com/ciclopista?igshid=MzRlODBiNWFlZA=="><FaInstagram className='fa fa-instagram' /></a>
-                        <a href="#"><FaTwitter className='fa fa-twitter' /></a>
+                        {/* <a href="#"><FaTwitter className='fa fa-twitter' /></a> */}
                         <a target='blank' href="https://www.facebook.com/Ciclopista.repuestosyaccesorios?mibextid=ZbWKwL"><FaFacebook className='fa fa-facebook' /></a>
                         <a href="#"><FaTiktok className='fa fa-tiktok' /></a>
                     </div>

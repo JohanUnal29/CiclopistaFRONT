@@ -83,7 +83,7 @@ export default function NavBar() {
             <Nav.Link
               className="Menu"
               target="_blank"
-              href="https://www.instagram.com/dasein.accesorios/?igshid=Yzg5MTU1MDY%3D"
+              href="https://instagram.com/ciclopista?igshid=MzRlODBiNWFlZA=="
             >
               Ir a @ciclopista
             </Nav.Link>
