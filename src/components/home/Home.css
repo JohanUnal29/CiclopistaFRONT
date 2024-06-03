@@ -84,7 +84,7 @@ body {
   
   .slide-image {
     width: 600px; /* Hace que la imagen ocupe el 100% del ancho del contenedor */
-    height: 600px; /* Ajusta automáticamente la altura para mantener la proporción */
+    height: 580px; /* Ajusta automáticamente la altura para mantener la proporción */
   
     /* Estilos específicos para pantallas menores a 888px */
     @media (max-width: 888px) {
