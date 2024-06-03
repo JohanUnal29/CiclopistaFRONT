@@ -49,15 +49,15 @@ class Home extends React.Component {
                     text: <>
 
                         <div className="slide">
-                            <img className="slide-image" src="https://drive.google.com/uc?export=download&id=1H1a0CKoef38QE9jr2OACt4g8u-daFrbB" alt="Sillín"></img>
+                            <img className="slide-image" src="https://firebasestorage.googleapis.com/v0/b/ciclopista.appspot.com/o/decorative%2Fsilla.png?alt=media&token=5fb3be6e-315f-4d13-93f3-df04c0ccdc87" alt="Sillín"></img>
                         </div>
 
                         <div className="slide">
-                            <img className="slide-image" src="https://drive.google.com/uc?export=download&id=1NwjDltxGUp8SMBWG7DvKLmIVDy1_9jFU" alt="Relación 58 cp"></img>
+                            <img className="slide-image" src="https://firebasestorage.googleapis.com/v0/b/ciclopista.appspot.com/o/decorative%2Frelaci%C3%B3n.png?alt=media&token=9351b8d3-6a9f-4889-b425-56987729bd24" alt="Relación 58 cp"></img>
                         </div>
 
                         <div className="slide">
-                            <img className="slide-image" src="https://drive.google.com/uc?export=download&id=1yQAQRtz0ynfbSSiHjyfa1fp9sJij0vUA" alt="Relación integrada cp"></img>
+                            <img className="slide-image" src="https://firebasestorage.googleapis.com/v0/b/ciclopista.appspot.com/o/decorative%2Fintegrado.png?alt=media&token=79e1b4b9-17b9-4421-b3b2-5f89ead2d026" alt="Relación integrada cp"></img>
                         </div>
 
                     </>
