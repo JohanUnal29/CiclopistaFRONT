@@ -7,8 +7,8 @@ import { useAuth } from "../../../context/AuthContext.jsx";
 
 export default function OrderDetailContainer() {
   const [order, setOrder] = useState(null);
-  const id = useParams().id;
-  console.log(id);
+  const code = useParams().code;
+  console.log(code);
 
   const apiURL = process.env.REACT_APP_API_URL;
 
@@ -17,7 +17,7 @@ export default function OrderDetailContainer() {
   useEffect(() => {
     if (user) {
       axios
-        .get(`${apiURL}/api/purchase/id/${id}/${user.uid}`)
+        .get(`${apiURL}/api/purchase/code/${code}/${user.uid}`)
         .then((res) => {
           setOrder(res.data.payload);
           console.log("Respuesta del servidor:", res.data.payload);
@@ -26,7 +26,7 @@ export default function OrderDetailContainer() {
           console.log(err);
         });
     }
-  }, [id, user]);
+  }, [code, user]);
 
   return (
     <div>

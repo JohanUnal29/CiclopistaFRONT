@@ -70,7 +70,7 @@ const Order = ({ order }) => {
           <Card.Text>Estado de la transacción: {order.statusPay}</Card.Text>
           <Card.Text><MdDelete style={iconStyle} onClick={() => deleteTicket(order._id)} /></Card.Text>
           <Button variant="primary" style={{ backgroundColor: 'black' }}>
-            <Link to={`/orderr/${order._id}`} style={{ textDecoration: 'none', color: 'white' }}>Ver más</Link>
+            <Link to={`/orderr/${order.code}`} style={{ textDecoration: 'none', color: 'white' }}>Ver más</Link>
           </Button>
         </Card.Body>
       </Card>
