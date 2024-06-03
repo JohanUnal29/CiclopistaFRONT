@@ -49,7 +49,7 @@ class Home extends React.Component {
                     text: <>
 
                         <div className="slide">
-                            <img className="slide-image" src="https://firebasestorage.googleapis.com/v0/b/ciclopista.appspot.com/o/decorative%2Fsilla.png?alt=media&token=5fb3be6e-315f-4d13-93f3-df04c0ccdc87" alt="Sillín"></img>
+                            <img className="" src="https://firebasestorage.googleapis.com/v0/b/ciclopista.appspot.com/o/decorative%2Fsilla.png?alt=media&token=5fb3be6e-315f-4d13-93f3-df04c0ccdc87" alt="Sillín"></img>
                         </div>
 
                         <div className="slide">
