@@ -14,7 +14,7 @@ export default function Footer() {
             <div class="grupo-1">
                 <div class="box">
                     <figure>
-                        <img src="https://drive.google.com/uc?export=download&id=1P75qBRzmXMvsn05sh-1Wu2iK5iX6_cp2" alt="Logo Ciclopista" />
+                        <img src={process.env.REACT_APP_NAVBAR} alt="Logo Ciclopista" />
                     </figure>
                 </div>
                 <div class="box">
