@@ -8,8 +8,6 @@ import { Link } from 'react-router-dom';
 import { MdDelete } from "react-icons/md";
 
 const OrderDetail = ({ order, user }) => {
-
-  const imgurl = "https://drive.google.com/uc?export=download&id=";
   
   const cartItems = order.cart;
 
@@ -153,7 +151,7 @@ const OrderDetail = ({ order, user }) => {
           {cartItems.map((prod) => (
             <tr key={prod.id}>
               <td>{prod.title}</td>
-              <td><img src={imgurl+prod.thumbnails} alt={prod.title} className="imagen-miniatura" /></td>
+              <td><img src={prod.thumbnails} alt={prod.title} className="imagen-miniatura" /></td>
               <td>{prod.quantity}</td>
               <td>${prod.price}</td>
               <td>${prod.price * prod.quantity}</td>
