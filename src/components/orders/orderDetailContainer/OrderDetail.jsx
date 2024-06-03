@@ -58,14 +58,14 @@ const OrderDetail = ({ order, user }) => {
     }
   };
 
-  const uptadeOder = async (id) => {
+  const uptadeOder = async (code) => {
 
     try {
 
       const changes = {
         status: status,
       };
-      axios.put(`${apiURL}/api/purchase/${id}`, changes).then(res => {
+      axios.put(`${apiURL}/api/purchase/${code}`, changes).then(res => {
         alert("orden actulizada");
       }).catch(err => {
         console.log(err);
@@ -108,7 +108,7 @@ const OrderDetail = ({ order, user }) => {
               <option value="en_proceso">En proceso</option>
               <option value="finalizada">Finalizada</option>
             </select>
-              <Button variant="success" onClick={() => uptadeOder(order._id)}>Actualizar Estado</Button>
+              <Button variant="success" onClick={() => uptadeOder(order.code)}>Actualizar Estado</Button>
             </td>
             <td>{order.statusPay}</td>
             <td><Link to='/orders'><MdDelete style={iconStyle} onClick={() => deleteTicket(order._id)} /></Link></td>
