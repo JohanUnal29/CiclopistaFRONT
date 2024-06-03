@@ -32,7 +32,7 @@ const Carrito = () => {
             <tbody>
                 <tr>
                     <td>{prod.title}</td>
-                    <td><img src={prod.thumbnails} alt={prod.title} className="imagen-miniatura" /></td>
+                    <td><img src={prod.image} alt={prod.title} className="imagen-miniatura" /></td>
                     <td>{prod.cantidad}</td>
                     <td>${prod.price}</td>
                     <td>${prod.price * prod.cantidad}</td>
