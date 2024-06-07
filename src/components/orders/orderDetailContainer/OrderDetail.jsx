@@ -63,7 +63,7 @@ const OrderDetail = ({ order, user }) => {
       const changes = {
         status: status,
       };
-      axios.put(`${apiURL}/api/purchase/${code}`, changes).then(res => {
+      axios.put(`${apiURL}/api/purchase/${code}/${user.uid}`, changes).then(res => {
         alert("orden actulizada");
       }).catch(err => {
         console.log(err);
