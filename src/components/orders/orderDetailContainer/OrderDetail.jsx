@@ -64,7 +64,13 @@ const OrderDetail = ({ order, user }) => {
         status: status,
       };
       axios.put(`${apiURL}/api/purchase/${code}/${user.uid}`, changes).then(res => {
-        alert("orden actulizada");
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Orden Actualizada',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }).catch(err => {
         console.log(err);
       })

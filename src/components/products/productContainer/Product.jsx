@@ -19,7 +19,7 @@ import UpdateProducts from "./UpdateProducts.jsx";
 const Product = ({ product }) => {
 
   const dispatch = useDispatch()
-  
+
   const apiURL = process.env.REACT_APP_API_URL;
 
   const { user, loading } = useAuth();
@@ -28,20 +28,35 @@ const Product = ({ product }) => {
 
   const deleteProduct = async (id) => {
     try {
-      axios
-        .delete(`${apiURL}/api/products/${id}/${user.uid}`)
-        .then((res) => {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Producto Eliminado",
-            showConfirmButton: false,
-            timer: 1500,
+      const result = await Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Esta acción no se puede deshacer',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+      });
+
+      if (result.isConfirmed) {
+        // Si el usuario confirma, procede con la eliminación
+        axios
+          .delete(`${apiURL}/api/products/${id}/${user.uid}`)
+          .then((res) => {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Producto Eliminada',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          })
+          .catch((err) => {
+            console.log(err);
           });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      }
+      // Si el usuario cancela, no haces nada
     } catch (error) {
       alert(error.message);
     }
@@ -101,7 +116,7 @@ const Product = ({ product }) => {
                 </Button>
 
                 <AddProducts />
-                <UpdateProducts/>
+                <UpdateProducts />
 
               </>
             )}
