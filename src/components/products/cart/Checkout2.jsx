@@ -41,7 +41,7 @@ export default function Checkout2() {
 
       const TicketForm = {
         name: name,
-        identification_document: documentType+identification_document,
+        identification_document: documentType + identification_document,
         purchaser: email,
         phone: phone,
         message: message,
@@ -132,14 +132,15 @@ export default function Checkout2() {
                   <Col md={3}>
                     <Form.Group controlId="document_type">
                       <Form.Label>Tipo de Documento</Form.Label>
-                      <Form.Control value={documentType} onChange={(e) => {
-                        setDocumentType(e.target.value)
-                      }}>
-                        <option value="CC: ">CC</option>
-                        <option value="TI: ">TI</option>
-                        <option value="TE: ">TE</option>
-                        <option value="CE: ">CE</option>
-                      </Form.Control>
+                      <Form.Select
+                        value={documentType}
+                        onChange={(e) => setDocumentType(e.target.value)}
+                      >
+                        <option value="CC">CC</option>
+                        <option value="TI">TI</option>
+                        <option value="TE">TE</option>
+                        <option value="CE">CE</option>
+                      </Form.Select>
                     </Form.Group>
                   </Col>
                   <Col md={6}>
@@ -154,9 +155,6 @@ export default function Checkout2() {
                         }}
                       />
                     </Form.Group>
-                  </Col>
-                  <Col md={3}>
-                    <button type="submit" className="btn btn-primary">Enviar</button>
                   </Col>
                 </Row>
 
