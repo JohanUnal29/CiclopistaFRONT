@@ -81,8 +81,8 @@ export default function Checkout2() {
     }
 
     setName("");
-    setIdentification_document(""),
-      setEmail("");
+    setIdentification_document("");
+    setEmail("");
     setPhone("");
     setMessage("");
     setDepartamento("");
