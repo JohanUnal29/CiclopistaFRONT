@@ -63,6 +63,7 @@ const Order = ({ order }) => {
           <Card.Text>Codigo: {order.code}</Card.Text>
           <Card.Text>Fecha: {order.purchase_datetime}</Card.Text>
           <Card.Title>Nombre: {order.name}</Card.Title>
+          <Card.Text>Documento: {order.identification_document}</Card.Text>
           <Card.Text>Email: {order.purchaser}</Card.Text>
           <Card.Text>Teléfono: {order.phone}</Card.Text>
           <Card.Text>Departamento: {order.departamento}</Card.Text>

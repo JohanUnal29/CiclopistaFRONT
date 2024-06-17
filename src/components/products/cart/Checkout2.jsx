@@ -12,6 +12,8 @@ import { setAddressOrder, setNameOrder, setPhoneOrder, setRegionOrder, setCityOr
 export default function Checkout2() {
   const { carrito, precioTotal, vaciarCarrito } = useContext(CartContext);
   const [name, setName] = useState("");
+  const [documentType, setDocumentType] = useState('CC: ');
+  const [identification_document, setIdentification_document] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [phone, setPhone] = useState("");
@@ -39,6 +41,7 @@ export default function Checkout2() {
 
       const TicketForm = {
         name: name,
+        identification_document: documentType+identification_document,
         purchaser: email,
         phone: phone,
         message: message,
@@ -78,7 +81,8 @@ export default function Checkout2() {
     }
 
     setName("");
-    setEmail("");
+    setIdentification_document(""),
+      setEmail("");
     setPhone("");
     setMessage("");
     setDepartamento("");
@@ -106,7 +110,7 @@ export default function Checkout2() {
             <h5>Orden</h5>
             {ordenCompleta ? (
               // Renderizar el formulario de pago cuando la orden está completa
-              <Wompi referenciaDePago={referenciaDePago} hash={hash} amount={amount}/>
+              <Wompi referenciaDePago={referenciaDePago} hash={hash} amount={amount} />
             ) : (
 
               <Form>
@@ -122,6 +126,39 @@ export default function Checkout2() {
                     }}
                   />
                 </Form.Group>
+
+
+                <Row className="align-items-end">
+                  <Col md={3}>
+                    <Form.Group controlId="document_type">
+                      <Form.Label>Tipo de Documento</Form.Label>
+                      <Form.Control value={documentType} onChange={(e) => {
+                        setDocumentType(e.target.value)
+                      }}>
+                        <option value="CC: ">CC</option>
+                        <option value="TI: ">TI</option>
+                        <option value="TE: ">TE</option>
+                        <option value="CE: ">CE</option>
+                      </Form.Control>
+                    </Form.Group>
+                  </Col>
+                  <Col md={6}>
+                    <Form.Group controlId="identification_document">
+                      <Form.Label>Documento</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Documento"
+                        value={identification_document}
+                        onChange={(e) => {
+                          setName(e.target.value)
+                        }}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={3}>
+                    <button type="submit" className="btn btn-primary">Enviar</button>
+                  </Col>
+                </Row>
 
                 <Form.Group controlId="email">
                   <Form.Label>Email</Form.Label>

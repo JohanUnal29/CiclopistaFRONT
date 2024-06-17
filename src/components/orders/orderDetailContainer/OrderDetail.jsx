@@ -90,6 +90,7 @@ const OrderDetail = ({ order, user }) => {
           <tr>
             <th>Fecha</th>
             <th>Nombre</th>
+            <th>Documento</th>
             <th>Email</th>
             <th>Celular</th>
             <th>Mensaje</th>
@@ -103,6 +104,7 @@ const OrderDetail = ({ order, user }) => {
           <tr key={order.id}>
             <td>{order.purchase_datetime}</td>
             <td>{order.name}</td>
+            <td>{order.identification_document}</td>
             <td>{order.purchaser}</td>
             <td>{order.phone}</td>
             <td>{order.message}</td>
