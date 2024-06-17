@@ -18,7 +18,7 @@ export default function Checkout2() {
   const [message, setMessage] = useState("");
   const [phone, setPhone] = useState("");
   //dirección
-  const [departamento, setDepartamento] = useState("");
+  const [departamento, setDepartamento] = useState("Bogotá D.C.");
   const [ciudad_o_municipio, setCiudad_o_municipio] = useState("");
   const [barrio, setBarrio] = useState("");
   const [direccion, setDireccion] = useState("");
