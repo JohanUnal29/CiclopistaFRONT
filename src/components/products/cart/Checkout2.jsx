@@ -150,7 +150,7 @@ export default function Checkout2() {
                         placeholder="Documento"
                         value={identification_document}
                         onChange={(e) => {
-                          setName(e.target.value)
+                          setIdentification_document(e.target.value)
                         }}
                       />
                     </Form.Group>
