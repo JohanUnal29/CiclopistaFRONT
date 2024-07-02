@@ -360,6 +360,7 @@ export default function Checkout2() {
 
                 <Button
                   variant="success"
+                  style={{ margin: '10px' }}
                   onClick={() => {
                     handleSubmit();
                   }}
@@ -368,9 +369,10 @@ export default function Checkout2() {
                 </Button>
 
                 <Button
-                  variant="success"
+                  variant="primary"
+                  style={{ margin: '10px' }}
                   onClick={() => {
-                    handleSubmit();
+                    handleSubmitUponDelivery();
                   }}
                 >
                   <Link className="Menu" to="/">
@@ -378,11 +380,12 @@ export default function Checkout2() {
                   </Link>
                 </Button>
 
-                <Button variant="danger">
+                <Button variant="danger" style={{ margin: '10px' }}>
                   <Link className="Menu" to="/">
                     Cancelar
                   </Link>
                 </Button>
+
               </Form>
 
             )}
