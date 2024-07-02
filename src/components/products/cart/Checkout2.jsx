@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import Wompi from "./Wompi.jsx";
 
 import { useDispatch } from 'react-redux'
-import { setAddressOrder, setNameOrder, setPhoneOrder, setRegionOrder, setCityOrder } from "../../../features/wompi/WompiSlice.jsx";
+import { setAddressOrder, setNameOrder, setPhoneOrder, setRegionOrder, setCityOrder, setEmailBuyer } from "../../../features/wompi/WompiSlice.jsx";
 
 export default function Checkout2() {
   const { carrito, precioTotal, vaciarCarrito } = useContext(CartContext);
@@ -164,7 +164,10 @@ export default function Checkout2() {
                     type="text"
                     placeholder="Email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value)
+                      dispatch(setEmailBuyer(e.target.value));
+                    }}
                   />
                 </Form.Group>
 

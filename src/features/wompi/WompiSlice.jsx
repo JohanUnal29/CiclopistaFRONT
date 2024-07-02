@@ -16,6 +16,7 @@ const initialState = {
         numero:"",
         status_message:"",
         ticketId:"",
+        emailBuyer:"",
     }
 }
 
@@ -61,10 +62,13 @@ export const wompiSlice = createSlice({
         },
         setTicketId: (state, actions) => {
             state.value.ticketId = actions.payload
+        },
+        setEmailBuyer: (state, actions) => {
+            state.value.emailBuyer = actions.payload
         }
     }
 })
 
-export const { setTransactionId, setNamePay2, setEmailPay2, setNameOrder, setAddressOrder, setPhoneOrder, setRegionOrder, setCityOrder, setStatus2, setReferencia2, setNumero2, setStatus_message2, setTicketId} = wompiSlice.actions
+export const { setTransactionId, setNamePay2, setEmailPay2, setNameOrder, setAddressOrder, setPhoneOrder, setRegionOrder, setCityOrder, setStatus2, setReferencia2, setNumero2, setStatus_message2, setTicketId, setEmailBuyer} = wompiSlice.actions
 
 export default wompiSlice.reducer
