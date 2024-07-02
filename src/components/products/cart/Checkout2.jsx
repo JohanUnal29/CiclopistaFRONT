@@ -50,6 +50,7 @@ export default function Checkout2() {
         barrio: barrio,
         direccion: direccion,
         referencias_entrega: referencias_entrega,
+        statusPay: "PENDING",
         cart: carrito,
         amount: precioTotal(),
       };
@@ -72,6 +73,64 @@ export default function Checkout2() {
           console.log(res.data.amount)
           setOrdenCompleta(true);
 
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {
+      alert(error.message);
+    }
+
+    setName("");
+    setIdentification_document("");
+    setEmail("");
+    setPhone("");
+    setMessage("");
+    setDepartamento("");
+    setCiudad_o_municipio("");
+    setBarrio("");
+    setDireccion("");
+    setReferencias_entrega("");
+    vaciarCarrito();
+  };
+
+
+  const handleSubmitUponDelivery = async () => {
+    try {
+
+      const TicketForm = {
+        name: name,
+        identification_document: documentType + identification_document,
+        purchaser: email,
+        phone: phone,
+        message: message,
+        departamento: departamento,
+        ciudad_o_municipio: ciudad_o_municipio,
+        barrio: barrio,
+        direccion: direccion,
+        referencias_entrega: referencias_entrega,
+        statusPay: "CONTRAENTREGA",
+        cart: carrito,
+        amount: precioTotal(),
+      };
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Espera un momento, estamos agendando tu pedido ❤️",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      console.log(TicketForm)
+      axios
+        .post(`${apiURL}/api/purchase/addticket`, TicketForm)
+        .then((res) => {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "¡Listo!, un asesor se comunicará contigo para gestionar tu envío!! ❤️",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -306,6 +365,17 @@ export default function Checkout2() {
                   }}
                 >
                   Pagar con WOMPI
+                </Button>
+
+                <Button
+                  variant="success"
+                  onClick={() => {
+                    handleSubmit();
+                  }}
+                >
+                  <Link className="Menu" to="/">
+                    pagar CONTRA ENTREGA
+                  </Link>
                 </Button>
 
                 <Button variant="danger">
