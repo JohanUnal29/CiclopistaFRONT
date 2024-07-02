@@ -21,15 +21,16 @@ export default function Status({ setEsconder }) {
 
   const tab = '\u00A0';
 
-  const transaccionId = useSelector((state) => state.wompi.value.transactionId)
+  const transactionId = useSelector((state) => state.wompi.value.transactionId)
   const namePay = useSelector((state) => state.wompi.value.namePay)
   const emailPay = useSelector((state) => state.wompi.value.emailPay)
 
   const nameOrder = useSelector((state) => state.wompi.value.nameOrder)
+  const emailBuyer = useSelector((state) => state.wompi.value.emailBuyer)
 
-  const [transaccion, setTransaccion] = useState("")
-  const [referencia, setReferencia] = useState("")
-  const [numero, setNumero] = useState("")
+  const [transaction, setTransaction] = useState("")
+  const [reference, setReference] = useState("")
+  const [number, setNumber] = useState("")
   const [status, setStatus] = useState("");
   const [status_message, setStatus_message] = useState("");
 
@@ -41,13 +42,13 @@ export default function Status({ setEsconder }) {
   useEffect(() => {
     const consultarTransaccion = async () => {
       try {
-        const response = await axios.get(`${wompiURL}/transactions/${transaccionId}`);
+        const response = await axios.get(`${wompiURL}/transactions/${transactionId}`);
         const data = response.data.data;
-
-        setTransaccion(data.id);
-        setReferencia(data.reference);
+        console.log(response);
+        setTransaction(data.id);
+        setReference(data.reference);
         dispatch(setReferencia2(data.reference));
-        setNumero(data.payment_method.phone_number);
+        setNumber(data.payment_method.phone_number);
         dispatch(setNumero2(data.payment_method.phone_number));
         setStatus(data.status);
         dispatch(setStatus2(data.status));
@@ -55,8 +56,34 @@ export default function Status({ setEsconder }) {
         dispatch(setStatus_message2(data.status_message));
         setAmount((data.amount_in_cents / 100))
 
+        if (data.status == 'APPROVED') {
+
+          try {
+            const receiptDetail = {
+              emailBuyer: emailBuyer,
+              nameOrder: nameOrder,
+              transaction: transaction,
+              reference: reference,
+              emailPay: emailPay,
+              metodPay: 'NEQUI',
+              amount: amount,
+            };
+            axios
+              .post(`${apiURL}/api/purchase/purchaseemail`, receiptDetail)
+              .then((res) => {
+                console.log("email final enviado")
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          } catch (error) {
+            console.log(error)
+          }
+        }
+
         if (data.status !== 'APPROVED' && data.status !== 'DECLINED' && data.status !== 'ERROR') {
           // Si el estado no es "APPROVED" ni "DECLINED", vuelve a consultar después de un tiempo (por ejemplo, 5 segundos)
+
           setTimeout(consultarTransaccion, 5000);
         }
 
@@ -68,7 +95,7 @@ export default function Status({ setEsconder }) {
 
     // Inicia la consulta
     consultarTransaccion();
-  }, [transaccionId]);
+  }, [transactionId]);
 
 
   useEffect(() => {
@@ -78,7 +105,7 @@ export default function Status({ setEsconder }) {
           statusPay: status,
         };
         axios
-          .put(`${apiURL}/api/purchase/${referencia}`, changes)
+          .put(`${apiURL}/api/purchase/${reference}`, changes)
           .then((res) => {
             console.log("status actualizado")
           })
@@ -104,7 +131,7 @@ export default function Status({ setEsconder }) {
     doc.text(`Información de la transacción:`, 68, 90);
     const columns = ['Transacción #', 'Referencia', 'Email', 'Total']
     const data = [
-      [`${transaccion}`, `${referencia}`, `${emailPay}`, `${amount}`]
+      [`${transaction}`, `${reference}`, `${emailPay}`, `${amount}`]
     ];
     doc.autoTable({
       startY: 100,
@@ -114,7 +141,7 @@ export default function Status({ setEsconder }) {
     doc.text(`Información del pagador:`, 74, 135);
     const columns2 = ['Nombre', 'Teléfono']
     const data2 = [
-      [`${namePay}`, `${numero}`]
+      [`${namePay}`, `${number}`]
     ];
 
     doc.autoTable({
@@ -123,7 +150,7 @@ export default function Status({ setEsconder }) {
       body: data2
     })
 
-    doc.save(`Comprobante_${referencia}.pdf`)
+    doc.save(`Comprobante_${reference}.pdf`)
   }
 
 
@@ -143,8 +170,7 @@ export default function Status({ setEsconder }) {
         )}
         {status === "PENDING" && (
           <div><FcHighPriority /> Transacción Pendiente<br />
-            Si deseas puedes esperar en esta pestaña para recibir una respuesta final e imprimir tu comprobante<br />
-            o en un rato se notificara a tu correo correo el estado final por parte de Wompi</div>
+            Esperar en esta pestaña para recibir una respuesta final e imprimir tu comprobante</div>
         )}
         <Table striped style={{ textAlign: 'center' }}>
           <tr style={{ backgroundColor: '#FF4545' }}>
@@ -155,10 +181,10 @@ export default function Status({ setEsconder }) {
           </tr>
           <tbody style={{ textAlign: 'center' }}>
             <tr>
-              <td><b>Transacción #</b>{tab}{tab}{tab}{transaccion}</td>
+              <td><b>Transacción #</b>{tab}{tab}{tab}{transaction}</td>
             </tr>
             <tr>
-              <td><b>Referencia</b>{tab}{tab}{tab}{referencia}</td>
+              <td><b>Referencia</b>{tab}{tab}{tab}{reference}</td>
             </tr>
             <tr>
               <td><b>Email</b>{tab}{tab}{tab}{emailPay}</td>
@@ -175,7 +201,7 @@ export default function Status({ setEsconder }) {
               <td><b>Nombre</b>{tab}{tab}{tab}{namePay}</td>
             </tr>
             <tr>
-              <td><b>Teléfono</b>{tab}{tab}{tab}{numero}</td>
+              <td><b>Teléfono</b>{tab}{tab}{tab}{number}</td>
             </tr>
           </tbody>
         </Table>
